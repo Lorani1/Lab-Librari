@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using backcrud.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace backcrud.Models
 {

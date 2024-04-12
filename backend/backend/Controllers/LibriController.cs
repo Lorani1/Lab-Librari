@@ -1,4 +1,5 @@
-﻿using backcrud.Models;
+﻿using backcrud.Entity;
+using backcrud.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

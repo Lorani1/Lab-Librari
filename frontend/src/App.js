@@ -6,6 +6,7 @@ import CRUD from "./CRUD"; // Import User component
 import Order from "./Order"; // Import Order component
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Libri from "./Libri";
 
 function App() {
   return (
@@ -37,11 +38,11 @@ function App() {
               }
             ></Route>
             <Route
-              path="/orders"
+              path="/libri"
               element={
                 <>
                   <Navbar />
-                  <Order />
+                  <Libri />
                 </>
               }
             ></Route>
