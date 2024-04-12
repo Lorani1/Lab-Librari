@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import Home from "./Home";
+import Client from "./Client";
 import CRUD from "./CRUD"; // Import User component
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -42,6 +43,15 @@ function App() {
                 <>
                   <Navbar />
                   <Libri />
+                </>
+              }
+            ></Route>
+            <Route
+              path="/Client"
+              element={
+                <>
+                  <Navbar />
+                  <Client />
                 </>
               }
             ></Route>
