@@ -60,7 +60,8 @@ function Sidebar() {
               <i className="bi bi-grid me-3 fs-4"></i>
               <span className="fs-4">Client</span>
             </Link>
-
+              <br></br>
+              <br></br>
             <Link
               to="/Autori"
               className={

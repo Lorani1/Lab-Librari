@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace backend.Migrations.Autori
 {
     /// <inheritdoc />
-    public partial class AddAutoriMigration : Migration
+    public partial class addAutoriMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +19,7 @@ namespace backend.Migrations.Autori
                     Emri = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Mbiemri = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     nofka = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Data_E_Lindjes = table.Column<DateOnly>(type: "date", nullable: false),
+                    Data_E_Lindjes = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Nacionaliteti = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

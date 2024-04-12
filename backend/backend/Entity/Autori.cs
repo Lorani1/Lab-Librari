@@ -12,7 +12,7 @@ namespace backend.Entity
 
         public string nofka { get; set; }
 
-        public DateOnly Data_E_Lindjes { get; set; }
+        public string Data_E_Lindjes { get; set; }
 
         public string Nacionaliteti { get; set; }
 

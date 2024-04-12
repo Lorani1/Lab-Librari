@@ -43,7 +43,7 @@ const AUTORICRUD=()=>{
     },[])
     
     const getData = () => {
-        axios.get('https://localhost:7132/api/Autori')
+        axios.get('https://localhost:7165/api/Autori')
         .then((result) => {
             setData(result.data);
         })
@@ -55,7 +55,7 @@ const AUTORICRUD=()=>{
 
     const handleEdit =(autori_ID) =>{
         handleShow();
-        axios.get(`https://localhost:7132/api/Autori/${autori_ID}`)
+        axios.get(`https://localhost:7165/api/Autori/${autori_ID}`)
         .then((result)=>{
             setEditEmri(result.data.emri);
             setEditMbiemri(result.data.mbiemri);
@@ -72,7 +72,7 @@ const AUTORICRUD=()=>{
     const handleDelete =(autori_ID) =>{
         if(window.confirm("Are you sure to delete?")==true)
         {
-            axios.delete(`https://localhost:7132/api/Autori/${autori_ID}`)
+            axios.delete(`https://localhost:7165/api/Autori/${autori_ID}`)
             .then((result)=>{
                 if(result.status === 200){
                     toast.success('Autori u fshi!');
@@ -86,7 +86,7 @@ const AUTORICRUD=()=>{
     }
 
     const handleUpdate = () => {
-    const url = `https://localhost:7132/api/Autori/${editAutori_ID}`;
+    const url = `https://localhost:7165/api/Autori/${editAutori_ID}`;
     const data = {
       'autori_ID': editAutori_ID,
       'emri': editEmri,
@@ -110,7 +110,7 @@ const AUTORICRUD=()=>{
 
 
     const handleSave=()=>{
-        const url ='https://localhost:7132/api/Autori';
+        const url ='https://localhost:7165/api/Autori';
         const data={
         'emri': emri,
         'mbiemri': mbiemri,
