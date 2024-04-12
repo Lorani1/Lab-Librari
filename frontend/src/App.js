@@ -7,6 +7,7 @@ import CRUD from "./CRUD"; // Import User component
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Libri from "./Libri";
+import AUTORICRUD from "./AUTORICRUD";
 
 function App() {
   return (
@@ -52,6 +53,15 @@ function App() {
                 <>
                   <Navbar />
                   <Client />
+                </>
+              }
+            ></Route>
+              <Route
+              path="/Autori"
+              element={
+                <>
+                  <Navbar />
+                  <AUTORICRUD />
                 </>
               }
             ></Route>

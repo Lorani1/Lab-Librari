@@ -60,6 +60,16 @@ function Sidebar() {
               <i className="bi bi-grid me-3 fs-4"></i>
               <span className="fs-4">Client</span>
             </Link>
+
+            <Link
+              to="/Autori"
+              className={
+                active === 4 ? "active p-1 text-white" : "p-1 text-white"
+              }
+            >
+              <i className="bi bi-grid me-3 fs-4"></i>
+              <span className="fs-4">Autori</span>
+            </Link>
           </li>
         </ul>
       </div>
