@@ -92,7 +92,7 @@
               "RelativeDocumentMoniker": "backend\\Migrations\\Libri\\20240412120828_addLibriMigration.cs",
               "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Librit\\Lab-Librari\\backend\\backend\\Migrations\\Libri\\20240412120828_addLibriMigration.cs",
               "RelativeToolTip": "backend\\Migrations\\Libri\\20240412120828_addLibriMigration.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAABAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-12T12:08:30.028Z",
               "EditorCaption": ""
@@ -179,8 +179,7 @@
               "RelativeToolTip": "backend\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-11T21:10:27.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-11T21:10:27.452Z"
             },
             {
               "$type": "Document",
@@ -204,8 +203,7 @@
               "RelativeToolTip": "backend\\Entity\\Libri.cs",
               "ViewState": "AQIAAAsAAACwmZmZmXk3wAkAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T11:34:36.718Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-12T11:34:36.718Z"
             },
             {
               "$type": "Document",
@@ -217,8 +215,7 @@
               "RelativeToolTip": "backend\\Entity\\LibriContext.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T11:35:52.671Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-12T11:35:52.671Z"
             },
             {
               "$type": "Document",
@@ -230,8 +227,7 @@
               "RelativeToolTip": "backend\\Controllers\\LibriController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T11:37:14.51Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-12T11:37:14.51Z"
             },
             {
               "$type": "Document",

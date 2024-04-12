@@ -60,7 +60,7 @@ const Libri = () => {
 
   const getData = () => {
     axios
-      .get(`https://localhost:7011/api/Libri`)
+      .get(`https://localhost:7165/api/Libri`)
       .then((result) => {
         setData(result.data);
       })
@@ -72,7 +72,7 @@ const Libri = () => {
   const handleEdit = (id) => {
     handleShow();
     axios
-      .get(`https://localhost:7011/api/Libri/${id}`)
+      .get(`https://localhost:7165/api/Libri/${id}`)
       .then((result) => {
         setEditIsbn(result.data.isbn);
         setEditTitulli(result.data.titulli);
@@ -93,7 +93,7 @@ const Libri = () => {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure to delete this book") == true) {
       axios
-        .delete(`https://localhost:7011/api/Libri/${id}`)
+        .delete(`https://localhost:7165/api/Libri/${id}`)
         .then((result) => {
           if (result.status === 200) {
             toast.success("Book has been deleted");
@@ -107,7 +107,7 @@ const Libri = () => {
   };
 
   const handleUpdate = () => {
-    const url = `https://localhost:7011/api/Libri/${editId}`;
+    const url = `https://localhost:7165/api/Libri/${editId}`;
     const data = {
       id: editId,
       isbn: editIsbn,
@@ -152,7 +152,7 @@ const Libri = () => {
     }
 
     // Proceed with saving if all fields are filled
-    const url = `https://localhost:7011/api/Libri`;
+    const url = `https://localhost:7165/api/Libri`;
     const data = {
       isbn: isbn,
       titulli: titulli,
