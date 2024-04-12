@@ -1,6 +1,7 @@
 using backcrud.Models;
 using backend.Enitity;
 using backend.Entity;
+using labback.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -14,6 +15,9 @@ builder.Services.AddDbContext<AutoriContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
 
 builder.Services.AddDbContext<LibriContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
+
+builder.Services.AddDbContext<KlientContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
 
 

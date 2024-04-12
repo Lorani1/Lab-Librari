@@ -52,7 +52,7 @@ const Client = () => {
   }, []);
   const getData = () => {
     axios
-      .get(`https://localhost:7101/api/Klient`)
+      .get(`https://localhost:7165/api/Klient`)
       .then((result) => {
         setData(result.data);
       })
@@ -64,7 +64,7 @@ const Client = () => {
   const handleEdit = (id) => {
     handleShow();
     axios
-      .get(`https://localhost:7101/api/Klient/${id}`)
+      .get(`https://localhost:7165/api/Klient/${id}`)
       .then((result) => {
         setEditEmri(result.data.emri);
         setEditMbiemri(result.data.mbiemri);
@@ -82,7 +82,7 @@ const Client = () => {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure to delete this client?") == true) {
       axios
-        .delete(`https://localhost:7101/api/Klient/${id}`)
+        .delete(`https://localhost:7165/api/Klient/${id}`)
         .then((result) => {
           if (result.status === 200) {
             toast.success("Client has been deleted");
@@ -95,7 +95,7 @@ const Client = () => {
     }
   };
   const handleUpdate = () => {
-    const url = `https://localhost:7101/api/Klient/${editId}`;
+    const url = `https://localhost:7165/api/Klient/${editId}`;
     const data = {
       id: editId,
       emri: editEmri,
@@ -119,7 +119,7 @@ const Client = () => {
       });
   };
   const handleSave = () => {
-    const url = "https://localhost:7101/api/Klient";
+    const url = "https://localhost:7165/api/Klient";
     const data = {
       emri: emri,
       mbiemri: mbiemri,
@@ -257,7 +257,7 @@ const Client = () => {
                 <td>{item.emri}</td>
                 <td>{item.mbiemri}</td>
                 <td>{item.nrPersonal}</td>
-                <td>{item.email}</td>+++
+                <td>{item.email}</td>
                 <td>{item.adresa}</td>
                 <td>{item.statusi}</td>
                 <td>{item.nrTel}</td>
