@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\backend.csproj": {}
+    "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\backend.csproj": {
+    "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\backend.csproj",
+        "projectUniqueName": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\backend.csproj",
-        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\obj\\",
+        "projectPath": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -97,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

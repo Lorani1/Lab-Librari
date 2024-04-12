@@ -1,45 +1,57 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\",
+  "WorkspaceRootPath": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|c:\\users\\lenovo\\desktop\\librarii\\libii\\backend\\backend\\entity\\autoricontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|d:\\desktop\\gitb\\lab-librari\\backend\\backend\\controllers\\klientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|solutionrelative:backend\\controllers\\klientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|d:\\desktop\\gitb\\lab-librari\\backend\\backend\\entity\\klientcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|solutionrelative:backend\\entity\\klientcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|d:\\desktop\\gitb\\lab-librari\\backend\\backend\\entity\\klient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|solutionrelative:backend\\entity\\klient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|d:\\desktop\\gitb\\lab-librari\\backend\\backend\\entity\\autoricontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|solutionrelative:backend\\entity\\autoricontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|c:\\users\\lenovo\\desktop\\librarii\\libii\\backend\\backend\\entity\\autori.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|d:\\desktop\\gitb\\lab-librari\\backend\\backend\\entity\\autori.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|solutionrelative:backend\\entity\\autori.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|c:\\users\\lenovo\\desktop\\librarii\\libii\\backend\\backend\\controllers\\autoricontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|d:\\desktop\\gitb\\lab-librari\\backend\\backend\\controllers\\autoricontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|solutionrelative:backend\\controllers\\autoricontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|c:\\users\\lenovo\\desktop\\librarii\\libii\\backend\\backend\\migrations\\autori\\20240412095603_addautorimigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|d:\\desktop\\gitb\\lab-librari\\backend\\backend\\migrations\\autori\\20240412095603_addautorimigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|solutionrelative:backend\\migrations\\autori\\20240412095603_addautorimigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|c:\\users\\lenovo\\desktop\\librarii\\libii\\backend\\backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|d:\\desktop\\gitb\\lab-librari\\backend\\backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|solutionrelative:backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|c:\\users\\lenovo\\desktop\\librarii\\libii\\backend\\backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|d:\\desktop\\gitb\\lab-librari\\backend\\backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|solutionrelative:backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|c:\\users\\lenovo\\desktop\\librarii\\libii\\backend\\backend\\controllers\\staficontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|d:\\desktop\\gitb\\lab-librari\\backend\\backend\\controllers\\staficontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|solutionrelative:backend\\controllers\\staficontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|c:\\users\\lenovo\\desktop\\librarii\\libii\\backend\\backend\\entity\\staficontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|d:\\desktop\\gitb\\lab-librari\\backend\\backend\\entity\\staficontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|solutionrelative:backend\\entity\\staficontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|c:\\users\\lenovo\\desktop\\librarii\\libii\\backend\\backend\\entity\\stafi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|d:\\desktop\\gitb\\lab-librari\\backend\\backend\\entity\\stafi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|solutionrelative:backend\\entity\\stafi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|c:\\users\\lenovo\\desktop\\librarii\\libii\\backend\\backend\\migrations\\20240411211408_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|d:\\desktop\\gitb\\lab-librari\\backend\\backend\\migrations\\20240411211408_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3D0D790-AE30-4F7D-A1F3-0CFE853F3FC8}|backend\\backend.csproj|solutionrelative:backend\\migrations\\20240411211408_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -50,27 +62,54 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "20240412095603_AddAutoriMigration.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Migrations\\Autori\\20240412095603_AddAutoriMigration.cs",
-              "RelativeDocumentMoniker": "backend\\Migrations\\Autori\\20240412095603_AddAutoriMigration.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Migrations\\Autori\\20240412095603_AddAutoriMigration.cs",
-              "RelativeToolTip": "backend\\Migrations\\Autori\\20240412095603_AddAutoriMigration.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "DocumentIndex": 0,
+              "Title": "KlientController.cs",
+              "DocumentMoniker": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Controllers\\KlientController.cs",
+              "RelativeDocumentMoniker": "backend\\Controllers\\KlientController.cs",
+              "ToolTip": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Controllers\\KlientController.cs",
+              "RelativeToolTip": "backend\\Controllers\\KlientController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T09:56:05.069Z"
+              "WhenOpened": "2024-04-12T11:16:49.862Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "KlientContext.cs",
+              "DocumentMoniker": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Entity\\KlientContext.cs",
+              "RelativeDocumentMoniker": "backend\\Entity\\KlientContext.cs",
+              "ToolTip": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Entity\\KlientContext.cs",
+              "RelativeToolTip": "backend\\Entity\\KlientContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-12T11:16:00.94Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Klient.cs",
+              "DocumentMoniker": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Entity\\Klient.cs",
+              "RelativeDocumentMoniker": "backend\\Entity\\Klient.cs",
+              "ToolTip": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Entity\\Klient.cs",
+              "RelativeToolTip": "backend\\Entity\\Klient.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-12T11:15:11.366Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "AutoriController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Controllers\\AutoriController.cs",
+              "DocumentMoniker": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Controllers\\AutoriController.cs",
               "RelativeDocumentMoniker": "backend\\Controllers\\AutoriController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Controllers\\AutoriController.cs",
+              "ToolTip": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Controllers\\AutoriController.cs",
               "RelativeToolTip": "backend\\Controllers\\AutoriController.cs",
               "ViewState": "AQIAAE0AAAAAamZmZmYZwBcAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -78,11 +117,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Autori.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Entity\\Autori.cs",
+              "DocumentMoniker": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Entity\\Autori.cs",
               "RelativeDocumentMoniker": "backend\\Entity\\Autori.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Entity\\Autori.cs",
+              "ToolTip": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Entity\\Autori.cs",
               "RelativeToolTip": "backend\\Entity\\Autori.cs",
               "ViewState": "AQIAAAUAAABgmpmZmZkhwA4AAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -90,13 +129,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "AutoriContext.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Entity\\AutoriContext.cs",
+              "DocumentMoniker": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Entity\\AutoriContext.cs",
               "RelativeDocumentMoniker": "backend\\Entity\\AutoriContext.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Entity\\AutoriContext.cs",
+              "ToolTip": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Entity\\AutoriContext.cs",
               "RelativeToolTip": "backend\\Entity\\AutoriContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAqAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-12T09:45:55.94Z",
               "EditorCaption": ""
@@ -104,10 +143,22 @@
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "20240412095603_AddAutoriMigration.cs",
+              "DocumentMoniker": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Migrations\\Autori\\20240412095603_AddAutoriMigration.cs",
+              "RelativeDocumentMoniker": "backend\\Migrations\\Autori\\20240412095603_AddAutoriMigration.cs",
+              "ToolTip": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Migrations\\Autori\\20240412095603_AddAutoriMigration.cs",
+              "RelativeToolTip": "backend\\Migrations\\Autori\\20240412095603_AddAutoriMigration.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-12T09:56:05.069Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "StafiController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Controllers\\StafiController.cs",
+              "DocumentMoniker": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Controllers\\StafiController.cs",
               "RelativeDocumentMoniker": "backend\\Controllers\\StafiController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Controllers\\StafiController.cs",
+              "ToolTip": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Controllers\\StafiController.cs",
               "RelativeToolTip": "backend\\Controllers\\StafiController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -115,11 +166,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Program.cs",
+              "DocumentMoniker": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Program.cs",
               "RelativeDocumentMoniker": "backend\\Program.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Program.cs",
+              "ToolTip": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Program.cs",
               "RelativeToolTip": "backend\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -127,11 +178,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\appsettings.json",
+              "DocumentMoniker": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\appsettings.json",
               "RelativeDocumentMoniker": "backend\\appsettings.json",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\appsettings.json",
+              "ToolTip": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\appsettings.json",
               "RelativeToolTip": "backend\\appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
@@ -139,11 +190,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "20240411211408_initial.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Migrations\\20240411211408_initial.cs",
+              "DocumentMoniker": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Migrations\\20240411211408_initial.cs",
               "RelativeDocumentMoniker": "backend\\Migrations\\20240411211408_initial.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Migrations\\20240411211408_initial.cs",
+              "ToolTip": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Migrations\\20240411211408_initial.cs",
               "RelativeToolTip": "backend\\Migrations\\20240411211408_initial.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -151,11 +202,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "StafiContext.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Entity\\StafiContext.cs",
+              "DocumentMoniker": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Entity\\StafiContext.cs",
               "RelativeDocumentMoniker": "backend\\Entity\\StafiContext.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Entity\\StafiContext.cs",
+              "ToolTip": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Entity\\StafiContext.cs",
               "RelativeToolTip": "backend\\Entity\\StafiContext.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -163,11 +214,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "Stafi.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Entity\\Stafi.cs",
+              "DocumentMoniker": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Entity\\Stafi.cs",
               "RelativeDocumentMoniker": "backend\\Entity\\Stafi.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Librarii\\Libii\\backend\\backend\\Entity\\Stafi.cs",
+              "ToolTip": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\Entity\\Stafi.cs",
               "RelativeToolTip": "backend\\Entity\\Stafi.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
