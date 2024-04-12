@@ -3,7 +3,6 @@ import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import Home from "./Home";
 import CRUD from "./CRUD"; // Import User component
-import Order from "./Order"; // Import Order component
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Libri from "./Libri";

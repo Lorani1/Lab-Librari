@@ -40,13 +40,13 @@ function Sidebar() {
           </li>
           <li className="nav-item p-2" onClick={() => setActive(3)}>
             <Link
-              to="/orders"
+              to="/Libri"
               className={
                 active === 3 ? "active p-1 text-white" : "p-1 text-white"
               }
             >
               <i className="bi bi-table me-3 fs-4"></i>
-              <span className="fs-4">Orders</span>
+              <span className="fs-4">Libri</span>
             </Link>
           </li>
           <li className="nav-item p-2" onClick={() => setActive(4)}>

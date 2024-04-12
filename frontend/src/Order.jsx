@@ -1,7 +1,10 @@
 import React from "react";
+import Libri from "./Libri";
 
 function Order() {
-  return <div>Order</div>;
+  return <div>
+    <Libri/>
+  </div>;
 }
 
 export default Order;
