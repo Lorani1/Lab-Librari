@@ -13,6 +13,7 @@
         public int NrFaqeve { get; set; }
         public int NrKopjeve { get; set; }
         public string? Gjuha { get; set; }
+        public string image { get; set; }
         public int InStock { get; set; }
     }
 }

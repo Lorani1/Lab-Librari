@@ -5,7 +5,7 @@
 namespace backend.Migrations.Klient
 {
     /// <inheritdoc />
-    public partial class addKlientMigration : Migration
+    public partial class addKlientiMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +22,8 @@ namespace backend.Migrations.Klient
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Adresa = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Statusi = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NrTel = table.Column<int>(type: "int", nullable: false)
+                    NrTel = table.Column<int>(type: "int", nullable: false),
+                    password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

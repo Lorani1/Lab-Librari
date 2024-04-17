@@ -24,6 +24,7 @@ namespace backend.Migrations.Libri
                     NrFaqeve = table.Column<int>(type: "int", nullable: false),
                     NrKopjeve = table.Column<int>(type: "int", nullable: false),
                     Gjuha = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InStock = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

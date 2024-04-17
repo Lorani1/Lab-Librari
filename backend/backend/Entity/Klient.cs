@@ -19,5 +19,7 @@
         public String? Statusi { get; set; }
 
         public int NrTel { get; set; }
+
+        public string password { get; set; }
     }
 }

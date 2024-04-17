@@ -50,6 +50,10 @@ namespace backend.Migrations.Klient
                     b.Property<string>("Statusi")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ID");
 
                     b.ToTable("Klients");

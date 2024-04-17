@@ -11,8 +11,8 @@ using labback.Models;
 namespace backend.Migrations.Klient
 {
     [DbContext(typeof(KlientContext))]
-    [Migration("20240412122917_addKlientMigration")]
-    partial class addKlientMigration
+    [Migration("20240417114020_addKlientiMigration")]
+    partial class addKlientiMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,6 +51,10 @@ namespace backend.Migrations.Klient
                         .HasColumnType("int");
 
                     b.Property<string>("Statusi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

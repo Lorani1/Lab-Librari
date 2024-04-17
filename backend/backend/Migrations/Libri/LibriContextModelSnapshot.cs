@@ -56,6 +56,10 @@ namespace backend.Migrations.Libri
                     b.Property<int>("VitiPublikimit")
                         .HasColumnType("int");
 
+                    b.Property<string>("image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ID");
 
                     b.ToTable("Librat");

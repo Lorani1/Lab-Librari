@@ -11,7 +11,7 @@ using backcrud.Models;
 namespace backend.Migrations.Libri
 {
     [DbContext(typeof(LibriContext))]
-    [Migration("20240412120828_addLibriMigration")]
+    [Migration("20240417114900_addLibriMigration")]
     partial class addLibriMigration
     {
         /// <inheritdoc />
@@ -58,6 +58,10 @@ namespace backend.Migrations.Libri
 
                     b.Property<int>("VitiPublikimit")
                         .HasColumnType("int");
+
+                    b.Property<string>("image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
