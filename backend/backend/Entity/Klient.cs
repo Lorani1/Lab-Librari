@@ -20,6 +20,6 @@
 
         public int NrTel { get; set; }
 
-        public string password { get; set; }
+        public string? Password { get; set; }
     }
 }

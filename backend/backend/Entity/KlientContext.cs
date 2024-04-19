@@ -1,7 +1,7 @@
 ﻿using labback.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace labback.Models
+namespace labback.Entity
 {
     public class KlientContext : DbContext
     {

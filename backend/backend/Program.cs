@@ -1,7 +1,7 @@
 using backcrud.Models;
 using backend.Enitity;
 using backend.Entity;
-using labback.Models;
+using labback.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

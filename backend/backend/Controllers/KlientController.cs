@@ -1,9 +1,11 @@
 ﻿using labback.Entity;
-using labback.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Collections;
+using System.Threading.Tasks;
+
 
 namespace labback.Controllers
 {
@@ -13,9 +15,11 @@ namespace labback.Controllers
     {
         private readonly KlientContext _klientContext;
 
+
         public KlientController(KlientContext klientContext)
         {
             _klientContext = klientContext;
+
         }
 
 
@@ -44,14 +48,30 @@ namespace labback.Controllers
             }
             return klient;
         }
+       
 
+      
         [HttpPost]
-        public async Task<ActionResult<Klient>> PostKlient(Klient klient)
+        public async Task<ActionResult<Klient>> PostKlient(RegistrationEntity model)
         {
+            Klient klient = new Klient
+            {
+                Emri = model.Emri,
+                Mbiemri = model.Mbiemri,
+                NrPersonal = model.NrPersonal,
+                Email = model.Email,
+                Adresa = model.Adresa,
+                Statusi = model.Statusi,
+                NrTel = model.NrTel,
+                Password = model.Password
+            };
+
             _klientContext.Klients.Add(klient);
             await _klientContext.SaveChangesAsync();
             return CreatedAtAction(nameof(GetKlient), new { id = klient.ID }, klient);
         }
+
+
 
         [HttpPut("{id}")]
         public async Task<ActionResult> PutKlient(int id, Klient klient)
@@ -72,6 +92,20 @@ namespace labback.Controllers
             }
             return Ok();
         }
+        [HttpPost("login")]
+        public async Task<ActionResult<Klient>> Login(LoginEntity model)
+        {
+            var klient = await _klientContext.Klients.FirstOrDefaultAsync(k => k.Email == model.Email && k.Password == model.Password);
+
+            if (klient == null)
+            {
+                return NotFound("Invalid email or password.");
+            }
+
+            // You can customize the response based on successful login, such as returning a JWT token or setting a session.
+            return Ok(klient);
+        }
+
 
         [HttpDelete("{id}")]
 
@@ -92,4 +126,3 @@ namespace labback.Controllers
         }
     }
 }
-
