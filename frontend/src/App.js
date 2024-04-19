@@ -7,7 +7,9 @@ import CRUD from "./CRUD"; // Import User component
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Libri from "./Libri";
+import Login from "./Login";
 import AUTORICRUD from "./AUTORICRUD";
+import Registration from "./Registration";
 
 function App() {
   return (
@@ -20,8 +22,28 @@ function App() {
         </div>
         <div className="col overflow-auto">
           <Routes>
+          <Route
+              path="/login"
+              element={
+                <>
+                  <Navbar />
+                  <Login />
+                </>
+              }
+            ></Route>
             <Route
-              path="/"
+              path="/registration"
+              element={
+                <>
+                  <Navbar />
+                  <Registration />
+                </>
+              }
+            ></Route>
+
+
+            <Route
+              path="/home"
               element={
                 <>
                   <Navbar />

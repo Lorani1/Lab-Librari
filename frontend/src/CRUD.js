@@ -20,9 +20,9 @@ const CRUD = () => {
   const [nrPersonal, setNrPersonal] = useState("");
   const [email, setEmail] = useState("");
   const [adresa, setAdresa] = useState("");
-  const [orari, setOrari] = useState("");
-  const [nrTelefonit, setNrTelefonit] = useState("");
-  const [gjinia, setGjinia] = useState("");
+  const [statusi, setStatusi] = useState("");
+  const [nrTel, setNrTel] = useState("");
+  const [password, setPassword] = useState("");
 
   const [editId, setEditId] = useState("");
   const [editEmri, setEditEmri] = useState("");
@@ -30,23 +30,9 @@ const CRUD = () => {
   const [editNrPersonal, setEditNrPersonal] = useState("");
   const [editEmail, setEditEmail] = useState("");
   const [editAdresa, setEditAdresa] = useState("");
-  const [editOrari, setEditOrari] = useState("");
-  const [editNrTelefonit, setEditNrTelefonit] = useState("");
-  const [editGjinia, setEditGjinia] = useState("");
-
-  const klidata = [
-    {
-      id: 1,
-      emri: "delfina",
-      mbiemri: "plakolli",
-      nrPersonal: 345678,
-      email: "delfina@gmail.com",
-      adresa: "Podujeve",
-      orari: "weekend",
-      nrTelefonit: 2345678,
-      gjinia: "femer",
-    },
-  ];
+  const [editStatusi, setEditStatusi] = useState("");
+  const [editNrTel, setEditNrTel] = useState("");
+  const [editPassword, setEditPassword] = useState("");
 
   const [data, setData] = useState([]);
 
@@ -55,7 +41,7 @@ const CRUD = () => {
   }, []);
   const getData = () => {
     axios
-      .get(`https://localhost:7165/api/Stafi`)
+      .get(`https://localhost:7101/api/Klient`)
       .then((result) => {
         setData(result.data);
       })
@@ -67,16 +53,16 @@ const CRUD = () => {
   const handleEdit = (id) => {
     handleShow();
     axios
-      .get(`https://localhost:7165/api/Stafi/${id}`)
+      .get(`https://localhost:7101/api/Klient/${id}`)
       .then((result) => {
         setEditEmri(result.data.emri);
         setEditMbiemri(result.data.mbiemri);
         setEditNrPersonal(result.data.nrPersonal);
         setEditEmail(result.data.email);
         setEditAdresa(result.data.adresa);
-        setEditOrari(result.data.orari);
-        setEditNrTelefonit(result.data.nrTelefonit);
-        setEditGjinia(result.data.gjinia);
+        setEditStatusi(result.data.statusi);
+        setEditNrTel(result.data.nrTel);
+        setEditPassword(result.data.password);
         setEditId(id);
       })
       .catch((error) => {
@@ -86,9 +72,9 @@ const CRUD = () => {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure to delete this client?") == true) {
       axios
-        .delete(`https://localhost:7165/api/Stafi/${id}`)
+        .delete(`https://localhost:7101/api/Klient/${id}`)
         .then((result) => {
-          if (result.orari === 200) {
+          if (result.status === 200) {
             toast.success("Client has been deleted");
             setData(data.filter((item) => item.id !== id));
           }
@@ -99,7 +85,7 @@ const CRUD = () => {
     }
   };
   const handleUpdate = () => {
-    const url = `https://localhost:7165/api/Stafi/${editId}`;
+    const url = `https://localhost:7101/api/Klient/${editId}`;
     const data = {
       id: editId,
       emri: editEmri,
@@ -107,9 +93,9 @@ const CRUD = () => {
       nrPersonal: editNrPersonal,
       email: editEmail,
       adresa: editAdresa,
-      orari: editOrari,
-      nrTelefonit: editNrTelefonit,
-      gjinia: editGjinia,
+      statusi: editStatusi,
+      nrTel: editNrTel,
+      password: editPassword,
     };
     axios
       .put(url, data)
@@ -124,16 +110,16 @@ const CRUD = () => {
       });
   };
   const handleSave = () => {
-    const url = "https://localhost:7165/api/Stafi";
+    const url = "https://localhost:7101/api/Klient";
     const data = {
       emri: emri,
       mbiemri: mbiemri,
       nrPersonal: nrPersonal,
       email: email,
       adresa: adresa,
-      orari: orari,
-      nrTelefonit: nrTelefonit,
-      gjinia: gjinia,
+      statusi: statusi,
+      nrTel: nrTel,
+      password: password,
     };
     axios
       .post(url, data)
@@ -152,17 +138,17 @@ const CRUD = () => {
     setNrPersonal("");
     setEmail("");
     setAdresa("");
-    setOrari("");
-    setNrTelefonit("");
-    setGjinia("");
+    setStatusi("");
+    setNrTel("");
+    setPassword("");
     setEditEmri("");
     setEditMbiemri("");
     setEditNrPersonal("");
     setEditEmail("");
     setEditAdresa("");
-    setEditOrari("");
-    setEditNrTelefonit("");
-    setEditGjinia("");
+    setEditStatusi("");
+    setEditNrTel("");
+    setEditPassword("");
     setEditId("");
   };
 
@@ -222,9 +208,9 @@ const CRUD = () => {
             <input
               type="text"
               className="form-control"
-              placeholder="Orari..."
-              value={orari}
-              onChange={(e) => setOrari(e.target.value)}
+              placeholder="Statusi..."
+              value={statusi}
+              onChange={(e) => setStatusi(e.target.value)}
             />
           </Col>
           <Col>
@@ -232,17 +218,17 @@ const CRUD = () => {
               type="text"
               className="form-control"
               placeholder="Nr Tel..."
-              value={nrTelefonit}
-              onChange={(e) => setNrTelefonit(e.target.value)}
+              value={nrTel}
+              onChange={(e) => setNrTel(e.target.value)}
             />
           </Col>
           <Col>
             <input
               type="text"
               className="form-control"
-              placeholder="Gjinia..."
-              value={gjinia}
-              onChange={(e) => setGjinia(e.target.value)}
+              placeholder="Password"
+              value={nrTel}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </Col>
           <Col>
@@ -262,9 +248,9 @@ const CRUD = () => {
             <th>nrPersonal</th>
             <th>email</th>
             <th>Adresa</th>
-            <th>Orari</th>
-            <th>NR. Telefonit</th>
-            <th>Gjinia</th>
+            <th>Statusi</th>
+            <th>nrTel</th>
+            <th>password</th>
           </tr>
         </thead>
         <tbody>
@@ -277,9 +263,9 @@ const CRUD = () => {
                 <td>{item.nrPersonal}</td>
                 <td>{item.email}</td>
                 <td>{item.adresa}</td>
-                <td>{item.orari}</td>
-                <td>{item.nrTelefonit}</td>
-                <td>{item.gjinia}</td>
+                <td>{item.statusi}</td>
+                <td>{item.nrTel}</td>
+                <td>{item.password}</td>
                 <button
                   className="btn btn-primary"
                   onClick={() => handleEdit(item.id)}
@@ -315,7 +301,6 @@ const CRUD = () => {
                 placeholder="Emri..."
                 value={editEmri}
                 onChange={(e) => setEditEmri(e.target.value)}
-                style={{ width: '130px'}}
               />
             </Col>
             <Col>
@@ -325,7 +310,6 @@ const CRUD = () => {
                 placeholder="Mbiemri..."
                 value={editMbiemri}
                 onChange={(e) => setEditMbiemri(e.target.value)}
-                style={{ width: '130px'}}
               />
             </Col>
             <Col>
@@ -335,7 +319,6 @@ const CRUD = () => {
                 placeholder="NrPersonal..."
                 value={editNrPersonal}
                 onChange={(e) => setEditNrPersonal(e.target.value)}
-                style={{ width: '130px'}}
               />
             </Col>
             <Col>
@@ -345,7 +328,6 @@ const CRUD = () => {
                 placeholder="Email..."
                 value={editEmail}
                 onChange={(e) => setEditEmail(e.target.value)}
-                style={{ width: '130px'}}
               />
             </Col>
             <Col>
@@ -355,27 +337,15 @@ const CRUD = () => {
                 placeholder="Adresa..."
                 value={editAdresa}
                 onChange={(e) => setEditAdresa(e.target.value)}
-                style={{ width: '130px'}}
               />
             </Col>
             <Col>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Orari..."
-                value={editOrari}
-                onChange={(e) => setEditOrari(e.target.value)}
-                style={{ width: '130px'}}
-              />
-            </Col>
-            <Col>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Nr Tel..."
-                value={editNrTelefonit}
-                onChange={(e) => setEditNrTelefonit(e.target.value)}
-                style={{ width: '130px'}}
+                placeholder="Statusi..."
+                value={editStatusi}
+                onChange={(e) => setEditStatusi(e.target.value)}
               />
             </Col>
             <Col>
@@ -383,9 +353,17 @@ const CRUD = () => {
                 type="text"
                 className="form-control"
                 placeholder="Nr Tel..."
-                value={editGjinia}
-                onChange={(e) => setEditGjinia(e.target.value)}
-                style={{ width: '130px'}}
+                value={editNrTel}
+                onChange={(e) => setEditNrTel(e.target.value)}
+              />
+            </Col>
+            <Col>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Nr Tel..."
+                value={editPassword}
+                onChange={(e) => setEditPassword(e.target.value)}
               />
             </Col>
             <Col>

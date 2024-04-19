@@ -2,17 +2,20 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using labback.Entity;
+using backend.Enitity;
 
 #nullable disable
 
-namespace backend.Migrations.Klient
+namespace backend.Migrations
 {
-    [DbContext(typeof(KlientContext))]
-    partial class KlientContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(AutoriContext))]
+    [Migration("20240419111148_addAutoriMigration")]
+    partial class addAutoriMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,41 +24,37 @@ namespace backend.Migrations.Klient
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("labback.Entity.Klient", b =>
+            modelBuilder.Entity("backend.Entity.Autori", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Autori_ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Autori_ID"));
 
-                    b.Property<string>("Adresa")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
+                    b.Property<string>("Data_E_Lindjes")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Emri")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Mbiemri")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NrPersonal")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NrTel")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Password")
+                    b.Property<string>("Nacionaliteti")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Statusi")
+                    b.Property<string>("nofka")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Autori_ID");
 
-                    b.ToTable("Klients");
+                    b.ToTable("Autori");
                 });
 #pragma warning restore 612, 618
         }

@@ -112,7 +112,7 @@ function Registration() {
       Password: Password,
       ConfirmPassword: ConfirmPassword,
     };
-    const url = "https://localhost:7101/api/Klient";
+    const url = "https://localhost:7165/api/Klient";
 
     axios
       .post(url, data)
@@ -252,7 +252,7 @@ function Registration() {
               <p>
                 Already have an account?{" "}
                 <Link
-                  to="/login"
+                  to="/Login"
                   style={{ color: "black", textDecoration: "none" }}
                   onClick={(e) => {
                     e.currentTarget.style.color = "purple";

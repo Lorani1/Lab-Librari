@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\backend.csproj": {}
+    "C:\\Git\\ProjektGit\\backend\\backend\\backend.csproj": {}
   },
   "projects": {
-    "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\backend.csproj": {
+    "C:\\Git\\ProjektGit\\backend\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Git\\ProjektGit\\backend\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\backend.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\Desktop\\gitb\\Lab-Librari\\backend\\backend\\obj\\",
+        "projectPath": "C:\\Git\\ProjektGit\\backend\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\jonha\\.nuget\\packages\\",
+        "outputPath": "C:\\Git\\ProjektGit\\backend\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jonha\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
