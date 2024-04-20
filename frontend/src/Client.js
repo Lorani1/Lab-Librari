@@ -22,6 +22,7 @@ const Client = () => {
   const [adresa, setAdresa] = useState("");
   const [statusi, setStatusi] = useState("");
   const [nrTel, setNrTel] = useState("");
+  const [password, setPassword] = useState("");
 
   const [editId, setEditId] = useState("");
   const [editEmri, setEditEmri] = useState("");
@@ -31,19 +32,7 @@ const Client = () => {
   const [editAdresa, setEditAdresa] = useState("");
   const [editStatusi, setEditStatusi] = useState("");
   const [editNrTel, setEditNrTel] = useState("");
-
-  const klidata = [
-    {
-      id: 1,
-      emri: "delfina",
-      mbiemri: "plakolli",
-      nrPersonal: 345678,
-      email: "delfina@gmail.com",
-      adresa: "Podujeve",
-      statusi: "student",
-      nrTel: 2345678,
-    },
-  ];
+  const [editPassword, setEditPassword] = useState("");
 
   const [data, setData] = useState([]);
 
@@ -52,7 +41,7 @@ const Client = () => {
   }, []);
   const getData = () => {
     axios
-      .get(`https://localhost:7165/api/Klient`)
+      .get(`https://localhost:7101/api/Klient`)
       .then((result) => {
         setData(result.data);
       })
@@ -64,7 +53,7 @@ const Client = () => {
   const handleEdit = (id) => {
     handleShow();
     axios
-      .get(`https://localhost:7165/api/Klient/${id}`)
+      .get(`https://localhost:7101/api/Klient/${id}`)
       .then((result) => {
         setEditEmri(result.data.emri);
         setEditMbiemri(result.data.mbiemri);
@@ -73,6 +62,7 @@ const Client = () => {
         setEditAdresa(result.data.adresa);
         setEditStatusi(result.data.statusi);
         setEditNrTel(result.data.nrTel);
+        setEditPassword(result.data.password);
         setEditId(id);
       })
       .catch((error) => {
@@ -80,11 +70,9 @@ const Client = () => {
       });
   };
   const handleDelete = (id) => {
-    if (
-      window.confirm("Are you sure you want to delete this client?") == true
-    ) {
+    if (window.confirm("Are you sure to delete this client?") == true) {
       axios
-        .delete(`https://localhost:7165/api/Klient/${id}`)
+        .delete(`https://localhost:7101/api/Klient/${id}`)
         .then((result) => {
           if (result.status === 200) {
             toast.success("Client has been deleted");
@@ -97,7 +85,7 @@ const Client = () => {
     }
   };
   const handleUpdate = () => {
-    const url = `https://localhost:7165/api/Klient/${editId}`;
+    const url = `https://localhost:7101/api/Klient/${editId}`;
     const data = {
       id: editId,
       emri: editEmri,
@@ -107,6 +95,7 @@ const Client = () => {
       adresa: editAdresa,
       statusi: editStatusi,
       nrTel: editNrTel,
+      password: editPassword,
     };
     axios
       .put(url, data)
@@ -121,7 +110,7 @@ const Client = () => {
       });
   };
   const handleSave = () => {
-    const url = "https://localhost:7165/api/Klient";
+    const url = "https://localhost:7101/api/Klient";
     const data = {
       emri: emri,
       mbiemri: mbiemri,
@@ -130,6 +119,7 @@ const Client = () => {
       adresa: adresa,
       statusi: statusi,
       nrTel: nrTel,
+      password: password,
     };
     axios
       .post(url, data)
@@ -150,6 +140,7 @@ const Client = () => {
     setAdresa("");
     setStatusi("");
     setNrTel("");
+    setPassword("");
     setEditEmri("");
     setEditMbiemri("");
     setEditNrPersonal("");
@@ -157,6 +148,7 @@ const Client = () => {
     setEditAdresa("");
     setEditStatusi("");
     setEditNrTel("");
+    setEditPassword("");
     setEditId("");
   };
 
@@ -164,74 +156,84 @@ const Client = () => {
     <Fragment>
       <ToastContainer />
       <Container fluid>
-        <Row>
-          <Col>
+        <Row className="flex flex-wrap -mx-2">
+          <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
             <input
               type="text"
-              className="form-control"
+              className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Emri..."
               value={emri}
               onChange={(e) => setEmri(e.target.value)}
             />
           </Col>
-          <Col>
+          <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
             <input
               type="text"
-              className="form-control"
+              className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Mbiemri..."
               value={mbiemri}
               onChange={(e) => setMbiemri(e.target.value)}
             />
           </Col>
-          <Col>
+          <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
             <input
               type="text"
-              className="form-control"
+              className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
               placeholder="NrPersonal..."
               value={nrPersonal}
               onChange={(e) => setNrPersonal(e.target.value)}
             />
           </Col>
-        </Row>
-        <Row>
-          <Col>
+          <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
             <input
               type="email"
-              className="form-control"
+              className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Email..."
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </Col>
-          <Col>
+          <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
             <input
               type="text"
-              className="form-control"
+              className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Adresa..."
               value={adresa}
               onChange={(e) => setAdresa(e.target.value)}
             />
           </Col>
-          <Col>
+          <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
             <input
               type="text"
-              className="form-control"
+              className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Statusi..."
               value={statusi}
               onChange={(e) => setStatusi(e.target.value)}
             />
           </Col>
-          <Col>
+          <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
             <input
               type="text"
-              className="form-control"
+              className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Nr Tel..."
               value={nrTel}
               onChange={(e) => setNrTel(e.target.value)}
             />
           </Col>
-          <Col>
-            <button className="btn btn-primary" onClick={() => handleSave()}>
+          <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
+            <input
+              type="text"
+              className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
+              placeholder="Password"
+              value={nrTel}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Col>
+          <Col className="w-full px-2 mb-4">
+            <button
+              className="bg-indigo-500 text-black py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
+              onClick={() => handleSave()}
+            >
               Submit
             </button>
           </Col>
@@ -249,6 +251,7 @@ const Client = () => {
             <th>Adresa</th>
             <th>Statusi</th>
             <th>nrTel</th>
+            <th>password</th>
           </tr>
         </thead>
         <tbody>
@@ -263,6 +266,7 @@ const Client = () => {
                 <td>{item.adresa}</td>
                 <td>{item.statusi}</td>
                 <td>{item.nrTel}</td>
+                <td>{item.password}</td>
                 <button
                   className="btn btn-primary"
                   onClick={() => handleEdit(item.id)}
@@ -271,7 +275,7 @@ const Client = () => {
                 </button>
                 &nbsp;
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-danger"
                   onClick={() => handleDelete(item.id)}
                 >
                   Delete
@@ -290,68 +294,77 @@ const Client = () => {
           <Modal.Title>Modify Client</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Row>
-            <Col>
+          <Row className="flex flex-wrap">
+            <Col className="w-full sm:w-auto mb-3 sm:mb-0">
               <input
                 type="text"
-                className="form-control"
+                className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                 placeholder="Emri..."
                 value={editEmri}
                 onChange={(e) => setEditEmri(e.target.value)}
               />
             </Col>
-            <Col>
+            <Col className="w-full sm:w-auto mb-3 sm:mb-0">
               <input
                 type="text"
-                className="form-control"
+                className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                 placeholder="Mbiemri..."
                 value={editMbiemri}
                 onChange={(e) => setEditMbiemri(e.target.value)}
               />
             </Col>
-            <Col>
+            <Col className="w-full sm:w-auto mb-3 sm:mb-0">
               <input
                 type="text"
-                className="form-control"
+                className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                 placeholder="NrPersonal..."
                 value={editNrPersonal}
                 onChange={(e) => setEditNrPersonal(e.target.value)}
               />
             </Col>
-            <Col>
+            <Col className="w-full sm:w-auto mb-3 sm:mb-0">
               <input
                 type="email"
-                className="form-control"
+                className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                 placeholder="Email..."
                 value={editEmail}
                 onChange={(e) => setEditEmail(e.target.value)}
               />
             </Col>
-            <Col>
+            <Col className="w-full sm:w-auto mb-3 sm:mb-0">
               <input
                 type="text"
-                className="form-control"
+                className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                 placeholder="Adresa..."
                 value={editAdresa}
                 onChange={(e) => setEditAdresa(e.target.value)}
               />
             </Col>
-            <Col>
+            <Col className="w-full sm:w-auto mb-3 sm:mb-0">
               <input
                 type="text"
-                className="form-control"
+                className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                 placeholder="Statusi..."
                 value={editStatusi}
                 onChange={(e) => setEditStatusi(e.target.value)}
               />
             </Col>
-            <Col>
+            <Col className="w-full sm:w-auto mb-3 sm:mb-0">
               <input
                 type="text"
-                className="form-control"
+                className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
                 placeholder="Nr Tel..."
                 value={editNrTel}
                 onChange={(e) => setEditNrTel(e.target.value)}
+              />
+            </Col>
+            <Col className="w-full sm:w-auto mb-3 sm:mb-0">
+              <input
+                type="text"
+                className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+                placeholder="Password..."
+                value={editPassword}
+                onChange={(e) => setEditPassword(e.target.value)}
               />
             </Col>
             <Col>
