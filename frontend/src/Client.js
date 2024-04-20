@@ -80,7 +80,9 @@ const Client = () => {
       });
   };
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure to delete this client?") == true) {
+    if (
+      window.confirm("Are you sure you want to delete this client?") == true
+    ) {
       axios
         .delete(`https://localhost:7165/api/Klient/${id}`)
         .then((result) => {
