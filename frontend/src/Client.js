@@ -1,20 +1,23 @@
 import React, { useState, useEffect, Fragment } from "react";
-import Table from "react-bootstrap/Table";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Table from 'react-bootstrap/Table';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Client = () => {
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const [emri, setEmri] = useState("");
   const [mbiemri, setMbiemri] = useState("");
   const [nrPersonal, setNrPersonal] = useState("");
@@ -38,22 +41,21 @@ const Client = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [])
+
   const getData = () => {
-    axios
-      .get(`https://localhost:7101/api/Klient`)
+    axios.get('https://localhost:7165/api/Klient')
       .then((result) => {
         setData(result.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.error();
       });
-  };
+  }
 
   const handleEdit = (id) => {
     handleShow();
-    axios
-      .get(`https://localhost:7101/api/Klient/${id}`)
+    axios.get(`https://localhost:7165/api/Klient/${id}`)
       .then((result) => {
         setEditEmri(result.data.emri);
         setEditMbiemri(result.data.mbiemri);
@@ -66,73 +68,91 @@ const Client = () => {
         setEditId(id);
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        toast.error(error);
+      })
+  }
+
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure to delete this client?") == true) {
-      axios
-        .delete(`https://localhost:7101/api/Klient/${id}`)
+    if (window.confirm("Are you sure to delete?") === true) {
+      axios.delete(`https://localhost:7165/api/Klient/${id}`)
         .then((result) => {
           if (result.status === 200) {
-            toast.success("Client has been deleted");
-            setData(data.filter((item) => item.id !== id));
+            toast.success('Klienti u fshi!');
+            getData();
           }
         })
         .catch((error) => {
           toast.error(error);
-        });
+        })
     }
-  };
+  }
+
   const handleUpdate = () => {
-    const url = `https://localhost:7101/api/Klient/${editId}`;
+    const url = `https://localhost:7165/api/Klient/${editId}`;
     const data = {
-      id: editId,
-      emri: editEmri,
-      mbiemri: editMbiemri,
-      nrPersonal: editNrPersonal,
-      email: editEmail,
-      adresa: editAdresa,
-      statusi: editStatusi,
-      nrTel: editNrTel,
-      password: editPassword,
+      'id': editId,
+      'emri': editEmri,
+      'mbiemri': editMbiemri,
+      'nrPersonal': editNrPersonal,
+      'email': editEmail,
+      'adresa': editAdresa,
+      'statusi': editStatusi,
+      'nrTel': editNrTel,
+      'password': editPassword,
     };
-    axios
-      .put(url, data)
-      .then((result) => {
-        handleClose();
-        getData();
-        clear();
-        toast.success("Client has been updated");
-      })
+
+    axios.put(url, data).then((result) => {
+      handleClose();
+      getData();
+      clear();
+      toast.success("Libri u mbishkrua!");
+    })
       .catch((error) => {
-        toast.success(error);
+        console.log(error);
+        toast.error("An error occurred while updating the author.");
       });
   };
+
+
   const handleSave = () => {
-    const url = "https://localhost:7101/api/Klient";
+    if (
+      !'emri' ||
+      !'mbiemri' ||
+      !'nrPersonal' ||
+      !'email' ||
+      !'adresa' ||
+      !'statusi' ||
+      !'nrTel' ||
+      !'password'
+    ) {
+      // Display an alert if any required field is empty
+      alert("Please fill up all the input fields.");
+      return;
+    }
+    const url = "https://localhost:7165/api/Klient";
     const data = {
-      emri: emri,
-      mbiemri: mbiemri,
-      nrPersonal: nrPersonal,
-      email: email,
-      adresa: adresa,
-      statusi: statusi,
-      nrTel: nrTel,
-      password: password,
+      'emri': emri,
+      'mbiemri': mbiemri,
+      'nrPersonal': nrPersonal,
+      'email': email,
+      'adresa': adresa,
+      'statusi': statusi,
+      'nrTel': nrTel,
+      'password': password,
     };
-    axios
-      .post(url, data)
+    axios.post(url, data)
       .then((result) => {
         getData();
         clear();
-        toast.success("Client has been addded");
+        toast.success('Klienti eshte shtuar!');
       })
       .catch((error) => {
-        toast.success(error);
-      });
-  };
+        toast.error(error);
+      })
+  }
+
   const clear = () => {
+
     setEmri("");
     setMbiemri("");
     setNrPersonal("");
@@ -150,7 +170,7 @@ const Client = () => {
     setEditNrTel("");
     setEditPassword("");
     setEditId("");
-  };
+  }
 
   return (
     <Fragment>
@@ -225,7 +245,7 @@ const Client = () => {
               type="text"
               className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Password"
-              value={nrTel}
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </Col>
@@ -267,28 +287,18 @@ const Client = () => {
                 <td>{item.statusi}</td>
                 <td>{item.nrTel}</td>
                 <td>{item.password}</td>
-                <button
-                  className="btn btn-primary"
-                  onClick={() => handleEdit(item.id)}
-                >
-                  Edit
-                </button>
-                &nbsp;
-                <button
-                  className="btn btn-danger"
-                  onClick={() => handleDelete(item.id)}
-                >
-                  Delete
-                </button>
+                <td colSpan={2}>
+                  <button className="btn btn-primary" onClick={() => handleEdit(item.id)}>Edit</button> &nbsp;
+                  <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>Delete</button>
+                </td>
               </tr>
             ))
           ) : (
-            <tr>
-              <td colSpan="8">loading...</td>
-            </tr>
+            'Loading..'
           )}
         </tbody>
       </Table>
+
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modify Client</Modal.Title>
@@ -368,7 +378,7 @@ const Client = () => {
               />
             </Col>
             <Col>
-              <button className="btn btn-primary">Submit</button>
+              <button className="btn btn-primary" onClick={() => handleSave()}>Submit</button>
             </Col>
           </Row>
         </Modal.Body>

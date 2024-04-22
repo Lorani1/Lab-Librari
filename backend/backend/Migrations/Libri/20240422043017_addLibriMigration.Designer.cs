@@ -11,7 +11,7 @@ using backcrud.Models;
 namespace backend.Migrations.Libri
 {
     [DbContext(typeof(LibriContext))]
-    [Migration("20240419111238_addLibriMigration")]
+    [Migration("20240422043017_addLibriMigration")]
     partial class addLibriMigration
     {
         /// <inheritdoc />
@@ -33,6 +33,10 @@ namespace backend.Migrations.Libri
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Gjuha")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("InStock")
@@ -58,10 +62,6 @@ namespace backend.Migrations.Libri
 
                     b.Property<int>("VitiPublikimit")
                         .HasColumnType("int");
-
-                    b.Property<string>("image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 

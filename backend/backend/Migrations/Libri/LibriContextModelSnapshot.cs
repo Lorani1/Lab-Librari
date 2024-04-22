@@ -32,6 +32,10 @@ namespace backend.Migrations.Libri
                     b.Property<string>("Gjuha")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("InStock")
                         .HasColumnType("int");
 
@@ -55,10 +59,6 @@ namespace backend.Migrations.Libri
 
                     b.Property<int>("VitiPublikimit")
                         .HasColumnType("int");
-
-                    b.Property<string>("image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 

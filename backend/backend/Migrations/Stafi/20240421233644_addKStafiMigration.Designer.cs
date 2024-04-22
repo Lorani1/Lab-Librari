@@ -9,11 +9,11 @@ using backend.Entity;
 
 #nullable disable
 
-namespace backend.Migrations
+namespace backend.Migrations.Stafi
 {
     [DbContext(typeof(StafiContext))]
-    [Migration("20240411211408_initial")]
-    partial class initial
+    [Migration("20240421233644_addKStafiMigration")]
+    partial class addKStafiMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

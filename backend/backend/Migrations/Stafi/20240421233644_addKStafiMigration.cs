@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace backend.Migrations
+namespace backend.Migrations.Stafi
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class addKStafiMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

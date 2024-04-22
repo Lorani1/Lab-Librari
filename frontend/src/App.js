@@ -3,13 +3,13 @@ import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import Home from "./Home";
 import Client from "./Client";
-import CRUD from "./CRUD"; // Import User component
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Libri from "./Libri";
 import Login from "./Login";
 import AUTORICRUD from "./AUTORICRUD";
 import Registration from "./Registration";
+import Staf from "./Staf";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         </div>
         <div className="col overflow-auto">
           <Routes>
-          <Route
+            <Route
               path="/login"
               element={
                 <>
@@ -41,6 +41,10 @@ function App() {
               }
             ></Route>
 
+            <Route
+              path="/"
+              element={<Navigate to="/login" />}
+            ></Route>
 
             <Route
               path="/home"
@@ -56,7 +60,7 @@ function App() {
               element={
                 <>
                   <Navbar />
-                  <CRUD />
+                  <Staf />
                 </>
               }
             ></Route>
@@ -78,7 +82,7 @@ function App() {
                 </>
               }
             ></Route>
-              <Route
+            <Route
               path="/Autori"
               element={
                 <>

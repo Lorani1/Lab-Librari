@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Git\\ProjektGit\\backend\\backend\\backend.csproj": {}
+    "C:\\Users\\THIS\\Desktop\\Libri\\Lab-Librari\\backend\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\Git\\ProjektGit\\backend\\backend\\backend.csproj": {
+    "C:\\Users\\THIS\\Desktop\\Libri\\Lab-Librari\\backend\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Git\\ProjektGit\\backend\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Users\\THIS\\Desktop\\Libri\\Lab-Librari\\backend\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\Git\\ProjektGit\\backend\\backend\\backend.csproj",
-        "packagesPath": "C:\\Users\\jonha\\.nuget\\packages\\",
-        "outputPath": "C:\\Git\\ProjektGit\\backend\\backend\\obj\\",
+        "projectPath": "C:\\Users\\THIS\\Desktop\\Libri\\Lab-Librari\\backend\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\THIS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\THIS\\Desktop\\Libri\\Lab-Librari\\backend\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jonha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\THIS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -93,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
