@@ -1,426 +1,625 @@
 import React, { useState, useEffect, Fragment } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Table from 'react-bootstrap/Table';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Table from "react-bootstrap/Table";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
+import { Buffer } from "buffer";
+import process from "process";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+window.Buffer = Buffer;
+window.process = process;
 
 const Libri = () => {
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  const [show, setShow] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [shtepiaList, setShtepiaList] = useState([]);
+  const [selectedShtepia, setSelectedShtepia] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [profilePictureUrl, setProfilePictureUrl] = useState("");
+  const [isbn, setIsbn] = useState("");
+  const [titulli, setTitulli] = useState("");
+  const [kategoria, setKategoria] = useState("");
+  const [lloji, setLloji] = useState("");
+  const [vitiPublikimit, setVitiPublikimit] = useState("");
+  const [nrFaqeve, setNrFaqeve] = useState("");
+  const [nrKopjeve, setNrKopjeve] = useState("");
+  const [gjuha, setGjuha] = useState("");
+  const [editProfilePictureUrl, setEditProfilePictureUrl] = useState("");
+  const [inStock, setInStock] = useState(0);
+  const [editId, setEditId] = useState("");
+  const [editIsbn, setEditIsbn] = useState("");
+  const [editTitulli, setEditTitulli] = useState("");
+  const [editKategoria, setEditKategoria] = useState("");
+  const [editLloji, setEditLloji] = useState("");
 
-    const [isbn, setIsbn] = useState("");
-    const [titulli, setTitulli] = useState("");
-    const [kategoria, setKategoria] = useState("");
-    const [lloji, setLloji] = useState("");
-    const [vitiPublikimit, setVitiPublikimit] = useState("");
-    const [nrFaqeve, setNrFaqeve] = useState("");
-    const [nrKopjeve, setNrKopjeve] = useState("");
-    const [gjuha, setGjuha] = useState("");
-    const [inStock, setInStock] = useState(0);
+  const [editVitiPublikimit, setEditVitiPublikimit] = useState("");
+  const [editNrFaqeve, setEditNrFaqeve] = useState("");
+  const [editNrKopjeve, setEditNrKopjeve] = useState("");
+  const [editGjuha, setEditGjuha] = useState("");
+  const [editInStock, setEditInStock] = useState(0);
+  const [editSelectedShtepiaID, setEditSelectedShtepiaID] = useState("");
+  const [editSelectedFile, setEditSelectedFile] = useState(null);
 
-    const [editId, setEditId] = useState("");
-    const [editIsbn, setEditIsbn] = useState("");
-    const [editTitulli, setEditTitulli] = useState("");
-    const [editKategoria, setEditKategoria] = useState("");
-    const [editLloji, setEditLloji] = useState("");
-    const [editVitiPublikimit, setEditVitiPublikimit] = useState("");
-    const [editNrFaqeve, setEditNrFaqeve] = useState("");
-    const [editNrKopjeve, setEditNrKopjeve] = useState("");
-    const [editGjuha, setEditGjuha] = useState("");
-    const [editInStock, setEditInStock] = useState(0);
+  const [data, setData] = useState([]);
 
-    const [data, setData] = useState([]);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleFileUpload = (e) => setSelectedFile(e.target.files[0]);
 
-    useEffect(() => {
-        getData();
-    }, []);
+  const handleOpenAddModal = () => setShowAddModal(true);
+  const handleCloseAddModal = () => setShowAddModal(false);
 
-    const getData = () => {
-        axios.get('https://localhost:7165/api/Libri')
-            .then((result) => {
-                setData(result.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+  useEffect(() => {
+    getData();
+    getShtepiaList();
+  }, []);
+
+  const getData = () => {
+    axios
+      .get(`https://localhost:7249/api/Libri`)
+      .then((result) => setData(result.data))
+      .catch((error) => {
+        console.error("Error fetching book data:", error);
+        toast.error("Failed to fetch book data.");
+      });
+  };
+
+  const getShtepiaList = () => {
+    axios
+      .get(`https://localhost:7249/api/ShtepiaBotuese`)
+      .then((result) => setShtepiaList(result.data))
+      .catch((error) => {
+        console.error("Error fetching publisher data:", error);
+        toast.error("Failed to fetch publisher data.");
+      });
+  };
+
+  const handleEdit = (id) => {
+    handleShow();
+    axios
+      .get(`https://localhost:7249/api/Libri/${id}`)
+      .then((result) => {
+        const bookData = result.data;
+        setEditId(bookData.id);
+        setEditIsbn(bookData.isbn);
+        setEditTitulli(bookData.titulli);
+        setEditKategoria(bookData.kategoria);
+        setEditLloji(bookData.lloji);
+        setEditVitiPublikimit(bookData.vitiPublikimit);
+        setEditNrFaqeve(bookData.nrFaqeve);
+        setEditNrKopjeve(bookData.nrKopjeve);
+        setEditGjuha(bookData.gjuha);
+        setEditInStock(bookData.inStock === 1 ? true : false);
+        setEditSelectedShtepiaID(bookData.shtepiaBotueseID);
+        setEditProfilePictureUrl(bookData.profilePictureUrl);
+      })
+      .catch((error) => {
+        console.error("Error fetching book data:", error);
+        toast.error("Failed to fetch book data.");
+      });
+  };
+
+  const handleUpdate = () => {
+    const url = `https://localhost:7249/api/Libri/${editId}`;
+    const formData = new FormData();
+
+    formData.append("isbn", editIsbn);
+    formData.append("titulli", editTitulli);
+    formData.append("kategoria", editKategoria);
+    formData.append("lloji", editLloji);
+    formData.append("vitiPublikimit", editVitiPublikimit);
+    formData.append("nrFaqeve", editNrFaqeve);
+    formData.append("nrKopjeve", editNrKopjeve);
+    formData.append("gjuha", editGjuha);
+    formData.append("inStock", editInStock ? 1 : 0);
+    formData.append("shtepiaBotueseID", editSelectedShtepiaID);
+
+    const selectedPublisher = shtepiaList.find(
+      (shtepia) => shtepia.shtepiaBotueseID === editSelectedShtepiaID
+    );
+    formData.append(
+      "shtepiaBotuese",
+      JSON.stringify({
+        shtepiaBotueseID: editSelectedShtepiaID,
+        emri: selectedPublisher ? selectedPublisher.emri : "",
+        adresa: selectedPublisher ? selectedPublisher.adresa : "",
+      })
+    );
+
+    if (editSelectedFile) {
+      formData.append("profilePicture", editSelectedFile);
     }
 
-    const handleEdit = (id) => {
-        handleShow();
-        axios.get(`https://localhost:7165/api/Libri/${id}`)
-            .then((result) => {
-                const data = result.data;
-                setEditIsbn(data.isbn);
-                setEditTitulli(data.titulli);
-                setEditKategoria(data.kategoria);
-                setEditLloji(data.lloji);
-                setEditVitiPublikimit(data.vitiPublikimit);
-                setEditNrFaqeve(data.nrFaqeve);
-                setEditNrKopjeve(data.nrKopjeve);
-                setEditGjuha(data.gjuha);
-                setEditInStock(data.inStock);
-                setEditId(id);
-            })
-            .catch((error) => {
-                toast.error(error);
-            });
+    // Log formData contents
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ": " + pair[1]);
     }
 
-    const handleDelete = (id) => {
-        if (window.confirm("Are you sure to delete?") === true) {
-            axios.delete(`https://localhost:7165/api/Libri/${id}`)
-                .then((result) => {
-                    if (result.status === 200) {
-                        toast.success('Libri u fshi!');
-                        getData();
-                    }
-                })
-                .catch((error) => {
-                    toast.error(error);
-                });
+    axios
+      .put(url, formData)
+      .then((response) => {
+        if (response.status === 204) {
+          handleClose();
+          getData();
+          clear();
+          toast.success("Book has been updated");
+        } else {
+          console.error("Unexpected response status:", response.status);
+          toast.error("Failed to update book.");
         }
-    }
+      })
+      .catch((error) => {
+        console.error("Error updating book:", error);
+        toast.error("Failed to update book.");
+      });
+  };
 
-    const handleUpdate = () => {
-        const url = `https://localhost:7165/api/Libri/${editId}`;
-        const data = {
-            'id': editId,
-            'isbn': editIsbn,
-            'titulli': editTitulli,
-            'kategoria': editKategoria,
-            'lloji': editLloji,
-            'vitiPublikimit': editVitiPublikimit,
-            'nrFaqeve': editNrFaqeve,
-            'nrKopjeve': editNrKopjeve,
-            'gjuha': editGjuha,
-            'inStock': editInStock,
-        };
+  const handleEditFileUpload = (e) => {
+    const file = e.target.files[0];
+    setEditSelectedFile(file);
 
-        axios.put(url, data)
-            .then((result) => {
-                handleClose();
-                getData();
-                clearEditFields();
-                toast.success("Libri u mbishkrua!");
-            })
-            .catch((error) => {
-                console.log(error);
-                toast.error("An error occurred while updating the author.");
-            });
+    // Update profile picture URL in state to show preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      setEditProfilePictureUrl(reader.result);
     };
+    reader.readAsDataURL(file);
+  };
 
-    const handleSave = () => {
-        if (
-            !isbn ||
-            !titulli ||
-            !kategoria ||
-            !lloji ||
-            !vitiPublikimit ||
-            !nrFaqeve ||
-            !nrKopjeve ||
-            !gjuha
-        ) {
-            // Display an alert if any required field is empty
-            alert("Please fill up all the input fields.");
-            return;
-        }
-        const url = `https://localhost:7165/api/Libri`;
-        const data = {
-            'isbn': isbn,
-            'titulli': titulli,
-            'kategoria': kategoria,
-            'lloji': lloji,
-            'vitiPublikimit': vitiPublikimit,
-            'nrFaqeve': nrFaqeve,
-            'nrKopjeve': nrKopjeve,
-            'gjuha': gjuha,
-            'inStock': inStock,
-        };
-        axios.post(url, data)
-            .then((result) => {
-                getData();
-                clearInputFields();
-                toast.success('Libri eshte shtuar!');
-            })
-            .catch((error) => {
-                toast.error(error);
-            });
+  const handleSave = () => {
+    const url = "https://localhost:7249/api/Libri";
+
+    const formData = new FormData();
+    formData.append("isbn", isbn);
+    formData.append("titulli", titulli);
+    formData.append("kategoria", kategoria);
+    formData.append("lloji", lloji);
+    formData.append("vitiPublikimit", vitiPublikimit);
+    formData.append("nrFaqeve", nrFaqeve);
+    formData.append("nrKopjeve", nrKopjeve);
+    formData.append("gjuha", gjuha);
+    formData.append("inStock", inStock);
+    formData.append("shtepiaBotueseID", selectedShtepia);
+    formData.append(
+      "shtepiaBotuese",
+      JSON.stringify({
+        shtepiaBotueseID: selectedShtepia,
+        emri:
+          shtepiaList.find(
+            (shtepia) => shtepia.shtepiaBotueseID === selectedShtepia
+          )?.emri || "",
+        adresa:
+          shtepiaList.find(
+            (shtepia) => shtepia.shtepiaBotueseID === selectedShtepia
+          )?.adresa || "",
+      })
+    );
+    formData.append("profilePicture", selectedFile);
+
+    axios
+      .post(url, formData)
+      .then((result) => {
+        getData();
+        clear();
+        toast.success("Book has been added");
+      })
+      .catch((error) => {
+        toast.error("Failed to add book. Please try again.");
+      });
+  };
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this book?")) {
+      axios
+        .delete(`https://localhost:7249/api/Libri/${id}`)
+        .then((response) => {
+          console.log("Delete response:", response);
+          if (response.status === 204) {
+            toast.success("Book has been deleted");
+            getData();
+          } else {
+            toast.error(
+              "Failed to delete book. Server responded with status: " +
+                response.status
+            );
+          }
+        })
+        .catch((error) => {
+          toast.error("Failed to delete book. Please try again later.");
+          console.error("Error:", error);
+        });
     }
+  };
+  const clear = () => {
+    setIsbn("");
+    setTitulli("");
+    setKategoria("");
+    setLloji("");
+    setVitiPublikimit("");
+    setNrFaqeve("");
+    setNrKopjeve("");
+    setGjuha("");
+    setInStock(0);
+    setSelectedShtepia("");
+    setSelectedFile(null);
+    setProfilePictureUrl("");
+  };
 
-    const clearInputFields = () => {
-        setIsbn("");
-        setTitulli("");
-        setKategoria("");
-        setLloji("");
-        setVitiPublikimit("");
-        setNrFaqeve("");
-        setNrKopjeve("");
-        setGjuha("");
-        setInStock(0);
+  const handleActiveChange = (e) => {
+    if (e.target.checked) {
+      setInStock(1);
+    } else {
+      setInStock(0);
     }
+  };
 
-    const clearEditFields = () => {
-        setEditIsbn("");
-        setEditTitulli("");
-        setEditKategoria("");
-        setEditLloji("");
-        setEditVitiPublikimit("");
-        setEditNrFaqeve("");
-        setEditNrKopjeve("");
-        setEditGjuha("");
-        setEditInStock(0);
-        setEditId("");
+  const handleEditActiveChange = (e) => {
+    if (e.target.checked) {
+      setEditInStock(1);
+    } else {
+      setEditInStock(0);
     }
-
-    return(
-        <Fragment>
-        <ToastContainer />
-        <Container>
-          <Row className="flex flex-wrap -mx-2">
-            <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-              <input
-                type="text"
-                className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Enter ISBN"
-                value={isbn}
-                onChange={(e) => setIsbn(e.target.value)}
-              />
-            </Col>
-            <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-              <input
-                type="text"
-                className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Enter Title"
-                value={titulli}
-                onChange={(e) => setTitulli(e.target.value)}
-              />
-            </Col>
-            <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-              <input
-                type="text"
-                className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Enter Category"
-                value={kategoria}
-                onChange={(e) => setKategoria(e.target.value)}
-              />
-            </Col>
-            <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-              <input
-                type="text"
-                className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Enter Type"
-                value={lloji}
-                onChange={(e) => setLloji(e.target.value)}
-              />
-            </Col>
-            <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-              <input
-                type="text"
-                className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Enter Year of Publication"
-                value={vitiPublikimit}
-                onChange={(e) => setVitiPublikimit(e.target.value)}
-              />
-            </Col>
-            <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-              <input
-                type="text"
-                className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Enter Number of Pages"
-                value={nrFaqeve}
-                onChange={(e) => setNrFaqeve(e.target.value)}
-              />
-            </Col>
-            <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-              <input
-                type="text"
-                className="w-full bg-red-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Enter Number of Copies"
-                value={nrKopjeve}
-                onChange={(e) => setNrKopjeve(e.target.value)}
-              />
-            </Col>
-            <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-              <input
-                type="text"
-                className="w-full bg-gray-100 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Enter Language"
-                value={gjuha}
-                onChange={(e) => setGjuha(e.target.value)}
-              />
-            </Col>
-            <Col className="w-full sm:w-auto mb-3 sm:mb-0">
-            <input
-              type="text"
-              placeholder="Enter InStock"
-              value={inStock}
-              onChange={(e) => setInStock(parseInt(e.target.value))}
-            />
-
-            </Col>
-
-            <Col>
-                    <button className="btn btn-primary" onClick={()=> handleSave()}>Submit</button>
-                </Col>
-          </Row>
-        </Container>
-        <br></br>
-        <Table striped bordered hover>
+  };
+  return (
+    <Fragment>
+      <ToastContainer />
+      <Container className="py-5">
+        <h1>Book List</h1>
+        <Button variant="primary" onClick={handleOpenAddModal}>
+          Add New Book
+        </Button>
+        <Table striped bordered hover className="mt-4">
           <thead>
             <tr>
-              <th>#</th>
               <th>ISBN</th>
               <th>Title</th>
               <th>Category</th>
               <th>Type</th>
-              <th>Year of Publication</th>
-              <th>Number of Pages</th>
-              <th>Number of Copies</th>
+              <th>Publication Year</th>
+              <th>Pages</th>
+              <th>Copies</th>
               <th>Language</th>
-              <th>In-Stock</th>
-              <th>Actions</th>
+              <th>Publisher</th>
+              <th>In Stock</th>
+              <th>Images</th>
             </tr>
           </thead>
           <tbody>
-            {data && data.length > 0
-              ? data.map((item, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-  
-                      <td>{item.isbn}</td>
-                      <td>{item.titulli}</td>
-                      <td>{item.kategoria}</td>
-                      <td>{item.lloji}</td>
-                      <td>{item.vitiPublikimit}</td>
-                      <td>{item.nrFaqeve}</td>
-                      <td>{item.nrKopjeve}</td>
-                      <td>{item.gjuha}</td>
-                      <td>{item.inStock}</td>
-                        <td colSpan={2}>
-                            <button className="btn btn-primary" onClick={()=> handleEdit(item.id)}>Edit</button> &nbsp;
-                            <button className="btn btn-danger"  onClick={()=> handleDelete(item.id)}>Delete</button>
-                        </td>
-                  </tr>
-                )
-            })
-            :
-            'Loading..'
-        }
-       
-      </tbody>
-            </Table>
-            
-            <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Modify /Update Book</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Row className="flex flex-wrap">
-                <Col className="w-full sm:w-auto mb-3 sm:mb-0">
-                  <input
-                    type="text"
-                    className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-                    placeholder="Enter ISBN"
-                    value={editIsbn}
-                    onChange={(e) => setEditIsbn(e.target.value)}
+            {data.length === 0 ? (
+              <tr>
+                <td colSpan="12" className="text-center">
+                  Loading...
+                </td>
+              </tr>
+            ) : (
+              data.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.isbn}</td>
+                  <td>{item.titulli}</td>
+                  <td>{item.kategoria}</td>
+                  <td>{item.lloji}</td>
+                  <td>{item.vitiPublikimit}</td>
+                  <td>{item.nrFaqeve}</td>
+                  <td>{item.nrKopjeve}</td>
+                  <td>{item.gjuha}</td>
+                  <td>{item.shtepiaBotueseID}</td>
+                  <td>{item.inStock ? "Yes" : "No"}</td>
+                  <td>
+                    {item.profilePicturePath ? (
+                      <img
+                        src={item.profilePictureUrl}
+                        alt="Profile"
+                        style={{ width: "50px", height: "50px" }}
+                      />
+                    ) : (
+                      "No Image"
+                    )}
+                  </td>
+                  <td>
+                    <Button
+                      className="mr-2"
+                      variant="warning"
+                      onClick={() => handleEdit(item.id)}
+                    >
+                      <BsFillPencilFill />
+                    </Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      <BsFillTrashFill />
+                    </Button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </Table>
+
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Book</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Row>
+              <Col>
+                <label>ISBN</label>
+                <input
+                  type="text"
+                  value={editIsbn}
+                  onChange={(e) => setEditIsbn(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+              <Col>
+                <label>Title</label>
+                <input
+                  type="text"
+                  value={editTitulli}
+                  onChange={(e) => setEditTitulli(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <label>Category</label>
+                <input
+                  type="text"
+                  value={editKategoria}
+                  onChange={(e) => setEditKategoria(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+              <Col>
+                <label>Type</label>
+                <input
+                  type="text"
+                  value={editLloji}
+                  onChange={(e) => setEditLloji(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <label>Publication Year</label>
+                <input
+                  type="text"
+                  value={editVitiPublikimit}
+                  onChange={(e) => setEditVitiPublikimit(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+              <Col>
+                <label>Pages</label>
+                <input
+                  type="text"
+                  value={editNrFaqeve}
+                  onChange={(e) => setEditNrFaqeve(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <label>Copies</label>
+                <input
+                  type="text"
+                  value={editNrKopjeve}
+                  onChange={(e) => setEditNrKopjeve(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+              <Col>
+                <label>Language</label>
+                <input
+                  type="text"
+                  value={editGjuha}
+                  onChange={(e) => setEditGjuha(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <label>Publisher</label>
+                <select
+                  value={editSelectedShtepiaID}
+                  onChange={(e) => setEditSelectedShtepiaID(e.target.value)}
+                  className="form-control"
+                >
+                  <option value="">Select Publisher</option>
+                  {shtepiaList.map((shtepia) => (
+                    <option
+                      key={shtepia.shtepiaBotueseID}
+                      value={shtepia.shtepiaBotueseID}
+                    >
+                      {shtepia.emri}
+                    </option>
+                  ))}
+                </select>
+              </Col>
+              <Col className="w-full sm:w-auto mb-3 sm:mb-0 flex items-center">
+                <input
+                  type="checkbox"
+                  checked={editInStock}
+                  onChange={(e) => setEditInStock(e.target.checked ? 1 : 0)}
+                />
+                <label>In-Stock</label>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                <label>Images</label>
+                <input
+                  type="file"
+                  onChange={handleEditFileUpload}
+                  className="form-control"
+                />
+                {editProfilePictureUrl && (
+                  <img
+                    src={editProfilePictureUrl}
+                    alt="Profile"
+                    style={{ width: "50px", height: "50px", marginTop: "10px" }}
                   />
-                </Col>
-                <Col className="w-full sm:w-auto mb-3 sm:mb-0">
-                  <input
-                    type="text"
-                    className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-                    placeholder="Enter titulli"
-                    value={editTitulli}
-                    onChange={(e) => setEditTitulli(e.target.value)}
-                  />
-                </Col>
-                <Col className="w-full sm:w-auto mb-3 sm:mb-0">
-                  <input
-                    type="text"
-                    className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-                    placeholder="Enter kategoria"
-                    value={editKategoria}
-                    onChange={(e) => setEditKategoria(e.target.value)}
-                  />
-                </Col>
-                <Col className="w-full sm:w-auto mb-3 sm:mb-0">
-                  <input
-                    type="text"
-                    className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-                    placeholder="Enter lloji"
-                    value={editLloji}
-                    onChange={(e) => setEditLloji(e.target.value)}
-                  />
-                </Col>
-                <Col className="w-full sm:w-auto mb-3 sm:mb-0">
-                  <input
-                    type="text"
-                    className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-                    placeholder="Enter vitipublikimit"
-                    value={editVitiPublikimit}
-                    onChange={(e) => setEditVitiPublikimit(e.target.value)}
-                  />
-                </Col>
-                <Col className="w-full sm:w-auto mb-3 sm:mb-0">
-                  <input
-                    type="text"
-                    className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-                    placeholder="Enter nrFaqeve"
-                    value={editNrFaqeve}
-                    onChange={(e) => setEditNrFaqeve(e.target.value)}
-                  />
-                </Col>
-                <Col className="w-full sm:w-auto mb-3 sm:mb-0">
-                  <input
-                    type="text"
-                    className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-                    placeholder="Enter nrKopjeve"
-                    value={editNrKopjeve}
-                    onChange={(e) => setEditNrKopjeve(e.target.value)}
-                  />
-                </Col>
-                <Col className="w-full sm:w-auto mb-3 sm:mb-0">
-                  <input
-                    type="text"
-                    className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-                    placeholder="Enter Gjuhen"
-                    value={editGjuha}
-                    onChange={(e) => setEditGjuha(e.target.value)}
-                  />
-                </Col>
-    
-                <Col className="w-full sm:w-auto mb-3 sm:mb-0">
-                  <input
-                    type="text"
-                    className="w-full sm:w-64 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-                    placeholder="Enter InStock"
-                    value={editInStock}
-                    onChange={(e) => setEditInStock(e.target.value)}
-                  />
-                </Col>
-              </Row>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={handleUpdate}>
-                Save Changes
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </Fragment>
-      );
-    };
-    
-    export default Libri;
-    
+                )}
+              </Col>
+            </Row>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleUpdate}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal show={showAddModal} onHide={handleCloseAddModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add New Book</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Row>
+              <Col>
+                <label>ISBN</label>
+                <input
+                  type="text"
+                  value={isbn}
+                  onChange={(e) => setIsbn(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+              <Col>
+                <label>Title</label>
+                <input
+                  type="text"
+                  value={titulli}
+                  onChange={(e) => setTitulli(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <label>Category</label>
+                <input
+                  type="text"
+                  value={kategoria}
+                  onChange={(e) => setKategoria(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+              <Col>
+                <label>Type</label>
+                <input
+                  type="text"
+                  value={lloji}
+                  onChange={(e) => setLloji(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <label>Publication Year</label>
+                <input
+                  type="text"
+                  value={vitiPublikimit}
+                  onChange={(e) => setVitiPublikimit(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+              <Col>
+                <label>Pages</label>
+                <input
+                  type="text"
+                  value={nrFaqeve}
+                  onChange={(e) => setNrFaqeve(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <label>Copies</label>
+                <input
+                  type="text"
+                  value={nrKopjeve}
+                  onChange={(e) => setNrKopjeve(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+              <Col>
+                <label>Language</label>
+                <input
+                  type="text"
+                  value={gjuha}
+                  onChange={(e) => setGjuha(e.target.value)}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <label>Publisher</label>
+                <select
+                  value={selectedShtepia}
+                  onChange={(e) => setSelectedShtepia(e.target.value)}
+                  className="form-control"
+                >
+                  <option value="">Select Publisher</option>
+                  {shtepiaList.map((shtepia) => (
+                    <option
+                      key={shtepia.shtepiaBotueseID}
+                      value={shtepia.shtepiaBotueseID}
+                    >
+                      {shtepia.emri}
+                    </option>
+                  ))}
+                </select>
+              </Col>
+              <Col className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
+                <label>In Stock</label>
+                <input
+                  type="checkbox"
+                  checked={inStock}
+                  onChange={(e) => setInStock(e.target.checked ? 1 : 0)}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <label>Profile Picture</label>
+                <input
+                  type="file"
+                  onChange={(e) => setSelectedFile(e.target.files[0])}
+                  className="form-control"
+                />
+              </Col>
+            </Row>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseAddModal}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleSave}>
+              Save
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Container>
+    </Fragment>
+  );
+};
+
+export default Libri;

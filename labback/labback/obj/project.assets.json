@@ -5282,19 +5282,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ADMIN\\.nuget\\packages\\": {}
+    "C:\\Users\\HP-650 G1\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Desktop\\LabLibrari\\labback\\labback\\labback.csproj",
+      "projectUniqueName": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\labback.csproj",
       "projectName": "labback",
-      "projectPath": "D:\\Desktop\\LabLibrari\\labback\\labback\\labback.csproj",
-      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "D:\\Desktop\\LabLibrari\\labback\\labback\\obj\\",
+      "projectPath": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\labback.csproj",
+      "packagesPath": "C:\\Users\\HP-650 G1\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\HP-650 G1\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

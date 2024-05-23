@@ -9,8 +9,8 @@ using labback.Models;
 
 namespace labback.Migrations
 {
-    [DbContext(typeof(KlientContext))]
-    partial class KlientContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(LibriContext))]
+    partial class LibriContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace labback.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Qyteti", b =>
+            modelBuilder.Entity("labback.Libri", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -29,72 +29,82 @@ namespace labback.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("Emri")
+                    b.Property<string>("Gjuha")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("InStock")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Isbn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Kategoria")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lloji")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NrFaqeve")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NrKopjeve")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProfilePicturePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ShtepiaBotueseID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Titulli")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VitiPublikimit")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
-                    b.ToTable("Qytetet");
+                    b.HasIndex("ShtepiaBotueseID");
+
+                    b.ToTable("Librat");
                 });
 
-            modelBuilder.Entity("labback.Models.Klient", b =>
+            modelBuilder.Entity("labback.Models.ShtepiaBotuese", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("ShtepiaBotueseID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShtepiaBotueseID"));
 
                     b.Property<string>("Adresa")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Emri")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Mbiemri")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("ShtepiaBotueseID");
 
-                    b.Property<int>("NrPersonal")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NrTel")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("QytetiID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Statusi")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("QytetiID");
-
-                    b.ToTable("Klients");
+                    b.ToTable("ShtepiteBotuese");
                 });
 
-            modelBuilder.Entity("labback.Models.Klient", b =>
+            modelBuilder.Entity("labback.Libri", b =>
                 {
-                    b.HasOne("Qyteti", "Qyteti")
+                    b.HasOne("labback.Models.ShtepiaBotuese", "ShtepiaBotuese")
                         .WithMany()
-                        .HasForeignKey("QytetiID")
+                        .HasForeignKey("ShtepiaBotueseID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Qyteti");
+                    b.Navigation("ShtepiaBotuese");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,8 +1,11 @@
-
-using labback.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using labback.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 
 
@@ -47,6 +50,15 @@ app.UseCors(builder =>
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "foto")),
+    RequestPath = "/foto"
+});
+
 
 app.MapControllers();
 
