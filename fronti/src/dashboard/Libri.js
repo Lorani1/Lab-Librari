@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { Buffer } from "buffer";
 import process from "process";
+import { Link } from "react-router-dom";
 
 window.Buffer = Buffer;
 window.process = process;
@@ -47,6 +48,9 @@ const Libri = () => {
   const [editSelectedShtepiaID, setEditSelectedShtepiaID] = useState("");
   const [editSelectedFile, setEditSelectedFile] = useState(null);
 
+  const [filteredLibriList, setFilteredLibriList] = useState([]);
+  const [titulliFilter, setTitulliFilter] = useState("");
+
   const [data, setData] = useState([]);
 
   const handleClose = () => setShow(false);
@@ -63,17 +67,28 @@ const Libri = () => {
 
   const getData = () => {
     axios
-      .get(`https://localhost:7249/api/Libri`)
-      .then((result) => setData(result.data))
+      .get(`https://localhost:7101/api/Libri`)
+      .then((result) => {
+        setData(result.data);
+        setFilteredLibriList(result.data);
+
+        // Assuming the API response includes a field called 'photoPath' for each book
+        // Set the photo path in component state
+        result.data.forEach((book) => {
+          if (book.photoPath) {
+            // Update the book's profile picture URL in state to show preview
+            setProfilePictureUrl(book.photoPath);
+          }
+        });
+      })
       .catch((error) => {
-        console.error("Error fetching book data:", error);
-        toast.error("Failed to fetch book data.");
+        console.log(error);
       });
   };
 
   const getShtepiaList = () => {
     axios
-      .get(`https://localhost:7249/api/ShtepiaBotuese`)
+      .get(`https://localhost:7101/api/ShtepiaBotuese`)
       .then((result) => setShtepiaList(result.data))
       .catch((error) => {
         console.error("Error fetching publisher data:", error);
@@ -84,7 +99,7 @@ const Libri = () => {
   const handleEdit = (id) => {
     handleShow();
     axios
-      .get(`https://localhost:7249/api/Libri/${id}`)
+      .get(`https://localhost:7101/api/Libri/${id}`)
       .then((result) => {
         const bookData = result.data;
         setEditId(bookData.id);
@@ -106,8 +121,27 @@ const Libri = () => {
       });
   };
 
+  const handleEditFileUpload = (e) => {
+    const file = e.target.files[0];
+
+    try {
+      if (!file) {
+        throw new Error("No file selected");
+      }
+
+      setEditSelectedFile(file);
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        setEditProfilePictureUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error("Error handling file upload:", error);
+    }
+  };
   const handleUpdate = () => {
-    const url = `https://localhost:7249/api/Libri/${editId}`;
+    const url = `https://localhost:7101/api/Libri/${editId}`;
     const formData = new FormData();
 
     formData.append("isbn", editIsbn);
@@ -133,14 +167,11 @@ const Libri = () => {
       })
     );
 
-    if (editSelectedFile) {
+    if (editSelectedFile && editSelectedFile instanceof File) {
       formData.append("profilePicture", editSelectedFile);
     }
 
-    // Log formData contents
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ": " + pair[1]);
-    }
+    formData.append("profilePicturePath", editProfilePictureUrl || ""); // Add the existing profile picture path if needed
 
     axios
       .put(url, formData)
@@ -156,25 +187,17 @@ const Libri = () => {
         }
       })
       .catch((error) => {
-        console.error("Error updating book:", error);
+        if (error.response && error.response.status === 400) {
+          console.error("Bad request error:", error.response.data);
+        } else {
+          console.error("Error updating book:", error);
+        }
         toast.error("Failed to update book.");
       });
   };
 
-  const handleEditFileUpload = (e) => {
-    const file = e.target.files[0];
-    setEditSelectedFile(file);
-
-    // Update profile picture URL in state to show preview
-    const reader = new FileReader();
-    reader.onload = () => {
-      setEditProfilePictureUrl(reader.result);
-    };
-    reader.readAsDataURL(file);
-  };
-
   const handleSave = () => {
-    const url = "https://localhost:7249/api/Libri";
+    const url = "https://localhost:7101/api/Libri";
 
     const formData = new FormData();
     formData.append("isbn", isbn);
@@ -217,17 +240,14 @@ const Libri = () => {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this book?")) {
       axios
-        .delete(`https://localhost:7249/api/Libri/${id}`)
+        .delete(`https://localhost:7101/api/Libri/${id}`)
         .then((response) => {
           console.log("Delete response:", response);
           if (response.status === 204) {
             toast.success("Book has been deleted");
-            getData();
-          } else {
-            toast.error(
-              "Failed to delete book. Server responded with status: " +
-                response.status
-            );
+            const updatedList = data.filter((item) => item.id !== id);
+            setData(updatedList);
+            setFilteredLibriList(updatedList);
           }
         })
         .catch((error) => {
@@ -266,6 +286,37 @@ const Libri = () => {
       setEditInStock(0);
     }
   };
+
+  const handleFilterChange = (e) => {
+    const value = e.target.value;
+    setTitulliFilter(value);
+    filterFn(data, value);
+  };
+
+  const filterFn = (data, filterValue) => {
+    if (filterValue.trim() === "") {
+      setFilteredLibriList(data);
+    } else {
+      const filteredData = data.filter((el) => {
+        return (el.titulli?.toString() ?? "")
+          .toLowerCase()
+          .includes(filterValue.toLowerCase().trim());
+      });
+      setFilteredLibriList(filteredData);
+    }
+  };
+  const sortResult = (prop, asc) => {
+    const sortedData = [...filteredLibriList].sort((a, b) => {
+      if (asc) {
+        return a[prop] > b[prop] ? 1 : a[prop] < b[prop] ? -1 : 0;
+      } else {
+        return b[prop] > a[prop] ? 1 : b[prop] < a[prop] ? -1 : 0;
+      }
+    });
+
+    setFilteredLibriList(sortedData);
+  };
+
   return (
     <Fragment>
       <ToastContainer />
@@ -274,6 +325,54 @@ const Libri = () => {
         <Button variant="primary" onClick={handleOpenAddModal}>
           Add New Book
         </Button>
+        <Button
+          variant="secondary"
+          as={Link}
+          to="/shtepiabotuese"
+          className="ml-3"
+        >
+          Go to Shtepia Botuese
+        </Button>
+        <div className="ml-auto d-flex">
+          <input
+            className="form-control m-2"
+            value={titulliFilter}
+            onChange={handleFilterChange}
+            placeholder="Filter by Titulli"
+          />
+          <button
+            type="button"
+            className="btn btn-light"
+            onClick={() => sortResult("title", true)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className="bi bi-arrow-down-square-fill"
+              viewBox="0 0 16 16"
+            >
+              <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5a.5.5 0 0 1 1 0z" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            className="btn btn-light"
+            onClick={() => sortResult("title", false)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className="bi bi-arrow-up-square-fill"
+              viewBox="0 0 16 16"
+            >
+              <path d="M2 16a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2zm6.5-4.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 1 0z" />
+            </svg>
+          </button>
+        </div>
         <Table striped bordered hover className="mt-4">
           <thead>
             <tr>
@@ -291,15 +390,15 @@ const Libri = () => {
             </tr>
           </thead>
           <tbody>
-            {data.length === 0 ? (
+            {filteredLibriList.length === 0 ? (
               <tr>
                 <td colSpan="12" className="text-center">
-                  Loading...
+                  No Data Found
                 </td>
               </tr>
             ) : (
-              data.map((item, index) => (
-                <tr key={index}>
+              filteredLibriList.map((item, key) => (
+                <tr key={key}>
                   <td>{item.isbn}</td>
                   <td>{item.titulli}</td>
                   <td>{item.kategoria}</td>
@@ -314,13 +413,21 @@ const Libri = () => {
                     {item.profilePicturePath ? (
                       <img
                         src={item.profilePictureUrl}
-                        alt="Profile"
-                        style={{ width: "50px", height: "50px" }}
+                        alt="Book Cover"
+                        style={{ width: "100px", height: "100px" }}
                       />
                     ) : (
                       "No Image"
                     )}
                   </td>
+                  {/* <Product
+                    key={item.id}
+                    item={item}
+                    onAddToCart={handleAddToCart} // Pass the function to the Product component
+                  /> */}
+                  {/* <div>
+                    <Product books={books} />
+                  </div> */}
                   <td>
                     <Button
                       className="mr-2"

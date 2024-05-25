@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OnU4M0iuTs1DczF5WvhaVL3ptnIvkqszgc/77Xu0qaQ=",
+  "Hash": "uiDy+wiOAQdQ0HL84rqtReKjSiZgh2mcUNBFf563D/c=",
   "Source": "labback",
   "BasePath": "_content/labback",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "labback\\wwwroot",
       "Source": "labback",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\0028e1b3-6483-4669-bfbc-7934a8555cee_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\0028e1b3-6483-4669-bfbc-7934a8555cee_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/0028e1b3-6483-4669-bfbc-7934a8555cee_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\0028e1b3-6483-4669-bfbc-7934a8555cee_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\01984dce-ab8d-4e14-8879-04f97f742ad5_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\01984dce-ab8d-4e14-8879-04f97f742ad5_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/01984dce-ab8d-4e14-8879-04f97f742ad5_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "AssetKind": "All",
@@ -112,10 +112,29 @@
       "OriginalItemSpec": "wwwroot\\foto\\01984dce-ab8d-4e14-8879-04f97f742ad5_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\173295c8-1972-4457-91b9-d36b76a5a851_pg.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\05fc69c2-38d7-4e96-a71b-d744513b8e90_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
+      "BasePath": "_content/labback",
+      "RelativePath": "foto/05fc69c2-38d7-4e96-a71b-d744513b8e90_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\foto\\05fc69c2-38d7-4e96-a71b-d744513b8e90_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\173295c8-1972-4457-91b9-d36b76a5a851_pg.png",
+      "SourceId": "labback",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/173295c8-1972-4457-91b9-d36b76a5a851_pg.png",
       "AssetKind": "All",
@@ -131,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\173295c8-1972-4457-91b9-d36b76a5a851_pg.png"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "AssetKind": "All",
@@ -150,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\30446753-f2a0-40b5-bb88-2d231a66b9e4_PNG_transparency_demonstration_1.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\30446753-f2a0-40b5-bb88-2d231a66b9e4_PNG_transparency_demonstration_1.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/30446753-f2a0-40b5-bb88-2d231a66b9e4_PNG_transparency_demonstration_1.png",
       "AssetKind": "All",
@@ -169,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\30446753-f2a0-40b5-bb88-2d231a66b9e4_PNG_transparency_demonstration_1.png"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\3da73aeb-7813-491f-8018-b558b4788408_pg.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\3da73aeb-7813-491f-8018-b558b4788408_pg.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/3da73aeb-7813-491f-8018-b558b4788408_pg.png",
       "AssetKind": "All",
@@ -188,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\3da73aeb-7813-491f-8018-b558b4788408_pg.png"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "AssetKind": "All",
@@ -207,10 +226,29 @@
       "OriginalItemSpec": "wwwroot\\foto\\5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\69186936-46a9-469a-b176-77aca3959a1c_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\54207b1d-35aa-4c46-b927-1ee5664dd770_cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
+      "BasePath": "_content/labback",
+      "RelativePath": "foto/54207b1d-35aa-4c46-b927-1ee5664dd770_cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\foto\\54207b1d-35aa-4c46-b927-1ee5664dd770_cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\69186936-46a9-469a-b176-77aca3959a1c_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "SourceId": "labback",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/69186936-46a9-469a-b176-77aca3959a1c_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "AssetKind": "All",
@@ -226,10 +264,29 @@
       "OriginalItemSpec": "wwwroot\\foto\\69186936-46a9-469a-b176-77aca3959a1c_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\8f9d095a-c91e-40f5-850c-07b9fac9797d_1412223899.jpg",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\726a69e9-9920-4096-b913-e91128d32d7b_0028e1b3-6483-4669-bfbc-7934a8555cee_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
+      "BasePath": "_content/labback",
+      "RelativePath": "foto/726a69e9-9920-4096-b913-e91128d32d7b_0028e1b3-6483-4669-bfbc-7934a8555cee_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\foto\\726a69e9-9920-4096-b913-e91128d32d7b_0028e1b3-6483-4669-bfbc-7934a8555cee_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\8f9d095a-c91e-40f5-850c-07b9fac9797d_1412223899.jpg",
+      "SourceId": "labback",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/8f9d095a-c91e-40f5-850c-07b9fac9797d_1412223899.jpg",
       "AssetKind": "All",
@@ -245,10 +302,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\8f9d095a-c91e-40f5-850c-07b9fac9797d_1412223899.jpg"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\98105366-4168-4547-ac52-5fb9780e722a_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\98105366-4168-4547-ac52-5fb9780e722a_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/98105366-4168-4547-ac52-5fb9780e722a_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "AssetKind": "All",
@@ -264,10 +321,29 @@
       "OriginalItemSpec": "wwwroot\\foto\\98105366-4168-4547-ac52-5fb9780e722a_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\ae71936c-b3e9-46c0-aefa-7f669ec5e440_pg.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\a842d214-e72b-46e2-b126-42ff86cdc2a9_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
+      "BasePath": "_content/labback",
+      "RelativePath": "foto/a842d214-e72b-46e2-b126-42ff86cdc2a9_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\foto\\a842d214-e72b-46e2-b126-42ff86cdc2a9_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\ae71936c-b3e9-46c0-aefa-7f669ec5e440_pg.png",
+      "SourceId": "labback",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/ae71936c-b3e9-46c0-aefa-7f669ec5e440_pg.png",
       "AssetKind": "All",
@@ -283,10 +359,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\ae71936c-b3e9-46c0-aefa-7f669ec5e440_pg.png"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\bo.jpg",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\bo.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/bo.jpg",
       "AssetKind": "All",
@@ -302,10 +378,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\bo.jpg"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\book1.webp",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\book1.webp",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/book1.webp",
       "AssetKind": "All",
@@ -321,10 +397,29 @@
       "OriginalItemSpec": "wwwroot\\foto\\book1.webp"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\e9343187-1fe4-4729-b436-72b211d1d03d_pngtree-pink-watercolor-brushes-171474-png-image_1733978.jpg",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
+      "BasePath": "_content/labback",
+      "RelativePath": "foto/cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\foto\\cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\e9343187-1fe4-4729-b436-72b211d1d03d_pngtree-pink-watercolor-brushes-171474-png-image_1733978.jpg",
+      "SourceId": "labback",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/e9343187-1fe4-4729-b436-72b211d1d03d_pngtree-pink-watercolor-brushes-171474-png-image_1733978.jpg",
       "AssetKind": "All",
@@ -340,10 +435,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\e9343187-1fe4-4729-b436-72b211d1d03d_pngtree-pink-watercolor-brushes-171474-png-image_1733978.jpg"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\PNG_transparency_demonstration_1.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\PNG_transparency_demonstration_1.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/PNG_transparency_demonstration_1.png",
       "AssetKind": "All",
@@ -359,10 +454,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\PNG_transparency_demonstration_1.png"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\pngtree-pink-watercolor-brushes-171474-png-image_1733978.jpg",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\foto\\pngtree-pink-watercolor-brushes-171474-png-image_1733978.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/pngtree-pink-watercolor-brushes-171474-png-image_1733978.jpg",
       "AssetKind": "All",
@@ -378,10 +473,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\pngtree-pink-watercolor-brushes-171474-png-image_1733978.jpg"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\uploads\\acb45123-c298-4f37-8a72-6e3261800c73_pg.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\uploads\\acb45123-c298-4f37-8a72-6e3261800c73_pg.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "uploads/acb45123-c298-4f37-8a72-6e3261800c73_pg.png",
       "AssetKind": "All",
@@ -397,10 +492,10 @@
       "OriginalItemSpec": "wwwroot\\uploads\\acb45123-c298-4f37-8a72-6e3261800c73_pg.png"
     },
     {
-      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\uploads\\ffda342d-a0df-425d-b278-dd5d19839762_png-transparent-pizza-food-small-piece-of-pizza-pizza-logo-cartoon-one-piece.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\uploads\\ffda342d-a0df-425d-b278-dd5d19839762_png-transparent-pizza-food-small-piece-of-pizza-pizza-logo-cartoon-one-piece.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "uploads/ffda342d-a0df-425d-b278-dd5d19839762_png-transparent-pizza-food-small-piece-of-pizza-pizza-logo-cartoon-one-piece.png",
       "AssetKind": "All",

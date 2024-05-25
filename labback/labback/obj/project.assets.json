@@ -5287,11 +5287,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\labback.csproj",
+      "projectUniqueName": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\labback.csproj",
       "projectName": "labback",
-      "projectPath": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\labback.csproj",
+      "projectPath": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\labback.csproj",
       "packagesPath": "C:\\Users\\HP-650 G1\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\obj\\",
+      "outputPath": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HP-650 G1\\AppData\\Roaming\\NuGet\\NuGet.Config",

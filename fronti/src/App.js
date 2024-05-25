@@ -8,9 +8,12 @@ import Klienti from "./dashboard/Klienti";
 import Libri from "./dashboard/Libri";
 import Autori from "./dashboard/Autori";
 import Staf from "./dashboard/Staf";
-
-
-
+import Manga from "./components/Manga/Manga";
+import Biography from "./components/Bio/Biography";
+import Fiction from "./components/Fiction/Fiction";
+import Crime from "./components/Crime/Crime";
+import Anime from "./components/Anime/Anime";
+import ShtepiaBotuese from "./dashboard/ShtepiaBotuese";
 function App() {
   return (
     <Router>
@@ -24,6 +27,12 @@ function App() {
         <Route path="/libri" component={Libri} />
         <Route path="/autori" component={Autori} />
         <Route path="/staf" component={Staf} />
+        <Route path="/manga" component={Manga} />
+        <Route path="/biography" component={Biography} />
+        <Route path="/fiction" component={Fiction} />
+        <Route path="/crime" component={Crime} />
+        <Route path="/anime" component={Anime} />
+        <Route path="/shtepiabotuese" component={ShtepiaBotuese} />
       </Switch>
     </Router>
   );

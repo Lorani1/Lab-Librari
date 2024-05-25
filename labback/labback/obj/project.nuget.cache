@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RS9fuL7GDlPrJb53nZ/aDPqz3e/A4PEdgu5T22xvd7bUtgm2ElgUT8um5GNkAglofKFKz5CSgl63fJkJPaLjpg==",
+  "dgSpecHash": "Jcld+2mPgsrXJvNWf4tEAoyWqJiPqXpHYuzO5d1s5MsqD5MvJ18MFDD6VBisK101QCIlwzb8YymaP+XVbu3xgw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\L\\Lab-Librari\\labback\\labback\\labback.csproj",
+  "projectFilePath": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\labback.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP-650 G1\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\HP-650 G1\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

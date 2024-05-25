@@ -106,8 +106,6 @@ namespace labback.Controllers
 
             return BadRequest(ModelState);
         }
-
-
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLibri(int id, [FromForm] LibriDTO model, IFormFile profilePicture)
         {
@@ -165,15 +163,14 @@ namespace labback.Controllers
 
                     return NoContent();
                 }
+
+                return BadRequest(ModelState);
             }
             catch (Exception ex)
             {
-                // Log the exception
                 _logger.LogError(ex, "An error occurred while updating the book record.");
                 return StatusCode(500, "Internal server error");
             }
-
-            return BadRequest(ModelState);
         }
 
 
@@ -200,6 +197,20 @@ namespace labback.Controllers
             await _libriContext.SaveChangesAsync();
 
             return NoContent();
+        }
+        [HttpGet("count")]
+        public IActionResult GetBookCount()
+        {
+            try
+            {
+                var bookCount = _libriContext.Librat.Count();
+                return Ok(new { count = bookCount });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }

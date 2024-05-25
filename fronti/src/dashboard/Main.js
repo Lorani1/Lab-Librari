@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react"; // Import useState and useEffect
 import { Link } from "react-router-dom";
 
 import {
@@ -66,6 +66,26 @@ function Main() {
       amt: 2100,
     },
   ];
+  const [bookCount, setBookCount] = useState(0); // Initialize book count state
+
+  useEffect(() => {
+    // Fetch the count of books
+    const fetchBookCount = async () => {
+      try {
+        const response = await fetch("https://localhost:7101/api/Libri/count");
+        if (response.ok) {
+          const data = await response.json();
+          setBookCount(data.count); // Update book count state with the fetched count
+        } else {
+          throw new Error("Failed to fetch book count");
+        }
+      } catch (error) {
+        console.error("Error fetching book count:", error);
+      }
+    };
+
+    fetchBookCount(); // Call the function to fetch book count
+  }, []);
 
   return (
     <main className="main-container">
@@ -75,12 +95,15 @@ function Main() {
 
       <div className="main-cards">
         <div className="card">
-          <div className="card-inner">
-            <h3>Librat</h3>
-            <BsFillArchiveFill className="card_icon" />
-          </div>
-          <h1>300</h1>
+          <Link to="/libri" className="card-link">
+            <div className="card-inner">
+              <h3>Books</h3>
+              <BsFillArchiveFill className="card_icon" />
+            </div>
+            <h1>{bookCount}</h1>
+          </Link>
         </div>
+
         <div className="card">
           <div className="card-inner">
             <h3>CATEGORIES</h3>

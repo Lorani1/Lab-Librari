@@ -1,28 +1,40 @@
 import React from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { AddShoppingCart } from "@material-ui/icons";
+import useStyles from "./styles";
 
-const Product = ({ product, onAddToCart }) => {
+const Product = ({ product }) => {
+  const classes = useStyles();
+
   return (
-    <Card style={{ maxWidth: "100%" }}>
-      <Link to={`product-view/${product.id}`}>
-        <Card.Img variant="top" src={product.media.source} alt={product.name} />
-      </Link>
-      <Card.Body>
-        <Card.Title className="text-center">{product.name}</Card.Title>
-        <Card.Text className="text-center">
-          <b>{product.price.formatted_with_symbol}</b>
-        </Card.Text>
-        <Button
-          variant="primary"
-          className="w-100"
-          onClick={() => onAddToCart(product.id, 1)}
-        >
-          <b>Huazo</b> <AddShoppingCart />
-        </Button>
-      </Card.Body>
-    </Card>
+    <div className="col">
+      <Card className={classes.card}>
+        <Link to={`product-view/${product.id}`}>
+          <div className={classes.imageContainer}>
+            <Card.Img
+              variant="top"
+              src={product.profilePictureUrl}
+              alt={product.titulli}
+              className={classes.image}
+            />
+          </div>
+        </Link>
+        <Card.Body>
+          <Card.Title className="text-center">{product.titulli}</Card.Title>
+          <Card.Text className="text-center">
+            Kategoria: {product.kategoria}
+            <br />
+            <span
+              className={`book-stock ${
+                product.inStock ? "text-success" : "text-danger"
+              }`}
+            >
+              {product.inStock ? "In Stock" : "Out of Stock"}
+            </span>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    </div>
   );
 };
 
