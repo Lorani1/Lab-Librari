@@ -161,6 +161,10 @@ namespace labback.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProfilePicturePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("QytetiID")
                         .HasColumnType("int");
 
@@ -172,7 +176,7 @@ namespace labback.Migrations
 
                     b.HasIndex("QytetiID");
 
-                    b.ToTable("Klient");
+                    b.ToTable("Klients");
                 });
 
             modelBuilder.Entity("labback.Models.ShtepiaBotuese", b =>

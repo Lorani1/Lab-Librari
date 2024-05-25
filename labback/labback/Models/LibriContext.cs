@@ -13,7 +13,7 @@ namespace labback.Models
         public DbSet<ShtepiaBotuese> ShtepiteBotuese { get; set; }
         public DbSet<Zhanri> zhanri { get; set; }
         public DbSet<Exchange> Exchanges { get; set; }
-        public DbSet<Klient> Klient { get; set; }
+        public DbSet<Klient> Klients { get; set; }
         public DbSet<Qyteti> Qytetet { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

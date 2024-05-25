@@ -44,7 +44,7 @@ namespace labback.Controllers
             try
             {
                 // Retrieve Klient by ID
-                var klient = await _context.Klient.FindAsync(exchangeDTO.KlientId);
+                var klient = await _context.Klients.FindAsync(exchangeDTO.KlientId);
 
                 if (klient == null)
                 {

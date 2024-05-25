@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useHistory, Link } from "react-router-dom";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useHistory, Link } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 import "bootstrap/dist/css/bootstrap.min.css";
 import pexelsImage from "./images/loginpic.jpg";
-import Home from "./Home";
-import Registration from "./Registration";
 
-function Login({ isAuthenticated }) {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const history = useHistory();
+  const { login } = useAuth();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -45,7 +45,11 @@ function Login({ isAuthenticated }) {
 
       if (response.status === 200) {
         const responseData = response.data;
-        if (responseData.id) {
+        if (responseData.token) {
+          localStorage.setItem('authToken', responseData.token);
+          console.log('Token set in localStorage:', localStorage.getItem('authToken')); // Debug statement
+
+          login(); // Update authentication state
           history.push("/home");
           setEmail("");
           setPassword("");
@@ -56,18 +60,12 @@ function Login({ isAuthenticated }) {
         setErrorMessage("An error occurred while logging in.");
       }
     } catch (error) {
-      console.error("API Error:", error);
+      console.error("API Error:", error.response ? error.response.data : error.message);
       setErrorMessage("An error occurred while logging in.");
     } finally {
       setIsSubmitting(false);
     }
   };
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      history.push("/home");
-    }
-  }, [isAuthenticated, history]);
 
   return (
     <div className="container-fluid">
@@ -158,6 +156,6 @@ function Login({ isAuthenticated }) {
       </style>
     </div>
   );
-}
+};
 
 export default Login;

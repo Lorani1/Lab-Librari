@@ -12,7 +12,7 @@ using labback.Models;
 namespace labback.Migrations
 {
     [DbContext(typeof(LibriContext))]
-    [Migration("20240525204243_addLibriMigration")]
+    [Migration("20240525203635_addLibriMigration")]
     partial class addLibriMigration
     {
         /// <inheritdoc />
@@ -164,6 +164,10 @@ namespace labback.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProfilePicturePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("QytetiID")
                         .HasColumnType("int");
 
@@ -175,7 +179,7 @@ namespace labback.Migrations
 
                     b.HasIndex("QytetiID");
 
-                    b.ToTable("Klient");
+                    b.ToTable("Klients");
                 });
 
             modelBuilder.Entity("labback.Models.ShtepiaBotuese", b =>

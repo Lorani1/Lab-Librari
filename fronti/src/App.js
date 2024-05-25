@@ -1,46 +1,54 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "./Login";
-import Registration from "./Registration";
-import Home from "./Home";
-import Dashboard from "./dashboard/Dashboard";
-import Klienti from "./dashboard/Klienti";
-import Libri from "./dashboard/Libri";
-import Autori from "./dashboard/Autori";
-import Staf from "./dashboard/Staf";
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { AuthProvider } from './AuthContext';
+import ProtectedRoute from './ProtectedRoute';
+import Login from './Login';
+import Registration from './Registration';
+import Home from './Home';
+import Dashboard from './dashboard/Dashboard';
+import Klienti from './dashboard/Klienti';
+import Libri from './dashboard/Libri';
+import Autori from './dashboard/Autori';
+import Staf from './dashboard/Staf';
+import Cart from './components/Cart/Cart';
+import CartItem from './components/Cart/CartItem/CartItem';
+import AddressForm from './components/CheckoutForm/AddressForm';
+import Qyteti from './dashboard/Qyteti';
+import Profile from './components/Navbar/Profile';
 import Manga from "./components/Manga/Manga";
 import Biography from "./components/Bio/Biography";
 import Fiction from "./components/Fiction/Fiction";
 import Crime from "./components/Crime/Crime";
 import Anime from "./components/Anime/Anime";
 import ShtepiaBotuese from "./dashboard/ShtepiaBotuese";
-import zhanri from "./dashboard/zhanri";
-import ExchangeForm from "./Exchange/ExchangeForm";
-import ExchangeList from "./Exchange/ExchangeList";
+
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Login} />
-        <Route path="/Registration" component={Registration} />
-        <Route path="/Login" component={Login} />
-        <Route path="/home" component={Home} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/klienti" component={Klienti} />
-        <Route path="/libri" component={Libri} />
-        <Route path="/autori" component={Autori} />
-        <Route path="/staf" component={Staf} />
-        <Route path="/manga" component={Manga} />
-        <Route path="/biography" component={Biography} />
-        <Route path="/fiction" component={Fiction} />
-        <Route path="/crime" component={Crime} />
-        <Route path="/anime" component={Anime} />
-        <Route path="/shtepiabotuese" component={ShtepiaBotuese} />
-        <Route path="/zhanri" component={zhanri} />
-        <Route path="/ExchangeForm" component={ExchangeForm} />
-        <Route path="/ExchangeList" component={ExchangeList} />
-      </Switch>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Switch>
+          <ProtectedRoute path="/home" component={Home} />
+          <ProtectedRoute path="/dashboard" component={Dashboard} />
+          <ProtectedRoute path="/klienti" component={Klienti} />
+          <ProtectedRoute path="/autori" component={Autori} />
+          <ProtectedRoute path="/staf" component={Staf} />
+          <ProtectedRoute path="/cart" component={Cart} />
+          <ProtectedRoute path="/addressform" component={AddressForm} />
+          <ProtectedRoute path="/cartitem" component={CartItem} />
+          <ProtectedRoute path="/profile" component={Profile} />
+          <ProtectedRoute path="/qyteti" component={Qyteti} />
+          <ProtectedRoute path="/libri" component={Libri} />
+          <ProtectedRoute path="/manga" component={Manga} />
+          <ProtectedRoute path="/biography" component={Biography} />
+          <ProtectedRoute path="/fiction" component={Fiction} />
+          <ProtectedRoute path="/crime" component={Crime} />
+          <ProtectedRoute path="/anime" component={Anime} />
+          <ProtectedRoute path="/shtepiabotuese" component={ShtepiaBotuese} />
+          <Route path="/registration" component={Registration} />
+          <Route path="/" component={Login} />
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 }
 

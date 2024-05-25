@@ -12,9 +12,9 @@ namespace labback.Controllers
     [ApiController]
     public class QytetiController : ControllerBase
     {
-        private readonly KlientContext _context;
+        private readonly LibriContext _context;
 
-        public QytetiController(KlientContext context)
+        public QytetiController(LibriContext context)
         {
             _context = context;
         }

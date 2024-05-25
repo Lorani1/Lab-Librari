@@ -53,7 +53,7 @@ namespace labback.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Klient",
+                name: "Klients",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -66,13 +66,14 @@ namespace labback.Migrations
                     Statusi = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NrTel = table.Column<int>(type: "int", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfilePicturePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     QytetiID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Klient", x => x.ID);
+                    table.PrimaryKey("PK_Klients", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Klient_Qytetet_QytetiID",
+                        name: "FK_Klients_Qytetet_QytetiID",
                         column: x => x.QytetiID,
                         principalTable: "Qytetet",
                         principalColumn: "ID",
@@ -130,9 +131,9 @@ namespace labback.Migrations
                 {
                     table.PrimaryKey("PK_Exchanges", x => x.ExchangeId);
                     table.ForeignKey(
-                        name: "FK_Exchanges_Klient_KlientId",
+                        name: "FK_Exchanges_Klients_KlientId",
                         column: x => x.KlientId,
-                        principalTable: "Klient",
+                        principalTable: "Klients",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -154,8 +155,8 @@ namespace labback.Migrations
                 column: "LibriId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Klient_QytetiID",
-                table: "Klient",
+                name: "IX_Klients_QytetiID",
+                table: "Klients",
                 column: "QytetiID");
 
             migrationBuilder.CreateIndex(
@@ -176,7 +177,7 @@ namespace labback.Migrations
                 name: "Exchanges");
 
             migrationBuilder.DropTable(
-                name: "Klient");
+                name: "Klients");
 
             migrationBuilder.DropTable(
                 name: "Librat");

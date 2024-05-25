@@ -12,7 +12,7 @@ import {
   BsBookFill,
 } from "react-icons/bs";
 
-function Sidebar({ openSidebarToggle, OpenSidebar, handleCustomersClick , handleLibriClick,handleAutoriClick, handleStafiClick}) {
+function Sidebar({ openSidebarToggle, OpenSidebar, handleCustomersClick , handleLibriClick,handleAutoriClick, handleStafiClick,handleQytetiClick}) {
   return (
     <aside
       id="sidebar"
@@ -67,6 +67,15 @@ function Sidebar({ openSidebarToggle, OpenSidebar, handleCustomersClick , handle
             onClick={handleStafiClick}
           >
             <BsBookFill className="icon" /> stafi
+          </Link>
+        </li>
+        <li className="sidebar-list-item">
+          <Link
+            to="/qyteti"
+            className="sidebar-link"
+            onClick={handleQytetiClick}
+          >
+            <BsBookFill className="icon" /> Qyteti
           </Link>
         </li>
         <li className="sidebar-list-item">

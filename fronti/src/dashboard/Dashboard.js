@@ -7,6 +7,7 @@ import Klienti from "./Klienti"; // Import Klienti component here
 import Libri from "./Libri";
 import Autori from "./Autori";
 import Staf from "./Staf";
+import Qyteti from "./Qyteti";
 
 
 
@@ -17,6 +18,7 @@ function Dashboard() {
   const [showLibri, setShowLibri] = useState(false); // State for Libri
   const [showAutori, setShowAutori] = useState(false); // State for Libri
   const [showStafi, setShowStafi] = useState(false); // State for Libri
+  const [showQyteti, setShowQyteti] = useState(false); // State for Libri
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle);
   };
@@ -42,6 +44,14 @@ function Dashboard() {
     setShowStafi(true);
     
   };
+  const handleQytetiClick = () => {
+    setShowLibri(false);
+    setShowKlienti(false); 
+    setShowAutori(false);
+    setShowStafi(false);
+    setShowQyteti(true);
+    
+  };
   return (
     <div className="grid-container">
       <Header OpenSidebar={OpenSidebar} />
@@ -52,6 +62,7 @@ function Dashboard() {
         handleLibriClick={handleLibriClick} // Pass the click handler for Libri to the sidebar
         handleAutoriClick={handleAutoriClick}
         handleStafiClick={handleStafiClick}
+        handleQytetiClick={handleQytetiClick}
       />
       <Main />
       {/* Render Klienti only when showKlienti is true */}
@@ -60,6 +71,7 @@ function Dashboard() {
       {showLibri && <Libri />}
       {showAutori && <Autori />}
       {showStafi && <Staf/>}
+      {showQyteti && <Qyteti/>}
     </div>
   );
 }
