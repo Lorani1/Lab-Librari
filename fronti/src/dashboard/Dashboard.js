@@ -8,8 +8,8 @@ import Libri from "./Libri";
 import Autori from "./Autori";
 import Staf from "./Staf";
 import Qyteti from "./Qyteti";
-
-
+import zhanri from "./zhanri";
+import ShtepiaBotuese from "./ShtepiaBotuese";
 
 
 function Dashboard() {
@@ -19,6 +19,8 @@ function Dashboard() {
   const [showAutori, setShowAutori] = useState(false); // State for Libri
   const [showStafi, setShowStafi] = useState(false); // State for Libri
   const [showQyteti, setShowQyteti] = useState(false); // State for Libri
+  const [showZhanri, setShowZhanri] = useState(false); // State for Libri
+  const [showShtepia, setShowShtepia] = useState(false); // State for Libri
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle);
   };
@@ -52,6 +54,25 @@ function Dashboard() {
     setShowQyteti(true);
     
   };
+  const handleZhanriClick = () => {
+    setShowLibri(false);
+    setShowKlienti(false); 
+    setShowAutori(false);
+    setShowStafi(false);
+    setShowQyteti(false);
+    setShowZhanri(true);
+    
+  };
+  const handleShtepiaClick = () => {
+    setShowLibri(false);
+    setShowKlienti(false); 
+    setShowAutori(false);
+    setShowStafi(false);
+    setShowQyteti(false);
+    setShowZhanri(false);
+    setShowShtepia(true);
+    
+  };
   return (
     <div className="grid-container">
       <Header OpenSidebar={OpenSidebar} />
@@ -63,6 +84,8 @@ function Dashboard() {
         handleAutoriClick={handleAutoriClick}
         handleStafiClick={handleStafiClick}
         handleQytetiClick={handleQytetiClick}
+        handleZhanriClick={handleZhanriClick}
+        handleShtepiaClick={handleShtepiaClick}
       />
       <Main />
       {/* Render Klienti only when showKlienti is true */}
@@ -72,6 +95,8 @@ function Dashboard() {
       {showAutori && <Autori />}
       {showStafi && <Staf/>}
       {showQyteti && <Qyteti/>}
+      {showZhanri && <zhanri/>}
+      {showShtepia && <Shtepia/>}
     </div>
   );
 }

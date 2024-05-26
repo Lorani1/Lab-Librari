@@ -240,6 +240,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\69186936-46a9-469a-b176-77aca3959a1c_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\6e0d0a74-b043-47e2-9dde-75e11d27dfee_cfc51967-e420-432b-8712-b52bc54b6808_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>labback</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/labback</BasePath>
+      <RelativePath>foto/6e0d0a74-b043-47e2-9dde-75e11d27dfee_cfc51967-e420-432b-8712-b52bc54b6808_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\6e0d0a74-b043-47e2-9dde-75e11d27dfee_cfc51967-e420-432b-8712-b52bc54b6808_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\749ce040-8eab-400f-bb9f-0a534574dee7_0d632908-98ac-45d8-a85c-195a5760b334_0b0b81a0-3f0c-4c9a-8559-e26b4c91396e_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png))">
       <SourceType>Package</SourceType>
       <SourceId>labback</SourceId>

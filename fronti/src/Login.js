@@ -47,9 +47,9 @@ const Login = () => {
         const responseData = response.data;
         if (responseData.token) {
           localStorage.setItem('authToken', responseData.token);
-          console.log('Token set in localStorage:', localStorage.getItem('authToken')); // Debug statement
+          console.log('Token set in localStorage:', localStorage.getItem('authToken')); 
 
-          login(); // Update authentication state
+          login(); 
           history.push("/home");
           setEmail("");
           setPassword("");

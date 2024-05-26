@@ -24,7 +24,7 @@ const Footer = () => {
               <strong>Products</strong>
             </h6>
             <p>
-              <a href="#">Book-IT</a>
+              <a href="#">BIBLIOTEKA</a>
             </p>
             
           </MDBCol>

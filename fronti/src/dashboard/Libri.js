@@ -870,6 +870,7 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
             {allAuthors.map(author => (
               <li key={author.autori_ID}>
                 {author.emri}
+                
                 {!selectedAuthors.some(a => a.autori_ID === selectedAuthors.autori_ID) && (
                   <Button
                     variant="success"

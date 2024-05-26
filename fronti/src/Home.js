@@ -89,8 +89,7 @@ const Home = () => {
       setCrimeProducts(data);
     } catch (error) {
       console.error("Error fetching crime products:", error);
-      // Handle the error appropriately, such as displaying a message to the user
-      // or retrying the request after a delay
+     
     }
   };
 
@@ -159,7 +158,7 @@ const Home = () => {
     fetchBioProducts();
     fetchCrimeProducts();
     fetchAnimeProducts();
-    fetchBooks(); // Fetch books data
+    fetchBooks(); 
   }, []);
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);

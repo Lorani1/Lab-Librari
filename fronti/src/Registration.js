@@ -8,8 +8,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./Login";
 
 function Registration() {
-  const [qytetiList, setQytetiList] = useState([]); // State for qyteti dropdown options
-  const [selectedQytetiID, setSelectedQytetiID] = useState(""); // State for selected qyteti ID
+  const [qytetiList, setQytetiList] = useState([]); 
+  const [selectedQytetiID, setSelectedQytetiID] = useState(""); 
 
   const [Emri, setEmri] = useState("");
   const [Mbiemri, setMbiemri] = useState("");
@@ -131,7 +131,7 @@ function Registration() {
     };
 
     getData();
-    getQytetiList(); // Fetch qyteti list on component mount
+    getQytetiList(); 
   }, []);
 
   return (

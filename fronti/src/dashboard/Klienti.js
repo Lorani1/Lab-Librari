@@ -152,20 +152,7 @@ const Klienti = () => {
     formData.append("statusi", editStatusi);
     formData.append("nrTel", editNrTel);
     formData.append("confirmPassword", editConfirmPassword);
-  
-    if (!editSelectedQytetiID) {
-      toast.error("Please select a city.");
-      return;
-    }
-  
-    const selectedCity = qytetiList.find(qyteti => qyteti.id === editSelectedQytetiID);
-    if (selectedCity) {
-      formData.append("qytetiID", selectedCity.id);
-      formData.append("qyteti", JSON.stringify(selectedCity));
-    } else {
-      toast.error("Invalid city selection.");
-      return;
-    }
+    formData.append("qytetiID", editSelectedQytetiID);
   
     if (editSelectedFile) {
       formData.append("profilePicturePath", editSelectedFile);  // Append the file with the correct key
@@ -736,18 +723,17 @@ const handleEditFileChange = (event) => {
                   <div className="form-group">
                     <label htmlFor="editQyteti">Qyteti</label>
                     <select
-                      className="form-control"
-                      id="editQyteti"
-                      value={selectedQyteti}
-                      onChange={(e) => setEditSelectedQyteti(e.target.value)}
-                    >
-                      <option value="">Select City</option>
-                      {qytetiList.map((qyteti) => (
-                        <option key={qyteti.qytetiID} value={qyteti.qytetiID}>
-                          {qyteti.emri}
-                        </option>
-                      ))}
-                    </select>
+                  className="form-control"
+                  value={editSelectedQytetiID}
+                  onChange={(e) => setEditSelectedQytetiID(e.target.value)}
+                >
+                  <option value="">Select Qyteti</option>
+                  {qytetiList.map((qyteti) => (
+                    <option key={qyteti.id} value={qyteti.id}>
+                      {qyteti.emri}
+                    </option>
+                  ))}
+                </select>
                   </div>
               
             <div className="form-group">

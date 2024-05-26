@@ -21,6 +21,8 @@ import Fiction from "./components/Fiction/Fiction";
 import Crime from "./components/Crime/Crime";
 import Anime from "./components/Anime/Anime";
 import ShtepiaBotuese from "./dashboard/ShtepiaBotuese";
+import zhanri from './dashboard/zhanri';
+
 
 function App() {
   return (
@@ -39,6 +41,7 @@ function App() {
           <ProtectedRoute path="/qyteti" component={Qyteti} />
           <ProtectedRoute path="/libri" component={Libri} />
           <ProtectedRoute path="/manga" component={Manga} />
+          <ProtectedRoute path="/zhanri" component={zhanri} />
           <ProtectedRoute path="/biography" component={Biography} />
           <ProtectedRoute path="/fiction" component={Fiction} />
           <ProtectedRoute path="/crime" component={Crime} />

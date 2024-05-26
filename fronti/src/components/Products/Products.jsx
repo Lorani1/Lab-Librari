@@ -35,7 +35,7 @@ const Products = ({ onAddToCart }) => {
       });
 
     return () => {
-      isMounted = false; // Cleanup on unmount
+      isMounted = false;
     };
   }, []);
 
@@ -51,13 +51,13 @@ const Products = ({ onAddToCart }) => {
     if (searchTerm === "") {
       return true;
     } else if (product.titulli) {
-      // Use product.titulli instead of product.title
+
       const lowercaseTitulli = product.titulli.toLowerCase();
       const lowercaseSearchTerm = searchTerm.toLowerCase();
       const isMatch = lowercaseTitulli.includes(lowercaseSearchTerm);
       return isMatch;
     }
-    return false; // If product.titulli doesn't exist, filter it out
+    return false;
   });
 
   useEffect(() => {

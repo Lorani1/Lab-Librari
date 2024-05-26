@@ -4,6 +4,7 @@ import { Button, Modal, Table, Container, Row, Col } from 'react-bootstrap';
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from "react-router-dom";
 
 const Autori = () => {
   const [show, setShow] = useState(false);
@@ -36,7 +37,7 @@ const Autori = () => {
   }, []);
 
   const getData = () => {
-    axios.get(`https://localhost:7101/api/Autori/get`)
+    axios.get(`https://localhost:7101/api/Autori/getAll`)
       .then((result) => {
         const authors = result.data;
         const promises = authors.map(author => {
@@ -161,9 +162,19 @@ const Autori = () => {
       <ToastContainer />
       <Container fluid>
         <Row>
-          <Col className="d-flex justify-content-end">
-            <button className="btn btn-primary" onClick={handleShowAddModal}>+</button>
-          </Col>
+        <div className="d-flex justify-content-between mt-4 mb-4">
+    <Button variant="primary" onClick={handleShowAddModal}>
+      Shto Autor
+    </Button>
+    <Button
+      variant="secondary"
+      as={Link}
+      to="/libri"
+      className="ml-3"
+    >
+      Shko te Libri
+    </Button>
+  </div>
         </Row>
       </Container>
 
