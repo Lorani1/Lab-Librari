@@ -47,13 +47,19 @@ const Klienti = () => {
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [editSelectedFile, setEditSelectedFile] = useState(null);
   const [editProfilePictureUrl, setEditProfilePictureUrl] = useState("");
+  const[editSelectedQyteti,setEditSelectedQyteti]=useState("");
 
   const [filteredKlientList, setFilteredKlientList] = useState([]);
   const [emriFilter, setEmriFilter] = useState("");
 
   const [data, setData] = useState([]);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setEditProfilePictureUrl(''); // Reset profile picture URL when hiding modal
+    setEditSelectedFile(null); // Reset selected file
+    // Reset other states if necessary...
+  };
   const handleShow = () => setShow(true);
   
   const handleOpenAddModal = () => {
@@ -62,6 +68,8 @@ const Klienti = () => {
   };
   const handleCloseAddModal = () => setShowAddModal(false);
   const handleFileUpload = (e) => setSelectedFile(e.target.files[0]);
+  const [editProfilePicturePath, setEditProfilePicturePath] = useState("");
+
 
   useEffect(() => {
     getData();
@@ -93,6 +101,7 @@ const Klienti = () => {
 
   const handleEdit = (id) => {
     handleShow();
+    setEditProfilePictureUrl(''); 
     axios
       .get(`https://localhost:7101/api/Klient/${id}`)
       .then((result) => {
@@ -107,22 +116,34 @@ const Klienti = () => {
         setEditNrTel(clientData.nrTel);
         setEditSelectedQytetiID(clientData.qytetiID);
         setEditProfilePictureUrl(clientData.profilePictureUrl);
+        setEditProfilePicturePath(clientData.profilePicturePath);  // Add this line
+        
+        if (clientData.password) {
+          setEditPassword(clientData.password);
+          setEditConfirmPassword(clientData.password);
+        } else {
+          setEditPassword("");
+          setEditConfirmPassword("");
+        }
       })
       .catch((error) => {
         console.error("Error fetching client data:", error);
         toast.error("Failed to fetch client data.");
       });
   };
-
   const handleUpdate = () => {
     if (editPassword !== editConfirmPassword) {
       toast.error("Passwords do not match.");
       return;
     }
-
+  
+    console.log("editSelectedQytetiID:", editSelectedQytetiID);
+    console.log("qytetiList:", qytetiList);
+    console.log("editSelectedFile:", editSelectedFile);
+  
     const url = `https://localhost:7101/api/Klient/${editId}`;
     const formData = new FormData();
-
+  
     formData.append("emri", editEmri);
     formData.append("mbiemri", editMbiemri);
     formData.append("nrPersonal", editNrPersonal);
@@ -130,34 +151,36 @@ const Klienti = () => {
     formData.append("adresa", editAdresa);
     formData.append("statusi", editStatusi);
     formData.append("nrTel", editNrTel);
-    formData.append("qytetiID", editSelectedQytetiID);
-
-    const selectedQyteti = qytetiList.find(
-      (qyteti) => qyteti.qytetiID === editSelectedQytetiID
-    );
-    formData.append(
-      "qyteti",
-      JSON.stringify({
-        qytetiID: editSelectedQytetiID,
-        emri: selectedQyteti ? selectedQyteti.emri : "",
-      })
-    );
-
+    formData.append("confirmPassword", editConfirmPassword);
+  
+    if (!editSelectedQytetiID) {
+      toast.error("Please select a city.");
+      return;
+    }
+  
+    const selectedCity = qytetiList.find(qyteti => qyteti.id === editSelectedQytetiID);
+    if (selectedCity) {
+      formData.append("qytetiID", selectedCity.id);
+      formData.append("qyteti", JSON.stringify(selectedCity));
+    } else {
+      toast.error("Invalid city selection.");
+      return;
+    }
+  
+    if (editSelectedFile) {
+      formData.append("profilePicturePath", editSelectedFile);  // Append the file with the correct key
+    } else {
+      toast.error("Profile picture is required.");
+      return;
+    }
+  
     if (editPassword) {
       formData.append("password", editPassword);
     }
-    if (editSelectedFile) {
-      formData.append("profilePicture", editSelectedFile);
-    }
-    // Log formData contents
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ": " + pair[1]);
-    }
-
-
+  
     axios
       .put(url, formData)
-      .then((response) => {
+      .then(response => {
         if (response.status === 204) {
           handleClose();
           getData();
@@ -168,65 +191,101 @@ const Klienti = () => {
           toast.error("Failed to update client.");
         }
       })
-      .catch((error) => {
-        console.error("Error updating client:", error);
-        toast.error("Failed to update client.");
+      .catch(error => {
+        if (error.response && error.response.status === 400 && error.response.data.errors) {
+          const errors = error.response.data.errors;
+          Object.keys(errors).forEach(field => {
+            errors[field].forEach(message => {
+              toast.error(message);
+            });
+          });
+        } else {
+          console.error("Error updating client:", error);
+          toast.error("Failed to update client.");
+        }
       });
   };
   
   const handleEditFileUpload = (e) => {
     const file = e.target.files[0];
     setEditSelectedFile(file);
-
-    // Update profile picture URL in state to show preview
+  
     const reader = new FileReader();
     reader.onload = () => {
       setEditProfilePictureUrl(reader.result);
     };
     reader.readAsDataURL(file);
   };
-
-
+  
   const handleSave = () => {
     if (password !== confirmPassword) {
       toast.error("Passwords do not match.");
       return;
     }
-
+  
+    console.log("selectedQyteti:", selectedQyteti);
+    console.log("qytetiList:", qytetiList);
+    console.log("selectedFile:", selectedFile);
+  
     const url = "https://localhost:7101/api/Klient";
-
+  
     const formData = new FormData();
     formData.append("emri", emri);
     formData.append("mbiemri", mbiemri);
     formData.append("nrPersonal", nrPersonal);
     formData.append("email", email);
     formData.append("password", password);
+    formData.append("confirmPassword", confirmPassword);
     formData.append("adresa", adresa);
     formData.append("nrTel", nrTel);
     formData.append("statusi", statusi);
-    formData.append("qytetiID", selectedQyteti);
-    formData.append(
-      "qyteti",
-      JSON.stringify({
-        qytetiID: selectedQyteti,
-        emri:
-          qytetiList.find((qyteti) => qyteti.qytetiID === selectedQyteti)?.emri || "",
-      })
-    );
-    formData.append("profilePicture", selectedFile);
-
+  
+    if (!selectedQyteti) {
+      toast.error("Please select a city.");
+      return;
+    }
+  
+    const selectedCity = qytetiList.find(qyteti => qyteti.id === selectedQyteti);
+    if (selectedCity) {
+      formData.append("qytetiID", selectedCity.id);
+      formData.append("qyteti", JSON.stringify(selectedCity));
+    } else {
+      toast.error("Invalid city selection.");
+      return;
+    }
+  
+    if (selectedFile) {
+      formData.append("profilePicturePath", selectedFile);  // Append the file with the correct key
+    } else {
+      toast.error("Profile picture is required.");
+      return;
+    }
+  
     axios
       .post(url, formData)
-      .then((result) => {
+      .then(result => {
         getData();
         clear();
         toast.success("Client has been added");
+        handleCloseAddModal();
       })
-      .catch((error) => {
-        toast.error("Failed to add client. Please try again.");
+      .catch(error => {
+        if (error.response && error.response.status === 400 && error.response.data.errors) {
+          const errors = error.response.data.errors;
+          Object.keys(errors).forEach(field => {
+            errors[field].forEach(message => {
+              toast.error(message);
+            });
+          });
+        } else {
+          console.error("Failed to add client:", error.response || error.message);
+          toast.error("Failed to add client. Please try again.");
+        }
       });
   };
-
+  
+  
+  
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this client?")) {
       axios
@@ -254,7 +313,10 @@ const Klienti = () => {
     setConfirmPassword("");
     setAdresa("");
     setNrTel("");
+    setStatusi("");
+    setEditNrPersonal("");
     setSelectedQyteti("");
+    setEditProfilePictureUrl(''); 
   };
   
   const handleActiveChange = (e) => {
@@ -302,14 +364,32 @@ const Klienti = () => {
 
     setFilteredKlientList(sortedData);
   };
+// When selecting a city
+const handleCityChange = (event) => {
+  const selectedCityId = parseInt(event.target.value);
+  setSelectedQyteti(selectedCityId);
+};
 
+// When editing a city
+const handleEditCityChange = (event) => {
+  const selectedCityId = parseInt(event.target.value);
+  setEditSelectedQytetiID(selectedCityId);
+};
+const handleFileChange = (event) => {
+  setSelectedFile(event.target.files[0]);
+};
+
+// For the edit form
+const handleEditFileChange = (event) => {
+  setEditSelectedFile(event.target.files[0]);
+};
   return (
     <div className="container">
       <ToastContainer />
-      <h1>Klienti List</h1>
+      <h1>Klienti </h1>
   <div className="d-flex justify-content-between mt-4 mb-4">
     <Button variant="primary" onClick={handleOpenAddModal}>
-      Add Client
+      Shto Klient
     </Button>
     <Button
       variant="secondary"
@@ -317,7 +397,7 @@ const Klienti = () => {
       to="/qyteti"
       className="ml-3"
     >
-      Go to Qyteti
+      Shko te Qyteti
     </Button>
   </div>
         <div className="ml-auto d-flex">
@@ -373,7 +453,7 @@ const Klienti = () => {
             <th>Nr. Tel</th>
             <th>Password</th>
             <th>Qyteti</th>
-            <th>Profile Picture</th>
+            <th>Profili</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -520,21 +600,15 @@ const Klienti = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="qyteti">Qyteti</label>
-                    <select
-                  value={selectedQyteti}
-                  onChange={(e) => setSelectedQyteti(e.target.value)}
-                  className="form-control"
-                >
-                  <option value="">Select Publisher</option>
-                  {qytetiList.map((qyteti) => (
-                    <option
-                      key={qyteti.qytetiID}
-                      value={qyteti.qytetiID}
-                    >
-                      {qyteti.emri}
-                    </option>
-                  ))}
-                </select>
+                    <select onChange={handleCityChange}>
+  <option value="">Select a city</option>
+  {qytetiList.map((city) => (
+    <option key={city.id} value={city.id}>
+      {city.emri}
+    </option>
+  ))}
+</select>
+
                   </div>
                   <div className="form-group">
                   <label>Profile Picture</label>
@@ -560,7 +634,7 @@ const Klienti = () => {
       </Modal>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Client</Modal.Title>
+          <Modal.Title>Ndrysho Klientin</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Container>
@@ -675,22 +749,38 @@ const Klienti = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="form-group">
-                  <label>Images</label>
-                <input
-                  type="file"
-                  onChange={handleEditFileUpload}
-                  className="form-control"
-                />
-                {editProfilePictureUrl && (
-                  <img
-                    src={editProfilePictureUrl}
-                    alt="Profile"
-                    style={{ width: "50px", height: "50px", marginTop: "10px" }}
-                  />
-                )}
-                    
-                  </div>
+              
+            <div className="form-group">
+  <label htmlFor="editProfilePicturePath">Profile Picture Path</label>
+  <input
+    type="text"
+    className="form-control"
+    id="editProfilePicturePath"
+    value={editProfilePicturePath}
+    readOnly
+  />
+</div>
+<div className="form-group">
+  <label>Profile Picture</label>
+  {editProfilePictureUrl && (
+    <div>
+      <img 
+        src={editProfilePictureUrl} 
+        alt="Profile Picture" 
+        style={{ width: '100px', height: '100px', objectFit: 'cover', marginBottom: '10px' }} 
+      />
+    </div>
+  )}
+  <input
+    type="file"
+    onChange={handleEditFileUpload}
+    className="form-control"
+  />
+</div>
+
+
+
+
                 </form>
               </Col>
             </Row>

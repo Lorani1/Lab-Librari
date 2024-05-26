@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "PEmtrzCgOvJWPAfzIA5VnA6RiWedGww4+drBg8KApG0=",
+  "Hash": "vof94NRuNOe5scluTTPbKKf0ZBXDYBLNi6rqPQyOL3I=",
   "Source": "labback",
   "BasePath": "_content/labback",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\foto\\05fc69c2-38d7-4e96-a71b-d744513b8e90_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png"
+    },
+    {
+      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\1fb21392-f130-45c6-bc85-938167d0a243_Libri1.jpg",
+      "SourceId": "labback",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "BasePath": "_content/labback",
+      "RelativePath": "foto/1fb21392-f130-45c6-bc85-938167d0a243_Libri1.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\foto\\1fb21392-f130-45c6-bc85-938167d0a243_Libri1.jpg"
     },
     {
       "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\25df6108-2b3e-4086-9341-d531f46bbd95_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
@@ -359,6 +378,25 @@
       "OriginalItemSpec": "wwwroot\\foto\\91bb2743-8117-469f-9ad0-c27dcd62e622_24caf8f9-4940-4072-bbae-f33986ce9f11_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg"
     },
     {
+      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\968c2c4a-862f-4395-ab9a-921e6b486512_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png",
+      "SourceId": "labback",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "BasePath": "_content/labback",
+      "RelativePath": "foto/968c2c4a-862f-4395-ab9a-921e6b486512_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\foto\\968c2c4a-862f-4395-ab9a-921e6b486512_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png"
+    },
+    {
       "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\98105366-4168-4547-ac52-5fb9780e722a_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
@@ -490,6 +528,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\foto\\cfc51967-e420-432b-8712-b52bc54b6808_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png"
+    },
+    {
+      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\d92df317-5972-4995-9d87-69079f0f75ea_Libri2.jpg",
+      "SourceId": "labback",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "BasePath": "_content/labback",
+      "RelativePath": "foto/d92df317-5972-4995-9d87-69079f0f75ea_Libri2.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\foto\\d92df317-5972-4995-9d87-69079f0f75ea_Libri2.jpg"
     },
     {
       "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri1.jpg",

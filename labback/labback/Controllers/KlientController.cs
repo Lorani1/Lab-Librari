@@ -34,7 +34,7 @@ namespace labback.Controllers
         [HttpGet]
         public async Task<IActionResult> GetKlients()
         {
-            var klients = await _LibriContext.Klients.ToListAsync();
+            var klients = await _LibriContext.Klients.Include(k => k.Qyteti).ToListAsync();
             var baseUrl = $"{Request.Scheme}://{Request.Host}/foto/";
 
             foreach (var klient in klients)
@@ -48,7 +48,7 @@ namespace labback.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetKlient(int id)
         {
-            var klient = await _LibriContext.Klients.FindAsync(id);
+            var klient = await _LibriContext.Klients.Include(k => k.Qyteti).FirstOrDefaultAsync(k => k.ID == id);
             if (klient == null)
             {
                 return NotFound();
@@ -97,6 +97,11 @@ namespace labback.Controllers
 
                     _LibriContext.Klients.Add(klient);
                     await _LibriContext.SaveChangesAsync();
+
+                    // Include the Qyteti entity in the response
+                    klient = await _LibriContext.Klients.Include(k => k.Qyteti).FirstOrDefaultAsync(k => k.ID == klient.ID);
+                    klient.ProfilePictureUrl = $"{Request.Scheme}://{Request.Host}/foto/{klient.ProfilePicturePath}";
+
                     return CreatedAtAction(nameof(GetKlient), new { id = klient.ID }, klient);
                 }
                 else
@@ -108,6 +113,7 @@ namespace labback.Controllers
 
             return BadRequest(ModelState);
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutKlient(int id, [FromForm] RegistrationModel model)

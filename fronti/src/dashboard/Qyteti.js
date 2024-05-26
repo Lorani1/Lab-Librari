@@ -140,10 +140,10 @@ const Qyteti = () => {
     <Fragment>
       <ToastContainer />
       <Container className="py-5">
-      <h1>Qyteti List</h1>
+      <h1>Qyteti</h1>
   <div className="d-flex justify-content-between mt-4 mb-4">
     <Button variant="primary" onClick={() => setShowAddModal(true)}>
-      Add Client
+      Shto Qytet
     </Button>
     <Button
       variant="secondary"
@@ -151,7 +151,7 @@ const Qyteti = () => {
       to="/klienti"
       className="ml-3"
     >
-      Go to Klienti
+      Shko te Klienti
     </Button>
         </div>
         <div className="ml-auto d-flex">

@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Migrations\\20240525203635_addLibriMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:labback\\Migrations\\20240525203635_addLibriMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\migrations\\20240525203635_addlibrimigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|solutionrelative:labback\\migrations\\20240525203635_addlibrimigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -110,7 +110,7 @@
               "RelativeDocumentMoniker": "labback\\Migrations\\20240525203635_addLibriMigration.cs",
               "ToolTip": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Migrations\\20240525203635_addLibriMigration.cs",
               "RelativeToolTip": "labback\\Migrations\\20240525203635_addLibriMigration.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-25T20:36:35.49Z",
               "EditorCaption": ""
@@ -125,8 +125,7 @@
               "RelativeToolTip": "labback\\Program.cs",
               "ViewState": "AQIAABsAAAAAAAAAAAAAABcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T19:50:37.097Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T19:50:37.097Z"
             },
             {
               "$type": "Document",
@@ -138,8 +137,7 @@
               "RelativeToolTip": "labback\\Models\\LibriDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAuwAsAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T09:18:29.376Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T09:18:29.376Z"
             },
             {
               "$type": "Document",
@@ -151,8 +149,7 @@
               "RelativeToolTip": "labback\\Models\\LibriContext.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAA8AAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T19:27:27.033Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T19:27:27.033Z"
             },
             {
               "$type": "Document",
@@ -164,8 +161,7 @@
               "RelativeToolTip": "labback\\Controllers\\ZhanriController.cs",
               "ViewState": "AQIAAEIAAAAAAAAAAAAowFMAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T19:28:33.377Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T19:28:33.377Z"
             },
             {
               "$type": "Document",
@@ -177,8 +173,7 @@
               "RelativeToolTip": "labback\\Models\\Klient.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAA3wA4AAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T20:09:03.969Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T20:09:03.969Z"
             },
             {
               "$type": "Document",
@@ -190,8 +185,7 @@
               "RelativeToolTip": "labback\\Controllers\\KlientController.cs",
               "ViewState": "AQIAALkAAAAAAAAAAAAswAkAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T20:34:34.196Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T20:34:34.196Z"
             },
             {
               "$type": "Document",
@@ -203,8 +197,7 @@
               "RelativeToolTip": "labback\\Controllers\\ExchangeController.cs",
               "ViewState": "AQIAABUAAAAAAAAAAAAkwCAAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T20:16:04.08Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T20:16:04.08Z"
             },
             {
               "$type": "Document",
@@ -216,8 +209,7 @@
               "RelativeToolTip": "labback\\appsettings.json",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAAAsAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-05-25T19:31:11.369Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T19:31:11.369Z"
             },
             {
               "$type": "Document",
@@ -229,8 +221,7 @@
               "RelativeToolTip": "labback\\Models\\RegistrationModel.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T20:34:50.466Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T20:34:50.466Z"
             },
             {
               "$type": "Document",
@@ -242,8 +233,7 @@
               "RelativeToolTip": "labback\\Migrations\\20240525201410_Klienti.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T20:14:10.618Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T20:14:10.618Z"
             },
             {
               "$type": "Document",
@@ -255,8 +245,7 @@
               "RelativeToolTip": "labback\\Controllers\\QytetiController.cs",
               "ViewState": "AQIAAEUAAAAAAAAAAAAowAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T20:34:33.034Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T20:34:33.034Z"
             },
             {
               "$type": "Document",
@@ -268,8 +257,7 @@
               "RelativeToolTip": "labback\\Migrations\\Klient\\20240525201201_Klienti.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T20:12:01.541Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T20:12:01.541Z"
             },
             {
               "$type": "Document",
@@ -281,8 +269,7 @@
               "RelativeToolTip": "labback\\Migrations\\20240525202332_addLibriMigration.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T20:23:32.466Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T20:23:32.466Z"
             },
             {
               "$type": "Document",
@@ -294,8 +281,7 @@
               "RelativeToolTip": "labback\\Models\\Exchange.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAABMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T20:10:25.707Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T20:10:25.707Z"
             },
             {
               "$type": "Document",
@@ -307,8 +293,7 @@
               "RelativeToolTip": "labback\\Models\\ExchangeDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T20:14:28.237Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T20:14:28.237Z"
             },
             {
               "$type": "Document",
@@ -320,8 +305,7 @@
               "RelativeToolTip": "labback\\Models\\Libri.cs",
               "ViewState": "AQIAAAsAAAAAAAAAAAA2wCAAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T19:24:47.198Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T19:24:47.198Z"
             },
             {
               "$type": "Document",
@@ -333,8 +317,7 @@
               "RelativeToolTip": "labback\\Models\\Qyteti.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T20:38:40.047Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T20:38:40.047Z"
             },
             {
               "$type": "Document",
@@ -346,8 +329,7 @@
               "RelativeToolTip": "labback\\Controllers\\LibriController.cs",
               "ViewState": "AQIAAKwAAAAAAAAAAAAswL4AAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-23T21:06:18.882Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-23T21:06:18.882Z"
             },
             {
               "$type": "Document",
@@ -377,8 +359,7 @@
               "RelativeToolTip": "labback\\Models\\Zhanri.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T19:25:43.83Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-25T19:25:43.83Z"
             }
           ]
         }
