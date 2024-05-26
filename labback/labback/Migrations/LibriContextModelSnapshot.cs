@@ -94,6 +94,58 @@ namespace labback.Migrations
                     b.ToTable("Librat");
                 });
 
+            modelBuilder.Entity("labback.Models.Autori", b =>
+                {
+                    b.Property<int>("Autori_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Autori_ID"));
+
+                    b.Property<string>("Data_E_Lindjes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Emri")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mbiemri")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nacionaliteti")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("gjinia")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nofka")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Autori_ID");
+
+                    b.ToTable("Autori");
+                });
+
+            modelBuilder.Entity("labback.Models.AutoriLibri", b =>
+                {
+                    b.Property<int>("Autori_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Autori_ID", "ID");
+
+                    b.HasIndex("ID");
+
+                    b.ToTable("AutoriLibris");
+                });
+
             modelBuilder.Entity("labback.Models.Exchange", b =>
                 {
                     b.Property<int>("ExchangeId")
@@ -240,6 +292,25 @@ namespace labback.Migrations
                     b.Navigation("zhanri");
                 });
 
+            modelBuilder.Entity("labback.Models.AutoriLibri", b =>
+                {
+                    b.HasOne("labback.Models.Autori", "Autoret")
+                        .WithMany("AutoriLibris")
+                        .HasForeignKey("Autori_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("labback.Libri", "Librat")
+                        .WithMany("AutoriLibris")
+                        .HasForeignKey("ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Autoret");
+
+                    b.Navigation("Librat");
+                });
+
             modelBuilder.Entity("labback.Models.Exchange", b =>
                 {
                     b.HasOne("labback.Models.Klient", "Klient")
@@ -268,6 +339,16 @@ namespace labback.Migrations
                         .IsRequired();
 
                     b.Navigation("Qyteti");
+                });
+
+            modelBuilder.Entity("labback.Libri", b =>
+                {
+                    b.Navigation("AutoriLibris");
+                });
+
+            modelBuilder.Entity("labback.Models.Autori", b =>
+                {
+                    b.Navigation("AutoriLibris");
                 });
 #pragma warning restore 612, 618
         }

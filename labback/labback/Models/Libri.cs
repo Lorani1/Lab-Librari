@@ -28,6 +28,7 @@ public class Libri
         public int zhanriId { get; set; } // Foreign key
         public Zhanri zhanri { get; set; } // Navigation property
 
+        public IList<AutoriLibri> AutoriLibris { get; set; }
     }
 
 }

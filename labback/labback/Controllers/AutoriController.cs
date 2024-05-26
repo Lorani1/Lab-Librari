@@ -13,30 +13,30 @@ namespace labback.Models
     public class AutoriController : ControllerBase
     {
 
-        public readonly AutoriContext _autoriContext;
-        public AutoriController(AutoriContext autoriContext) {
+        public readonly LibriContext _LibriContext;
+        public AutoriController(LibriContext LibriContext) {
 
-            _autoriContext = autoriContext;
+            _LibriContext = LibriContext;
         }
         //Read
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Autori>>> getAutoret()
         {
-            if (_autoriContext.Autori == null) {
+            if (_LibriContext.Autori == null) {
                 return NotFound("Autoret nuk ekzitojn!");
             }
 
-            return await _autoriContext.Autori.ToListAsync();
+            return await _LibriContext.Autori.ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Autori>> getAutoret(int id)
         {
-            if (_autoriContext.Autori == null)
+            if (_LibriContext.Autori == null)
             {
                 return NotFound("Autoret nuk ekzitojn!");
             }
-            var autori = await _autoriContext.Autori.FindAsync(id);
+            var autori = await _LibriContext.Autori.FindAsync(id);
             if (autori == null)
                 return NotFound("Nuk ekziston sipas asaj ID");
 
@@ -45,8 +45,8 @@ namespace labback.Models
 
         [HttpPost]
         public async Task<ActionResult<Autori>> addAutori(Autori autori) {
-            _autoriContext.Autori.Add(autori);
-            await _autoriContext.SaveChangesAsync();
+            _LibriContext.Autori.Add(autori);
+            await _LibriContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(getAutoret), new { id = autori.Autori_ID }, autori);
         }
@@ -57,9 +57,9 @@ namespace labback.Models
             if (id != autori.Autori_ID)
                 return BadRequest();
 
-            _autoriContext.Entry(autori).State= EntityState.Modified;
+            _LibriContext.Entry(autori).State= EntityState.Modified;
             try {
-                await _autoriContext.SaveChangesAsync();
+                await _LibriContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException) {
                 throw;
@@ -71,16 +71,40 @@ namespace labback.Models
         [HttpDelete("{id}")]
         public async Task<ActionResult> deleteAutori(int id)
         {
-            if (_autoriContext.Autori == null)
+            if (_LibriContext.Autori == null)
                 return NotFound();
-            var autori = await _autoriContext.Autori.FindAsync(id);
+            var autori = await _LibriContext.Autori.FindAsync(id);
             if (autori == null)
                 return NotFound();
-            _autoriContext.Autori.Remove(autori);
-            await _autoriContext.SaveChangesAsync();
+            _LibriContext.Autori.Remove(autori);
+            await _LibriContext.SaveChangesAsync();
 
             return Ok();
 
+        }
+
+        //AUTORI-LIBRI CONNECTION CODES
+        //Merr Te Gjitha Librat qe ka ndihmuar ose shkruar Autori
+        [HttpGet("librat/{Autori_ID}")]
+        public async Task<ActionResult<IEnumerable<Libri>>> LibratPrejAutorit(int Autori_ID)
+        {
+
+            var librat = await _LibriContext.AutoriLibris
+            .Where(al => al.Autori_ID == Autori_ID)
+            .Include(al => al.Librat)
+            .Select(al => al.Librat)
+            .ToListAsync();
+
+            return librat;
+        }
+
+        [HttpGet("librat/{Autori_ID}/count")]
+        public async Task<ActionResult<int>> GetLibratCountPrejAutorit(int Autori_ID)
+        {
+            var libratCount = await _LibriContext.AutoriLibris
+                .CountAsync(al => al.Autori_ID == Autori_ID);
+
+            return libratCount;
         }
 
 

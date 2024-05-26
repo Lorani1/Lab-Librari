@@ -11,8 +11,12 @@ namespace labback.Models;
 
         public string nofka { get; set; }
 
+        public string gjinia { get; set; }
+
         public string Data_E_Lindjes { get; set; }
 
         public string Nacionaliteti { get; set; }
+
+        public IList<AutoriLibri> AutoriLibris { get; set; }
 
     }

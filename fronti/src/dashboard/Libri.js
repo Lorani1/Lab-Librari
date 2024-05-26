@@ -20,12 +20,19 @@ window.process = process;
 const Libri = () => {
   const [show, setShow] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showAuthorsModal, setShowAuthorsModal] = useState(false);
+
+
+
   const [shtepiaList, setShtepiaList] = useState([]);
   const [selectedShtepia, setSelectedShtepia] = useState("");
+  
   const [zhanriList, setZhanriList] = useState([]);
   const [selectedZhanri, setSelectedZhanri] = useState("");
+  
   const [selectedFile, setSelectedFile] = useState(null);
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
+  
   const [isbn, setIsbn] = useState("");
   const [titulli, setTitulli] = useState("");
   const [kategoria, setKategoria] = useState("");
@@ -52,6 +59,16 @@ const Libri = () => {
   const [filteredLibriList, setFilteredLibriList] = useState([]);
   const [titulliFilter, setTitulliFilter] = useState("");
 
+   //Libri-Autori Many to Many
+   const [authors, setAuthors] = useState([]);
+   const [selectedAuthors, setSelectedAuthors] = useState([]);
+   const [allAuthors, setAllAuthors] = useState([]);
+   const [selectedAuthorsForNewBook, setSelectedAuthorsForNewBook] = useState([]);
+   const [editSelectedAuthors, setEditSelectedAuthors] = useState([]);
+   const [showAuthorsViewModal, setShowAuthorsViewModal] = useState(false);
+   const [selectedBookAuthors, setSelectedBookAuthors] = useState([])
+ 
+
   const [data, setData] = useState([]);
 
   const handleClose = () => setShow(false);
@@ -61,10 +78,14 @@ const Libri = () => {
   const handleOpenAddModal = () => setShowAddModal(true);
   const handleCloseAddModal = () => setShowAddModal(false);
 
+  const handleOpenAuthorsModal = () => setShowAuthorsModal(true);
+  const handleCloseAuthorsModal = () => setShowAuthorsModal(false);
+
   useEffect(() => {
     getData();
     getShtepiaList();
     getZhanriList();
+    getAllAuthors();
   }, []);
 
   const getData = () => {
@@ -107,6 +128,13 @@ const Libri = () => {
       });
   };
 
+  const getAllAuthors = () => {
+    axios
+      .get("https://localhost:7101/api/Autori/getAll")
+      .then((result) => setAllAuthors(result.data))
+      .catch((error) => console.error("Error fetching authors:", error));
+  };
+
   const handleEdit = (id) => {
     handleShow();
     axios
@@ -125,6 +153,7 @@ const Libri = () => {
         setEditSelectedShtepiaID(bookData.shtepiaBotueseID);
         setEditSelectedZhanriID(bookData.zhanriId);
         setEditProfilePictureUrl(bookData.profilePictureUrl);
+        fetchAuthorsForBook(bookData.id); // Ensure to fetch authors for the edited book
       })
       .catch((error) => {
         console.error("Error fetching book data:", error);
@@ -183,6 +212,11 @@ const Libri = () => {
     }
 
     formData.append("profilePicturePath", editProfilePictureUrl || ""); // Add the existing profile picture path if needed
+    
+    // Append selected authors to form data
+    editSelectedAuthors.forEach(author => {
+      formData.append("authors", author.autori_ID); 
+    });
 
     axios
       .put(url, formData)
@@ -249,6 +283,10 @@ const Libri = () => {
     );
     formData.append("profilePicture", selectedFile);
 
+    selectedAuthorsForNewBook.forEach(author => {
+      formData.append("authors", author.autori_ID); // Append selected authors to form data
+    });
+
     axios
       .post(url, formData)
       .then((result) => {
@@ -279,6 +317,48 @@ const Libri = () => {
         });
     }
   };
+
+   //Autori-Libri Many-To-Many
+
+   const fetchAuthorsForBook = (id) => {
+    axios.get(`https://localhost:7101/api/Libri/getAutoret/${id}`)
+      .then(result => setAuthors(result.data))
+      .catch(error => console.error('Error fetching authors:', error));
+  };
+
+  const fetchSelectedBookAuthors = (id) => {
+    axios
+      .get(`https://localhost:7101/api/Libri/getAutoret/${id}`)
+      .then((result) => setSelectedBookAuthors(result.data))
+      .catch((error) => console.error("Error fetching selected book authors:", error));
+  };
+
+  const addAuthorToBook = (id, autori_ID) => {
+    axios.post(`https://localhost:7101/api/Libri/${id}/ShtoAutorin/${autori_ID}`)
+      .then(() => {
+        fetchAuthorsForBook(id);
+        toast.success('Author added to book');
+      })
+      .catch(error => {
+        console.error('Failed to add author to book:', error);
+        toast.error('Failed to add author to book. Please try again.');
+      });
+  };
+
+
+const handleAuthorSelection = (autori_ID) => {
+  const authorToAdd = allAuthors.find(author => author.autori_ID === autori_ID);
+  setSelectedAuthorsForNewBook([...selectedAuthorsForNewBook, authorToAdd]);
+};
+
+const handleOpenAuthorsViewModal = (id) => {
+  fetchSelectedBookAuthors(id);
+  setShowAuthorsViewModal(true);
+};
+
+const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
+
+
   const clear = () => {
     setIsbn("");
     setTitulli("");
@@ -292,6 +372,7 @@ const Libri = () => {
     setSelectedZhanri("");
     setSelectedFile(null);
     setProfilePictureUrl("");
+    setSelectedAuthorsForNewBook([]);
   };
 
   const handleActiveChange = (e) => {
@@ -415,6 +496,7 @@ const Libri = () => {
               <th>Copies</th>
               <th>Language</th>
               <th>Publisher</th>
+              <th>Autoret</th>
               <th>Genre</th>
               <th>In Stock</th>
               <th>Images</th>
@@ -438,6 +520,11 @@ const Libri = () => {
                   <td>{item.nrKopjeve}</td>
                   <td>{item.gjuha}</td>
                   <td>{item.shtepiaBotueseID}</td>
+                  <td>
+                  <Button variant="secondary" onClick={() => handleOpenAuthorsViewModal(item.id)}>
+                    View Authors
+                  </Button>
+                </td>
                   <td>{item.zhanriId}</td>
                   <td>{item.inStock ? "Yes" : "No"}</td>
                   <td>
@@ -617,6 +704,9 @@ const Libri = () => {
                 )}
               </Col>
             </Row>
+            <Button variant="secondary" onClick={handleOpenAuthorsModal}>
+                Manage Authors
+            </Button>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -767,8 +857,53 @@ const Libri = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-      </Container>
-    </Fragment>
+        
+        
+        
+        <Modal show={showAuthorsModal} onHide={handleCloseAuthorsModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Manage Authors</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h5>Add Authors:</h5>
+          <ul>
+            {allAuthors.map(author => (
+              <li key={author.autori_ID}>
+                {author.emri}
+                {!selectedAuthors.some(a => a.autori_ID === selectedAuthors.autori_ID) && (
+                  <Button
+                    variant="success"
+                    size="sm"
+                    onClick={() => {
+                      handleAuthorSelection(author.autori_ID); // Handle author selection
+                      addAuthorToBook(editId, author.autori_ID); // Add author to book
+                    }}
+                    className="ml-2"
+                  >
+                    Add
+                  </Button>
+                )}
+              </li>
+            ))}
+          </ul>
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showAuthorsViewModal} onHide={handleCloseAuthorsViewModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Selected Book Authors</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ul>
+            {selectedBookAuthors.map((author) => (
+              <li key={author.autori_ID}>{author.emri}</li>
+            ))}
+          </ul>
+        </Modal.Body>
+      </Modal>
+   
+    </Container>
+  </Fragment>
   );
 };
 

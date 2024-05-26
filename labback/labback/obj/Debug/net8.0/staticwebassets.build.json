@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vof94NRuNOe5scluTTPbKKf0ZBXDYBLNi6rqPQyOL3I=",
+  "Hash": "IQmCc8V7ex4ruA79pJZkPra+7BVptnMOeJEBqQYMGBY=",
   "Source": "labback",
   "BasePath": "_content/labback",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "labback\\wwwroot",
       "Source": "labback",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\0028e1b3-6483-4669-bfbc-7934a8555cee_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\0028e1b3-6483-4669-bfbc-7934a8555cee_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/0028e1b3-6483-4669-bfbc-7934a8555cee_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\0028e1b3-6483-4669-bfbc-7934a8555cee_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\01984dce-ab8d-4e14-8879-04f97f742ad5_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\01984dce-ab8d-4e14-8879-04f97f742ad5_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/01984dce-ab8d-4e14-8879-04f97f742ad5_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\01984dce-ab8d-4e14-8879-04f97f742ad5_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\05fc69c2-38d7-4e96-a71b-d744513b8e90_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\05fc69c2-38d7-4e96-a71b-d744513b8e90_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/05fc69c2-38d7-4e96-a71b-d744513b8e90_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
       "AssetKind": "All",
@@ -131,10 +131,29 @@
       "OriginalItemSpec": "wwwroot\\foto\\05fc69c2-38d7-4e96-a71b-d744513b8e90_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\1fb21392-f130-45c6-bc85-938167d0a243_Libri1.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\17914ed1-4168-4905-88a2-1712d2b81bff_30446753-f2a0-40b5-bb88-2d231a66b9e4_PNG_transparency_demonstration_1.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "BasePath": "_content/labback",
+      "RelativePath": "foto/17914ed1-4168-4905-88a2-1712d2b81bff_30446753-f2a0-40b5-bb88-2d231a66b9e4_PNG_transparency_demonstration_1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\foto\\17914ed1-4168-4905-88a2-1712d2b81bff_30446753-f2a0-40b5-bb88-2d231a66b9e4_PNG_transparency_demonstration_1.png"
+    },
+    {
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\1fb21392-f130-45c6-bc85-938167d0a243_Libri1.jpg",
+      "SourceId": "labback",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/1fb21392-f130-45c6-bc85-938167d0a243_Libri1.jpg",
       "AssetKind": "All",
@@ -150,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\1fb21392-f130-45c6-bc85-938167d0a243_Libri1.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\25df6108-2b3e-4086-9341-d531f46bbd95_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\25df6108-2b3e-4086-9341-d531f46bbd95_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/25df6108-2b3e-4086-9341-d531f46bbd95_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "AssetKind": "All",
@@ -169,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\25df6108-2b3e-4086-9341-d531f46bbd95_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\2907ef7c-2118-4dfd-a52d-856af9ba5a72_book1.webp",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\2907ef7c-2118-4dfd-a52d-856af9ba5a72_book1.webp",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/2907ef7c-2118-4dfd-a52d-856af9ba5a72_book1.webp",
       "AssetKind": "All",
@@ -188,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\2907ef7c-2118-4dfd-a52d-856af9ba5a72_book1.webp"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "AssetKind": "All",
@@ -207,10 +226,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\30446753-f2a0-40b5-bb88-2d231a66b9e4_PNG_transparency_demonstration_1.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\30446753-f2a0-40b5-bb88-2d231a66b9e4_PNG_transparency_demonstration_1.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/30446753-f2a0-40b5-bb88-2d231a66b9e4_PNG_transparency_demonstration_1.png",
       "AssetKind": "All",
@@ -226,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\30446753-f2a0-40b5-bb88-2d231a66b9e4_PNG_transparency_demonstration_1.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\3da73aeb-7813-491f-8018-b558b4788408_pg.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\3da73aeb-7813-491f-8018-b558b4788408_pg.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/3da73aeb-7813-491f-8018-b558b4788408_pg.png",
       "AssetKind": "All",
@@ -245,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\3da73aeb-7813-491f-8018-b558b4788408_pg.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\3e31708b-c350-4f9d-8d93-e7abe876cc0b_0b0b81a0-3f0c-4c9a-8559-e26b4c91396e_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\3e31708b-c350-4f9d-8d93-e7abe876cc0b_0b0b81a0-3f0c-4c9a-8559-e26b4c91396e_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/3e31708b-c350-4f9d-8d93-e7abe876cc0b_0b0b81a0-3f0c-4c9a-8559-e26b4c91396e_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
       "AssetKind": "All",
@@ -264,10 +283,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\3e31708b-c350-4f9d-8d93-e7abe876cc0b_0b0b81a0-3f0c-4c9a-8559-e26b4c91396e_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\3f42d08e-4ef8-4d26-a25b-37494a0a6fe9_24caf8f9-4940-4072-bbae-f33986ce9f11_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\3f42d08e-4ef8-4d26-a25b-37494a0a6fe9_24caf8f9-4940-4072-bbae-f33986ce9f11_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/3f42d08e-4ef8-4d26-a25b-37494a0a6fe9_24caf8f9-4940-4072-bbae-f33986ce9f11_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "AssetKind": "All",
@@ -283,10 +302,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\3f42d08e-4ef8-4d26-a25b-37494a0a6fe9_24caf8f9-4940-4072-bbae-f33986ce9f11_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\54207b1d-35aa-4c46-b927-1ee5664dd770_cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\54207b1d-35aa-4c46-b927-1ee5664dd770_cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/54207b1d-35aa-4c46-b927-1ee5664dd770_cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
       "AssetKind": "All",
@@ -302,10 +321,29 @@
       "OriginalItemSpec": "wwwroot\\foto\\54207b1d-35aa-4c46-b927-1ee5664dd770_cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\69186936-46a9-469a-b176-77aca3959a1c_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\560341b9-b8c6-43a3-bcb2-1e80a718adbf_Libri20.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "BasePath": "_content/labback",
+      "RelativePath": "foto/560341b9-b8c6-43a3-bcb2-1e80a718adbf_Libri20.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\foto\\560341b9-b8c6-43a3-bcb2-1e80a718adbf_Libri20.jpg"
+    },
+    {
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\69186936-46a9-469a-b176-77aca3959a1c_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "SourceId": "labback",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/69186936-46a9-469a-b176-77aca3959a1c_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "AssetKind": "All",
@@ -321,10 +359,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\69186936-46a9-469a-b176-77aca3959a1c_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\749ce040-8eab-400f-bb9f-0a534574dee7_0d632908-98ac-45d8-a85c-195a5760b334_0b0b81a0-3f0c-4c9a-8559-e26b4c91396e_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\749ce040-8eab-400f-bb9f-0a534574dee7_0d632908-98ac-45d8-a85c-195a5760b334_0b0b81a0-3f0c-4c9a-8559-e26b4c91396e_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/749ce040-8eab-400f-bb9f-0a534574dee7_0d632908-98ac-45d8-a85c-195a5760b334_0b0b81a0-3f0c-4c9a-8559-e26b4c91396e_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png",
       "AssetKind": "All",
@@ -340,10 +378,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\749ce040-8eab-400f-bb9f-0a534574dee7_0d632908-98ac-45d8-a85c-195a5760b334_0b0b81a0-3f0c-4c9a-8559-e26b4c91396e_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\8f9d095a-c91e-40f5-850c-07b9fac9797d_1412223899.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\8f9d095a-c91e-40f5-850c-07b9fac9797d_1412223899.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/8f9d095a-c91e-40f5-850c-07b9fac9797d_1412223899.jpg",
       "AssetKind": "All",
@@ -359,10 +397,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\8f9d095a-c91e-40f5-850c-07b9fac9797d_1412223899.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\91bb2743-8117-469f-9ad0-c27dcd62e622_24caf8f9-4940-4072-bbae-f33986ce9f11_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\91bb2743-8117-469f-9ad0-c27dcd62e622_24caf8f9-4940-4072-bbae-f33986ce9f11_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/91bb2743-8117-469f-9ad0-c27dcd62e622_24caf8f9-4940-4072-bbae-f33986ce9f11_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "AssetKind": "All",
@@ -378,10 +416,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\91bb2743-8117-469f-9ad0-c27dcd62e622_24caf8f9-4940-4072-bbae-f33986ce9f11_5261c8a7-2993-4a9b-9b78-564dc8cbd387_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\968c2c4a-862f-4395-ab9a-921e6b486512_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\968c2c4a-862f-4395-ab9a-921e6b486512_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/968c2c4a-862f-4395-ab9a-921e6b486512_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png",
       "AssetKind": "All",
@@ -397,10 +435,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\968c2c4a-862f-4395-ab9a-921e6b486512_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\98105366-4168-4547-ac52-5fb9780e722a_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\98105366-4168-4547-ac52-5fb9780e722a_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/98105366-4168-4547-ac52-5fb9780e722a_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg",
       "AssetKind": "All",
@@ -416,10 +454,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\98105366-4168-4547-ac52-5fb9780e722a_360_F_395293226_A4boRgABAbfXmAmmynQHcjjIIB3MjDCj.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\a842d214-e72b-46e2-b126-42ff86cdc2a9_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\a842d214-e72b-46e2-b126-42ff86cdc2a9_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/a842d214-e72b-46e2-b126-42ff86cdc2a9_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png",
       "AssetKind": "All",
@@ -435,10 +473,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\a842d214-e72b-46e2-b126-42ff86cdc2a9_2de12ca2-bd0e-4938-a7bc-655696b6c1b4_[removal.ai]_75a9e473-1486-4ed6-8e71-ddc409d69967-ph.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\ae71936c-b3e9-46c0-aefa-7f669ec5e440_pg.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\ae71936c-b3e9-46c0-aefa-7f669ec5e440_pg.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/ae71936c-b3e9-46c0-aefa-7f669ec5e440_pg.png",
       "AssetKind": "All",
@@ -454,10 +492,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\ae71936c-b3e9-46c0-aefa-7f669ec5e440_pg.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\book1.webp",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\book1.webp",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/book1.webp",
       "AssetKind": "All",
@@ -473,10 +511,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\book1.webp"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\c43860e2-18d1-4956-a6af-2777d754ea8a_pngtree-pink-watercolor-brushes-171474-png-image_1733978.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\c43860e2-18d1-4956-a6af-2777d754ea8a_pngtree-pink-watercolor-brushes-171474-png-image_1733978.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/c43860e2-18d1-4956-a6af-2777d754ea8a_pngtree-pink-watercolor-brushes-171474-png-image_1733978.jpg",
       "AssetKind": "All",
@@ -492,10 +530,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\c43860e2-18d1-4956-a6af-2777d754ea8a_pngtree-pink-watercolor-brushes-171474-png-image_1733978.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png",
       "AssetKind": "All",
@@ -511,10 +549,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\cd544018-f26b-4123-9a1e-8858147fe2b3_[removal.ai]_31ecee36-cbb3-4c49-b886-3b8dd5131fa8-222.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\cfc51967-e420-432b-8712-b52bc54b6808_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\cfc51967-e420-432b-8712-b52bc54b6808_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/cfc51967-e420-432b-8712-b52bc54b6808_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png",
       "AssetKind": "All",
@@ -530,10 +568,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\cfc51967-e420-432b-8712-b52bc54b6808_0ab15e91-76cc-4ab8-8cab-facef3533a26_d1d63554-dadb-43ad-80e8-a31fd806008b_images.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\d92df317-5972-4995-9d87-69079f0f75ea_Libri2.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\d92df317-5972-4995-9d87-69079f0f75ea_Libri2.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/d92df317-5972-4995-9d87-69079f0f75ea_Libri2.jpg",
       "AssetKind": "All",
@@ -549,10 +587,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\d92df317-5972-4995-9d87-69079f0f75ea_Libri2.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri1.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri1.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri1.jpg",
       "AssetKind": "All",
@@ -568,10 +606,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri1.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri10.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri10.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri10.jpg",
       "AssetKind": "All",
@@ -587,10 +625,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri10.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri11.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri11.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri11.jpg",
       "AssetKind": "All",
@@ -606,10 +644,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri11.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri12.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri12.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri12.jpg",
       "AssetKind": "All",
@@ -625,10 +663,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri12.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri13.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri13.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri13.jpg",
       "AssetKind": "All",
@@ -644,10 +682,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri13.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri14.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri14.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri14.jpg",
       "AssetKind": "All",
@@ -663,10 +701,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri14.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri15.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri15.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri15.jpg",
       "AssetKind": "All",
@@ -682,10 +720,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri15.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri16.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri16.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri16.jpg",
       "AssetKind": "All",
@@ -701,10 +739,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri16.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri17.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri17.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri17.jpg",
       "AssetKind": "All",
@@ -720,10 +758,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri17.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri18.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri18.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri18.jpg",
       "AssetKind": "All",
@@ -739,10 +777,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri18.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\libri19.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\libri19.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/libri19.jpg",
       "AssetKind": "All",
@@ -758,10 +796,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\libri19.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri2.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri2.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri2.jpg",
       "AssetKind": "All",
@@ -777,10 +815,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri2.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri20.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri20.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri20.jpg",
       "AssetKind": "All",
@@ -796,10 +834,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri20.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri21.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri21.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri21.jpg",
       "AssetKind": "All",
@@ -815,10 +853,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri21.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri22.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri22.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri22.jpg",
       "AssetKind": "All",
@@ -834,10 +872,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri22.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri23.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri23.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri23.jpg",
       "AssetKind": "All",
@@ -853,10 +891,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri23.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri24.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri24.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri24.jpg",
       "AssetKind": "All",
@@ -872,10 +910,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri24.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri25.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri25.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri25.jpg",
       "AssetKind": "All",
@@ -891,10 +929,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri25.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri3.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri3.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri3.jpg",
       "AssetKind": "All",
@@ -910,10 +948,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri3.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri4.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri4.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri4.jpg",
       "AssetKind": "All",
@@ -929,10 +967,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri4.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri5.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri5.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri5.jpg",
       "AssetKind": "All",
@@ -948,10 +986,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri5.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri6.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri6.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri6.jpg",
       "AssetKind": "All",
@@ -967,10 +1005,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri6.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri7.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri7.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri7.jpg",
       "AssetKind": "All",
@@ -986,10 +1024,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri7.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri8.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri8.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri8.jpg",
       "AssetKind": "All",
@@ -1005,10 +1043,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri8.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri9.jpg",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\Libri9.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/Libri9.jpg",
       "AssetKind": "All",
@@ -1024,10 +1062,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\Libri9.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\uploads\\acb45123-c298-4f37-8a72-6e3261800c73_pg.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\uploads\\acb45123-c298-4f37-8a72-6e3261800c73_pg.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "uploads/acb45123-c298-4f37-8a72-6e3261800c73_pg.png",
       "AssetKind": "All",
@@ -1043,10 +1081,10 @@
       "OriginalItemSpec": "wwwroot\\uploads\\acb45123-c298-4f37-8a72-6e3261800c73_pg.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\uploads\\ffda342d-a0df-425d-b278-dd5d19839762_png-transparent-pizza-food-small-piece-of-pizza-pizza-logo-cartoon-one-piece.png",
+      "Identity": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\uploads\\ffda342d-a0df-425d-b278-dd5d19839762_png-transparent-pizza-food-small-piece-of-pizza-pizza-logo-cartoon-one-piece.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Git\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "uploads/ffda342d-a0df-425d-b278-dd5d19839762_png-transparent-pizza-food-small-piece-of-pizza-pizza-logo-cartoon-one-piece.png",
       "AssetKind": "All",

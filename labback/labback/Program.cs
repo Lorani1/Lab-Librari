@@ -16,8 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<StafiContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
 
-builder.Services.AddDbContext<AutoriContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
 
 builder.Services.AddDbContext<LibriContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("local")));

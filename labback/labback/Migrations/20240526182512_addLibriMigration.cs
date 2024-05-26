@@ -12,6 +12,24 @@ namespace labback.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Autori",
+                columns: table => new
+                {
+                    Autori_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Emri = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Mbiemri = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    nofka = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    gjinia = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Data_E_Lindjes = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nacionaliteti = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Autori", x => x.Autori_ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Qytetet",
                 columns: table => new
                 {
@@ -116,6 +134,30 @@ namespace labback.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AutoriLibris",
+                columns: table => new
+                {
+                    Autori_ID = table.Column<int>(type: "int", nullable: false),
+                    ID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AutoriLibris", x => new { x.Autori_ID, x.ID });
+                    table.ForeignKey(
+                        name: "FK_AutoriLibris_Autori_Autori_ID",
+                        column: x => x.Autori_ID,
+                        principalTable: "Autori",
+                        principalColumn: "Autori_ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AutoriLibris_Librat_ID",
+                        column: x => x.ID,
+                        principalTable: "Librat",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Exchanges",
                 columns: table => new
                 {
@@ -143,6 +185,11 @@ namespace labback.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AutoriLibris_ID",
+                table: "AutoriLibris",
+                column: "ID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Exchanges_KlientId",
@@ -174,7 +221,13 @@ namespace labback.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AutoriLibris");
+
+            migrationBuilder.DropTable(
                 name: "Exchanges");
+
+            migrationBuilder.DropTable(
+                name: "Autori");
 
             migrationBuilder.DropTable(
                 name: "Klients");

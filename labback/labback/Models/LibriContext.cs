@@ -15,6 +15,8 @@ namespace labback.Models
         public DbSet<Exchange> Exchanges { get; set; }
         public DbSet<Klient> Klients { get; set; }
         public DbSet<Qyteti> Qytetet { get; set; }
+        public DbSet<Autori> Autori { get; set; }
+        public DbSet<AutoriLibri> AutoriLibris { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,6 +46,20 @@ namespace labback.Models
                 .HasOne(e => e.Libri)
                 .WithMany()
                 .HasForeignKey(e => e.LibriId);
+
+            modelBuilder.Entity<AutoriLibri>()
+       .HasKey(al => new { al.Autori_ID, al.ID });
+
+            // Define navigation properties
+            modelBuilder.Entity<AutoriLibri>()
+                .HasOne(al => al.Autoret)
+                .WithMany(a => a.AutoriLibris)
+                .HasForeignKey(al => al.Autori_ID);
+
+            modelBuilder.Entity<AutoriLibri>()
+                .HasOne(al => al.Librat)
+                .WithMany(l => l.AutoriLibris)
+                .HasForeignKey(al => al.ID);
         }
     }
 }
