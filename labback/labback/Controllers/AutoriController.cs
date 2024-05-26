@@ -19,7 +19,7 @@ namespace labback.Models
             _LibriContext = LibriContext;
         }
         //Read
-        [HttpGet]
+        [HttpGet("getAll")]
         public async Task<ActionResult<IEnumerable<Autori>>> getAutoret()
         {
             if (_LibriContext.Autori == null) {
@@ -29,51 +29,75 @@ namespace labback.Models
             return await _LibriContext.Autori.ToListAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Autori>> getAutoret(int id)
+        [HttpGet("getByID/{Autori_ID}")]
+        public async Task<ActionResult<AutoriDTO>> getAutoret(int Autori_ID)
         {
-            if (_LibriContext.Autori == null)
-            {
-                return NotFound("Autoret nuk ekzitojn!");
-            }
-            var autori = await _LibriContext.Autori.FindAsync(id);
-            if (autori == null)
-                return NotFound("Nuk ekziston sipas asaj ID");
+            var autori = await _LibriContext.Autori.FindAsync(Autori_ID);
 
-            return autori;
+            if (autori == null)
+            {
+                return NotFound("Nuk ekziston sipas asaj ID");
+            }
+
+            var autoriDTO = new AutoriDTO
+            {
+                Emri = autori.Emri,
+                Mbiemri = autori.Mbiemri,
+                Nofka = autori.nofka,
+                Gjinia = autori.gjinia,
+                Data_E_Lindjes = autori.Data_E_Lindjes,
+                Nacionaliteti = autori.Nacionaliteti
+            };
+
+            return autoriDTO;
         }
 
         [HttpPost]
-        public async Task<ActionResult<Autori>> addAutori(Autori autori) {
+        public async Task<ActionResult<Autori>> addAutori(AutoriDTO DTO) {
+            var autori = new Autori
+            {
+                Emri = DTO.Emri,
+                Mbiemri = DTO.Mbiemri,
+                nofka = DTO.Nofka,
+                gjinia = DTO.Gjinia,
+                Data_E_Lindjes = DTO.Data_E_Lindjes,
+                Nacionaliteti = DTO.Nacionaliteti
+            };
+
             _LibriContext.Autori.Add(autori);
             await _LibriContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(getAutoret), new { id = autori.Autori_ID }, autori);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> putAutori(int id, Autori autori)
+        [HttpPut("update/{Autori_ID}")]
+        public async Task<ActionResult> PutAutori(int Autori_ID, AutoriDTO DTO)
         {
-            if (id != autori.Autori_ID)
-                return BadRequest();
+            var autori = await _LibriContext.Autori.FindAsync(Autori_ID);
 
-            _LibriContext.Entry(autori).State= EntityState.Modified;
-            try {
-                await _LibriContext.SaveChangesAsync();
+            if (autori == null)
+            {
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException) {
-                throw;
-            }
+
+            autori.Emri = DTO.Emri;
+            autori.Mbiemri = DTO.Mbiemri;
+            autori.nofka = DTO.Nofka;
+            autori.gjinia = DTO.Gjinia;
+            autori.Data_E_Lindjes = DTO.Data_E_Lindjes;
+            autori.Nacionaliteti = DTO.Nacionaliteti;
+
+            await _LibriContext.SaveChangesAsync(); // Save changes to the database
 
             return Ok();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> deleteAutori(int id)
+        [HttpDelete("delete/{Autori_ID}")]
+        public async Task<ActionResult> deleteAutori(int Autori_ID)
         {
             if (_LibriContext.Autori == null)
                 return NotFound();
-            var autori = await _LibriContext.Autori.FindAsync(id);
+            var autori = await _LibriContext.Autori.FindAsync(Autori_ID);
             if (autori == null)
                 return NotFound();
             _LibriContext.Autori.Remove(autori);
@@ -106,8 +130,6 @@ namespace labback.Models
 
             return libratCount;
         }
-
-
 
     }
 }
