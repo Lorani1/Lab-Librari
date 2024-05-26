@@ -36,7 +36,7 @@ const Autori = () => {
   }, []);
 
   const getData = () => {
-    axios.get('https://localhost:7101/api/Autori/getAll')
+    axios.get(`https://localhost:7101/api/Autori/get`)
       .then((result) => {
         const authors = result.data;
         const promises = authors.map(author => {
