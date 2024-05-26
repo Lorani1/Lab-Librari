@@ -14,6 +14,9 @@ import Fiction from "./components/Fiction/Fiction";
 import Crime from "./components/Crime/Crime";
 import Anime from "./components/Anime/Anime";
 import ShtepiaBotuese from "./dashboard/ShtepiaBotuese";
+import zhanri from "./dashboard/zhanri";
+import ExchangeForm from "./Exchange/ExchangeForm";
+import ExchangeList from "./Exchange/ExchangeList";
 function App() {
   return (
     <Router>
@@ -33,6 +36,9 @@ function App() {
         <Route path="/crime" component={Crime} />
         <Route path="/anime" component={Anime} />
         <Route path="/shtepiabotuese" component={ShtepiaBotuese} />
+        <Route path="/zhanri" component={zhanri} />
+        <Route path="/ExchangeForm" component={ExchangeForm} />
+        <Route path="/ExchangeList" component={ExchangeList} />
       </Switch>
     </Router>
   );

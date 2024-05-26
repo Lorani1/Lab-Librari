@@ -22,12 +22,13 @@ const Libri = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [shtepiaList, setShtepiaList] = useState([]);
   const [selectedShtepia, setSelectedShtepia] = useState("");
+  const [zhanriList, setZhanriList] = useState([]);
+  const [selectedZhanri, setSelectedZhanri] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [isbn, setIsbn] = useState("");
   const [titulli, setTitulli] = useState("");
   const [kategoria, setKategoria] = useState("");
-  const [lloji, setLloji] = useState("");
   const [vitiPublikimit, setVitiPublikimit] = useState("");
   const [nrFaqeve, setNrFaqeve] = useState("");
   const [nrKopjeve, setNrKopjeve] = useState("");
@@ -38,7 +39,6 @@ const Libri = () => {
   const [editIsbn, setEditIsbn] = useState("");
   const [editTitulli, setEditTitulli] = useState("");
   const [editKategoria, setEditKategoria] = useState("");
-  const [editLloji, setEditLloji] = useState("");
 
   const [editVitiPublikimit, setEditVitiPublikimit] = useState("");
   const [editNrFaqeve, setEditNrFaqeve] = useState("");
@@ -46,6 +46,7 @@ const Libri = () => {
   const [editGjuha, setEditGjuha] = useState("");
   const [editInStock, setEditInStock] = useState(0);
   const [editSelectedShtepiaID, setEditSelectedShtepiaID] = useState("");
+  const [editSelectedZhanriID, setEditSelectedZhanriID] = useState("");
   const [editSelectedFile, setEditSelectedFile] = useState(null);
 
   const [filteredLibriList, setFilteredLibriList] = useState([]);
@@ -63,6 +64,7 @@ const Libri = () => {
   useEffect(() => {
     getData();
     getShtepiaList();
+    getZhanriList();
   }, []);
 
   const getData = () => {
@@ -95,6 +97,15 @@ const Libri = () => {
         toast.error("Failed to fetch publisher data.");
       });
   };
+  const getZhanriList = () => {
+    axios
+      .get(`https://localhost:7101/api/Zhanri`)
+      .then((result) => setZhanriList(result.data))
+      .catch((error) => {
+        console.error("Error fetching genre data:", error);
+        toast.error("Failed to fetch genre data.");
+      });
+  };
 
   const handleEdit = (id) => {
     handleShow();
@@ -106,13 +117,13 @@ const Libri = () => {
         setEditIsbn(bookData.isbn);
         setEditTitulli(bookData.titulli);
         setEditKategoria(bookData.kategoria);
-        setEditLloji(bookData.lloji);
         setEditVitiPublikimit(bookData.vitiPublikimit);
         setEditNrFaqeve(bookData.nrFaqeve);
         setEditNrKopjeve(bookData.nrKopjeve);
         setEditGjuha(bookData.gjuha);
         setEditInStock(bookData.inStock === 1 ? true : false);
         setEditSelectedShtepiaID(bookData.shtepiaBotueseID);
+        setEditSelectedZhanriID(bookData.zhanriId);
         setEditProfilePictureUrl(bookData.profilePictureUrl);
       })
       .catch((error) => {
@@ -147,13 +158,13 @@ const Libri = () => {
     formData.append("isbn", editIsbn);
     formData.append("titulli", editTitulli);
     formData.append("kategoria", editKategoria);
-    formData.append("lloji", editLloji);
     formData.append("vitiPublikimit", editVitiPublikimit);
     formData.append("nrFaqeve", editNrFaqeve);
     formData.append("nrKopjeve", editNrKopjeve);
     formData.append("gjuha", editGjuha);
     formData.append("inStock", editInStock ? 1 : 0);
-    formData.append("shtepiaBotueseID", editSelectedShtepiaID);
+    formData.append("shtepiaBotueseID", editSelectedShtepiaID);   
+    formData.append("zhanriID", editSelectedZhanriID);
 
     const selectedPublisher = shtepiaList.find(
       (shtepia) => shtepia.shtepiaBotueseID === editSelectedShtepiaID
@@ -203,13 +214,13 @@ const Libri = () => {
     formData.append("isbn", isbn);
     formData.append("titulli", titulli);
     formData.append("kategoria", kategoria);
-    formData.append("lloji", lloji);
     formData.append("vitiPublikimit", vitiPublikimit);
     formData.append("nrFaqeve", nrFaqeve);
     formData.append("nrKopjeve", nrKopjeve);
     formData.append("gjuha", gjuha);
     formData.append("inStock", inStock);
     formData.append("shtepiaBotueseID", selectedShtepia);
+    formData.append("zhanriID", selectedZhanri);
     formData.append(
       "shtepiaBotuese",
       JSON.stringify({
@@ -222,6 +233,18 @@ const Libri = () => {
           shtepiaList.find(
             (shtepia) => shtepia.shtepiaBotueseID === selectedShtepia
           )?.adresa || "",
+      })
+    );
+    formData.append(
+      "zhanri",
+      JSON.stringify({
+        zhanriId: selectedZhanri,
+        emri:
+          zhanriList.find((zhanri) => zhanri.zhanriId === selectedZhanri)
+            ?.emri || "",
+        description:
+          zhanriList.find((zhanri) => zhanri.zhanriId === selectedZhanri)
+            ?.description || "",
       })
     );
     formData.append("profilePicture", selectedFile);
@@ -260,13 +283,13 @@ const Libri = () => {
     setIsbn("");
     setTitulli("");
     setKategoria("");
-    setLloji("");
     setVitiPublikimit("");
     setNrFaqeve("");
     setNrKopjeve("");
     setGjuha("");
     setInStock(0);
     setSelectedShtepia("");
+    setSelectedZhanri("");
     setSelectedFile(null);
     setProfilePictureUrl("");
   };
@@ -333,6 +356,14 @@ const Libri = () => {
         >
           Go to Shtepia Botuese
         </Button>
+        <Button
+          variant="secondary"
+          as={Link}
+          to="/zhanri"
+          className="ml-3"
+        >
+          Go to Zhanri
+        </Button>
         <div className="ml-auto d-flex">
           <input
             className="form-control m-2"
@@ -379,12 +410,12 @@ const Libri = () => {
               <th>ISBN</th>
               <th>Title</th>
               <th>Category</th>
-              <th>Type</th>
               <th>Publication Year</th>
               <th>Pages</th>
               <th>Copies</th>
               <th>Language</th>
               <th>Publisher</th>
+              <th>Genre</th>
               <th>In Stock</th>
               <th>Images</th>
             </tr>
@@ -402,12 +433,12 @@ const Libri = () => {
                   <td>{item.isbn}</td>
                   <td>{item.titulli}</td>
                   <td>{item.kategoria}</td>
-                  <td>{item.lloji}</td>
                   <td>{item.vitiPublikimit}</td>
                   <td>{item.nrFaqeve}</td>
                   <td>{item.nrKopjeve}</td>
                   <td>{item.gjuha}</td>
                   <td>{item.shtepiaBotueseID}</td>
+                  <td>{item.zhanriId}</td>
                   <td>{item.inStock ? "Yes" : "No"}</td>
                   <td>
                     {item.profilePicturePath ? (
@@ -484,15 +515,6 @@ const Libri = () => {
                   className="form-control"
                 />
               </Col>
-              <Col>
-                <label>Type</label>
-                <input
-                  type="text"
-                  value={editLloji}
-                  onChange={(e) => setEditLloji(e.target.value)}
-                  className="form-control"
-                />
-              </Col>
             </Row>
             <Row>
               <Col>
@@ -549,6 +571,21 @@ const Libri = () => {
                       value={shtepia.shtepiaBotueseID}
                     >
                       {shtepia.emri}
+                    </option>
+                  ))}
+                </select>
+              </Col>
+              <Col>
+                <label>Genre</label>
+                <select
+                  value={editSelectedZhanriID}
+                  onChange={(e) => setEditSelectedZhanriID(e.target.value)}
+                  className="form-control"
+                >
+                  <option value="">Select Genre</option>
+                  {zhanriList.map((zhanri) => (
+                    <option key={zhanri.zhanriId} value={zhanri.zhanriId}>
+                      {zhanri.emri}
                     </option>
                   ))}
                 </select>
@@ -626,15 +663,6 @@ const Libri = () => {
                   className="form-control"
                 />
               </Col>
-              <Col>
-                <label>Type</label>
-                <input
-                  type="text"
-                  value={lloji}
-                  onChange={(e) => setLloji(e.target.value)}
-                  className="form-control"
-                />
-              </Col>
             </Row>
             <Row>
               <Col>
@@ -691,6 +719,21 @@ const Libri = () => {
                       value={shtepia.shtepiaBotueseID}
                     >
                       {shtepia.emri}
+                    </option>
+                  ))}
+                </select>
+              </Col>
+              <Col>
+                <label>Genre</label>
+                <select
+                  value={selectedZhanri}
+                  onChange={(e) => setSelectedZhanri(e.target.value)}
+                  className="form-control"
+                >
+                  <option value="">Select Genre</option>
+                  {zhanriList.map((zhanri) => (
+                    <option key={zhanri.zhanriId} value={zhanri.zhanriId}>
+                      {zhanri.emri}
                     </option>
                   ))}
                 </select>

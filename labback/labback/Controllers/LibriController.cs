@@ -83,7 +83,6 @@ namespace labback.Controllers
                         Isbn = model.Isbn,
                         Titulli = model.Titulli,
                         Kategoria = model.Kategoria,
-                        Lloji = model.Lloji,
                         VitiPublikimit = model.VitiPublikimit,
                         NrFaqeve = model.NrFaqeve,
                         NrKopjeve = model.NrKopjeve,
@@ -91,6 +90,7 @@ namespace labback.Controllers
                         InStock = model.InStock,
                         ProfilePicturePath = uniqueFileName,
                         ShtepiaBotueseID = model.ShtepiaBotueseID,
+                        zhanriId = model.zhanriId,
                     };
 
                     _libriContext.Librat.Add(libri);
@@ -122,13 +122,13 @@ namespace labback.Controllers
                     libri.Isbn = model.Isbn;
                     libri.Titulli = model.Titulli;
                     libri.Kategoria = model.Kategoria;
-                    libri.Lloji = model.Lloji;
                     libri.VitiPublikimit = model.VitiPublikimit;
                     libri.NrFaqeve = model.NrFaqeve;
                     libri.NrKopjeve = model.NrKopjeve;
                     libri.Gjuha = model.Gjuha;
                     libri.InStock = model.InStock;
                     libri.ShtepiaBotueseID = model.ShtepiaBotueseID;
+                    libri.zhanriId = model.zhanriId;
 
                     if (profilePicture != null && profilePicture.Length > 0)
                     {

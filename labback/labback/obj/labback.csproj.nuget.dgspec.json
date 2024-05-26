@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\labback.csproj": {}
+    "C:\\Users\\THIS\\OneDrive\\Desktop\\Labus3\\Lab-Librari\\labback\\labback\\labback.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\labback.csproj": {
+    "C:\\Users\\THIS\\OneDrive\\Desktop\\Labus3\\Lab-Librari\\labback\\labback\\labback.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\labback.csproj",
+        "projectUniqueName": "C:\\Users\\THIS\\OneDrive\\Desktop\\Labus3\\Lab-Librari\\labback\\labback\\labback.csproj",
         "projectName": "labback",
-        "projectPath": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\labback.csproj",
-        "packagesPath": "C:\\Users\\HP-650 G1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\project-test\\test\\labback\\labback\\obj\\",
+        "projectPath": "C:\\Users\\THIS\\OneDrive\\Desktop\\Labus3\\Lab-Librari\\labback\\labback\\labback.csproj",
+        "packagesPath": "C:\\Users\\THIS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\THIS\\OneDrive\\Desktop\\Labus3\\Lab-Librari\\labback\\labback\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HP-650 G1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\THIS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -91,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

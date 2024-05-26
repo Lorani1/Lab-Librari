@@ -13,10 +13,10 @@ namespace labback.Controllers
     [ApiController]
     public class KlientController : ControllerBase
     {
-        private readonly KlientContext _klientContext;
+        private readonly LibriContext _klientContext;
 
 
-        public KlientController(KlientContext klientContext)
+        public KlientController(LibriContext klientContext)
         {
             _klientContext = klientContext;
 
@@ -26,22 +26,22 @@ namespace labback.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Klient>>> GetKlients()
         {
-            if (_klientContext.Klients == null)
+            if (_klientContext.Klient == null)
             {
                 return NotFound();
             }
-            return await _klientContext.Klients.ToListAsync();
+            return await _klientContext.Klient.ToListAsync();
         }
 
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Klient>> GetKlient(int id)
         {
-            if (_klientContext.Klients == null)
+            if (_klientContext.Klient == null)
             {
                 return NotFound();
             }
-            var klient = await _klientContext.Klients.FindAsync(id);
+            var klient = await _klientContext.Klient.FindAsync(id);
             if (klient == null)
             {
                 return NotFound();
@@ -64,7 +64,7 @@ namespace labback.Controllers
                 Password = hashedPassword,
                 QytetiID = model.QytetiID
             };
-            _klientContext.Klients.Add(klient);
+            _klientContext.Klient.Add(klient);
             await _klientContext.SaveChangesAsync();
             return CreatedAtAction(nameof(GetKlient), new { id = klient.ID }, klient);
         }
@@ -118,7 +118,7 @@ namespace labback.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<Klient>> Login(LoginModel model)
         {
-            var klient= await _klientContext.Klients.FirstOrDefaultAsync(k => k.Email == model.Email);
+            var klient= await _klientContext.Klient.FirstOrDefaultAsync(k => k.Email == model.Email);
             if(klient == null)
             {
                 return NotFound("Invalid email or password");
@@ -152,16 +152,16 @@ namespace labback.Controllers
 
         public async Task<ActionResult> DeleteKlient(int id)
         {
-            if (_klientContext.Klients == null)
+            if (_klientContext.Klient == null)
             {
                 return NotFound();
             }
-            var klient = await _klientContext.Klients.FindAsync(id);
+            var klient = await _klientContext.Klient.FindAsync(id);
             if (klient == null)
             {
                 return NotFound();
             }
-            _klientContext.Klients.Remove(klient);
+            _klientContext.Klient.Remove(klient);
             await _klientContext.SaveChangesAsync();
             return Ok();
         }
