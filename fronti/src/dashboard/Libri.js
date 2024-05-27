@@ -59,7 +59,7 @@ const Libri = () => {
   const [filteredLibriList, setFilteredLibriList] = useState([]);
   const [titulliFilter, setTitulliFilter] = useState("");
 
-   //Libri-Autori Many to Many
+
    const [authors, setAuthors] = useState([]);
    const [selectedAuthors, setSelectedAuthors] = useState([]);
    const [allAuthors, setAllAuthors] = useState([]);
@@ -94,12 +94,8 @@ const Libri = () => {
       .then((result) => {
         setData(result.data);
         setFilteredLibriList(result.data);
-
-        // Assuming the API response includes a field called 'photoPath' for each book
-        // Set the photo path in component state
         result.data.forEach((book) => {
           if (book.photoPath) {
-            // Update the book's profile picture URL in state to show preview
             setProfilePictureUrl(book.photoPath);
           }
         });
@@ -153,7 +149,7 @@ const Libri = () => {
         setEditSelectedShtepiaID(bookData.shtepiaBotueseID);
         setEditSelectedZhanriID(bookData.zhanriId);
         setEditProfilePictureUrl(bookData.profilePictureUrl);
-        fetchAuthorsForBook(bookData.id); // Ensure to fetch authors for the edited book
+        fetchAuthorsForBook(bookData.id); 
       })
       .catch((error) => {
         console.error("Error fetching book data:", error);
@@ -211,9 +207,9 @@ const Libri = () => {
       formData.append("profilePicture", editSelectedFile);
     }
 
-    formData.append("profilePicturePath", editProfilePictureUrl || ""); // Add the existing profile picture path if needed
+    formData.append("profilePicturePath", editProfilePictureUrl || ""); 
     
-    // Append selected authors to form data
+   
     editSelectedAuthors.forEach(author => {
       formData.append("authors", author.autori_ID); 
     });
@@ -284,7 +280,7 @@ const Libri = () => {
     formData.append("profilePicture", selectedFile);
 
     selectedAuthorsForNewBook.forEach(author => {
-      formData.append("authors", author.autori_ID); // Append selected authors to form data
+      formData.append("authors", author.autori_ID); 
     });
 
     axios
@@ -318,7 +314,7 @@ const Libri = () => {
     }
   };
 
-   //Autori-Libri Many-To-Many
+  
 
    const fetchAuthorsForBook = (id) => {
     axios.get(`https://localhost:7101/api/Libri/getAutoret/${id}`)
@@ -436,6 +432,14 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
           className="ml-3"
         >
           Go to Shtepia Botuese
+        </Button>
+        <Button
+          variant="secondary"
+          as={Link}
+          to="/autori"
+          className="ml-3"
+        >
+          Go to Autori
         </Button>
         <Button
           variant="secondary"
@@ -876,8 +880,8 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
                     variant="success"
                     size="sm"
                     onClick={() => {
-                      handleAuthorSelection(author.autori_ID); // Handle author selection
-                      addAuthorToBook(editId, author.autori_ID); // Add author to book
+                      handleAuthorSelection(author.autori_ID); 
+                      addAuthorToBook(editId, author.autori_ID); 
                     }}
                     className="ml-2"
                   >
