@@ -85,12 +85,14 @@ const Libri = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = (Array.isArray(filteredLibriList) ? filteredLibriList : []).slice(
-    indexOfFirstItem,
-    indexOfLastItem
+  const currentItems = (
+    Array.isArray(filteredLibriList) ? filteredLibriList : []
+  ).slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(
+    (Array.isArray(filteredLibriList) ? filteredLibriList : []).length /
+      itemsPerPage
   );
-  const totalPages = Math.ceil((Array.isArray(filteredLibriList) ? filteredLibriList : []).length / itemsPerPage);
-  
+
   useEffect(() => {
     getData();
     getShtepiaList();
@@ -100,43 +102,56 @@ const Libri = () => {
     axios
       .get(`https://localhost:7101/api/Libri`)
       .then((result) => {
-        setData(result.data);
-        setFilteredLibriList(result.data || []); // Ensure it is an array
-  
-        // Assuming the API response includes a field called 'photoPath' for each book
-        // Set the photo path in component state
-        result.data.forEach((book) => {
-          if (book.photoPath) {
-            // Update the book's profile picture URL in state to show preview
-            setProfilePictureUrl(book.photoPath);
-          }
-        });
+        const libridata = result.data?.$values;
+        if (Array.isArray(libridata)) {
+          setData(libridata);
+          setFilteredLibriList(libridata);
+        } else {
+          console.error("Unexpected data format:", result.data);
+          toast.error("Failed to fetch client data.");
+        }
       })
       .catch((error) => {
         console.log(error);
+        toast.error("Failed to fetch client data.");
       });
   };
-  
 
   const getShtepiaList = () => {
     axios
       .get(`https://localhost:7101/api/ShtepiaBotuese`)
-      .then((result) => setShtepiaList(Array.isArray(result.data) ? result.data : []))
+      .then((result) => {
+        const shtepiaData = result.data?.$values;
+        if (Array.isArray(shtepiaData)) {
+          setShtepiaList(shtepiaData);
+        } else {
+          console.error("Unexpected data format:", result.data);
+          toast.error("Failed to fetch city data.");
+        }
+      })
       .catch((error) => {
-        console.error("Error fetching publisher data:", error);
-        toast.error("Failed to fetch publisher data.");
+        console.error("Error fetching city data:", error);
+        toast.error("Failed to fetch city data.");
       });
   };
   const getZhanriList = () => {
     axios
       .get(`https://localhost:7101/api/Zhanri`)
-      .then((result) => setZhanriList(Array.isArray(result.data) ? result.data : [])) // Ensure it is an array
+      .then((result) => {
+        const zhanriData = result.data?.$values;
+        if (Array.isArray(zhanriData)) {
+          setZhanriList(zhanriData);
+        } else {
+          console.error("Unexpected data format:", result.data);
+          toast.error("Failed to fetch city data.");
+        }
+      })
       .catch((error) => {
-        console.error("Error fetching genre data:", error);
-        toast.error("Failed to fetch genre data.");
+        console.error("Error fetching city data:", error);
+        toast.error("Failed to fetch city data.");
       });
   };
-  
+
   const handlePreviousPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
   };
@@ -377,7 +392,7 @@ const Libri = () => {
     setTitulliFilter(value);
     filterFn(data, value);
   };
-  
+
   const filterFn = (data, filterValue) => {
     if (filterValue.trim() === "") {
       setFilteredLibriList(data || []); // Ensure it is an array
@@ -390,7 +405,6 @@ const Libri = () => {
       setFilteredLibriList(filteredData);
     }
   };
-  
 
   const sortResult = (prop, asc) => {
     const sortedData = [...filteredLibriList].sort((a, b) => {
@@ -427,7 +441,12 @@ const Libri = () => {
         <Button variant="primary" onClick={handleOpenAddModal}>
           Add New Book
         </Button>
-        <Button variant="secondary" as={Link} to="/ratings" className="ml-3">
+        <Button
+          variant="secondary"
+          as={Link}
+          to="/ShtepiaBotuese"
+          className="ml-3"
+        >
           Go to Shtepia Botuese
         </Button>
         <Button variant="secondary" as={Link} to="/zhanri" className="ml-3">
@@ -476,6 +495,7 @@ const Libri = () => {
         <Table striped bordered hover className="mt-4">
           <thead>
             <tr>
+              <th>id</th>
               <th>ISBN</th>
               <th>Title</th>
               <th>Publication Year</th>
@@ -490,15 +510,10 @@ const Libri = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredLibriList.length === 0 ? (
-              <tr>
-                <td colSpan="12" className="text-center">
-                  No Data Found
-                </td>
-              </tr>
-            ) : (
-              currentItems.map((item, key) => (
-                <tr key={key}>
+            {Array.isArray(filteredLibriList) &&
+              filteredLibriList.map((item, index) => (
+                <tr key={item.id || index}>
+                  <td>{index + 1}</td>
                   <td>{item.isbn}</td>
                   <td>{item.titulli}</td>
                   <td>{item.vitiPublikimit}</td>
@@ -545,8 +560,7 @@ const Libri = () => {
                     </Button>
                   </td>
                 </tr>
-              ))
-            )}
+              ))}
           </tbody>
         </Table>
         {/* Pagination Controls */}
@@ -657,14 +671,15 @@ const Libri = () => {
                   className="form-control"
                 >
                   <option value="">Select Publisher</option>
-                  {Array.isArray(shtepiaList) && shtepiaList.map((shtepia, index) =>(
-                    <option
-                      key={shtepia.shtepiaBotueseID}
-                      value={shtepia.shtepiaBotueseID}
-                    >
-                      {shtepia.emri}
-                    </option>
-                  ))}
+                  {Array.isArray(shtepiaList) &&
+                    shtepiaList.map((shtepia, index) => (
+                      <option
+                        key={shtepia.shtepiaBotueseID}
+                        value={shtepia.shtepiaBotueseID}
+                      >
+                        {shtepia.emri}
+                      </option>
+                    ))}
                 </select>
               </Col>
               <Col>
@@ -675,11 +690,12 @@ const Libri = () => {
                   className="form-control"
                 >
                   <option value="">Select Genre</option>
-                  {Array.isArray(zhanriList) && zhanriList.map((zhanri, index) => (
-                    <option key={zhanri.zhanriId} value={zhanri.zhanriId}>
-                      {zhanri.emri}
-                    </option>
-                  ))}
+                  {Array.isArray(zhanriList) &&
+                    zhanriList.map((zhanri, index) => (
+                      <option key={zhanri.zhanriId} value={zhanri.zhanriId}>
+                        {zhanri.emri}
+                      </option>
+                    ))}
                 </select>
               </Col>
               <Col className="w-full sm:w-auto mb-3 sm:mb-0 flex items-center">

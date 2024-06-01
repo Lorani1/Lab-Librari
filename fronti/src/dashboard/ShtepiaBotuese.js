@@ -33,11 +33,21 @@ const Shtepia = () => {
     axios
       .get(`https://localhost:7101/api/ShtepiaBotuese`)
       .then((result) => {
-        setShtepiaList(result.data);
-        setFilteredShtepiaList(result.data);
+        console.log("API Response:", result.data); // Log API response
+        if (Array.isArray(result.data)) {
+          setShtepiaList(result.data);
+          setFilteredShtepiaList(result.data);
+        } else if (result.data.$values) {
+          setShtepiaList(result.data.$values);
+          setFilteredShtepiaList(result.data.$values);
+        } else {
+          console.error("Unexpected data format:", result.data);
+          toast.error("Unexpected data format");
+        }
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
+        toast.error("Failed to fetch data");
       });
   };
 
@@ -216,13 +226,8 @@ const Shtepia = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredShtepiaList.length === 0 ? (
-              <tr>
-                <td colSpan="4" className="text-center">
-                  No Data Found
-                </td>
-              </tr>
-            ) : (
+            {Array.isArray(filteredShtepiaList) &&
+            filteredShtepiaList.length > 0 ? (
               filteredShtepiaList.map((item, key) => (
                 <tr key={key}>
                   <td>{item.shtepiaBotueseID}</td>
@@ -245,6 +250,10 @@ const Shtepia = () => {
                   </td>
                 </tr>
               ))
+            ) : (
+              <tr>
+                <td colSpan="4">No data available</td>
+              </tr>
             )}
           </tbody>
         </Table>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import Product from "../Products/Product/Product.js";
@@ -12,17 +11,36 @@ const Anime = ({ onAddToCart }) => {
   const [animeProducts, setAnimeProducts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://localhost:7101/api/Libri")
-      .then((response) => {
-        console.log("Fetched data:", response.data); // Log the fetched data
-        const animes = response.data.filter(
-          (product) => product.zhanri.emri === "Anime"
-        );
-        console.log("Filtered anime products:", animes); // Log the filtered manga products
-        setAnimeProducts(animes);
-      })
-      .catch((error) => console.error("Error fetching anime data:", error));
+    let isMounted = true;
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://localhost:7101/api/Libri");
+        if (isMounted) {
+          const fetchedProducts = response.data?.["$values"] || response.data;
+          if (Array.isArray(fetchedProducts)) {
+            const animes = fetchedProducts.filter(
+              (product) => product.zhanri.emri === "Anime"
+            );
+            setAnimeProducts(animes);
+
+            // Log fetched data and filtered anime products
+            console.log("Fetched data:", fetchedProducts);
+            console.log("Filtered anime products:", animes);
+          } else {
+            console.error("Fetched data is not an array:", fetchedProducts);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching anime data:", error);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

@@ -9,18 +9,25 @@ import axios from "axios";
 const Fiction = ({ onAddToCart }) => {
   const classes = useStyles();
   const [fictionProducts, setFictionProducts] = useState([]);
+
   useEffect(() => {
     axios
       .get("https://localhost:7101/api/Libri")
       .then((response) => {
         console.log("Fetched data:", response.data); // Log the fetched data
-        const fictions = response.data.filter(
-          (product) => product.zhanri.emri === "Thriller"
-        );
-        console.log("Filtered biografi products:", fictions); // Log the filtered manga products
-        setFictionProducts(fictions);
+        const fetchedProducts = response.data?.["$values"];
+
+        if (Array.isArray(fetchedProducts)) {
+          const fictions = fetchedProducts.filter(
+            (product) => product.zhanri.emri === "Thriller"
+          );
+          console.log("Filtered thriller products:", fictions); // Log the filtered thriller products
+          setFictionProducts(fictions);
+        } else {
+          console.error("Fetched data is not an array:", fetchedProducts);
+        }
       })
-      .catch((error) => console.error("Error fetching biografi data:", error));
+      .catch((error) => console.error("Error fetching thriller data:", error));
   }, []);
 
   return (
@@ -50,7 +57,7 @@ const Fiction = ({ onAddToCart }) => {
                 sm={5}
                 md={3}
                 lg={2}
-                id="pro"
+                key={product.id} // Added key prop for React list rendering
               >
                 <Product product={product} onAddToCart={onAddToCart} />
               </Grid>

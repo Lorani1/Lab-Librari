@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "n/i6x04xqUmHhbOxjcpxxkKtFH7O82foxITDbyyzpWs=",
+  "Hash": "ZO6v0MrLPI8hOi+rosEDeORE6+t4wRuKnyaOoTgrMzo=",
   "Source": "labback",
   "BasePath": "_content/labback",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "labback\\wwwroot",
       "Source": "labback",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\011_002_user_profile_avatar_woman_girl_round-512.webp",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\011_002_user_profile_avatar_woman_girl_round-512.webp",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/011_002_user_profile_avatar_woman_girl_round-512.webp",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\011_002_user_profile_avatar_woman_girl_round-512.webp"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\1f84d23a-913a-46d5-9a81-e138c1a048c8_a.jpg",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\1f84d23a-913a-46d5-9a81-e138c1a048c8_a.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/1f84d23a-913a-46d5-9a81-e138c1a048c8_a.jpg",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\1f84d23a-913a-46d5-9a81-e138c1a048c8_a.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\2055168a-7949-4a5e-b729-21582bdbe670_6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\2055168a-7949-4a5e-b729-21582bdbe670_6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/2055168a-7949-4a5e-b729-21582bdbe670_6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\2055168a-7949-4a5e-b729-21582bdbe670_6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\2740bc0a-6760-43ed-b518-d9b45f5f060e_011_002_user_profile_avatar_woman_girl_round-512.webp",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\2740bc0a-6760-43ed-b518-d9b45f5f060e_011_002_user_profile_avatar_woman_girl_round-512.webp",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/2740bc0a-6760-43ed-b518-d9b45f5f060e_011_002_user_profile_avatar_woman_girl_round-512.webp",
       "AssetKind": "All",
@@ -93,10 +93,29 @@
       "OriginalItemSpec": "wwwroot\\foto\\2740bc0a-6760-43ed-b518-d9b45f5f060e_011_002_user_profile_avatar_woman_girl_round-512.webp"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\37e8dcb2-e1ca-4e1d-a214-15efad7d2d67_2740bc0a-6760-43ed-b518-d9b45f5f060e_011_002_user_profile_avatar_woman_girl_round-512.webp",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "BasePath": "_content/labback",
+      "RelativePath": "foto/37e8dcb2-e1ca-4e1d-a214-15efad7d2d67_2740bc0a-6760-43ed-b518-d9b45f5f060e_011_002_user_profile_avatar_woman_girl_round-512.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\foto\\37e8dcb2-e1ca-4e1d-a214-15efad7d2d67_2740bc0a-6760-43ed-b518-d9b45f5f060e_011_002_user_profile_avatar_woman_girl_round-512.webp"
+    },
+    {
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg",
+      "SourceId": "labback",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg",
       "AssetKind": "All",
@@ -112,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\8f9d095a-c91e-40f5-850c-07b9fac9797d_1412223899.jpg",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\8f9d095a-c91e-40f5-850c-07b9fac9797d_1412223899.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/8f9d095a-c91e-40f5-850c-07b9fac9797d_1412223899.jpg",
       "AssetKind": "All",
@@ -131,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\8f9d095a-c91e-40f5-850c-07b9fac9797d_1412223899.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\a.jpg",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\a.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/a.jpg",
       "AssetKind": "All",
@@ -150,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\a.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\b9f91105-2de8-4cc1-a4ce-5c804f5f5aec_2055168a-7949-4a5e-b729-21582bdbe670_6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\b9f91105-2de8-4cc1-a4ce-5c804f5f5aec_2055168a-7949-4a5e-b729-21582bdbe670_6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/b9f91105-2de8-4cc1-a4ce-5c804f5f5aec_2055168a-7949-4a5e-b729-21582bdbe670_6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg",
       "AssetKind": "All",
@@ -169,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\b9f91105-2de8-4cc1-a4ce-5c804f5f5aec_2055168a-7949-4a5e-b729-21582bdbe670_6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\e48ae194-acb8-4b8c-a17a-d2d188a9c965_011_002_user_profile_avatar_woman_girl_round-512.webp",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\e48ae194-acb8-4b8c-a17a-d2d188a9c965_011_002_user_profile_avatar_woman_girl_round-512.webp",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/e48ae194-acb8-4b8c-a17a-d2d188a9c965_011_002_user_profile_avatar_woman_girl_round-512.webp",
       "AssetKind": "All",
@@ -188,10 +207,29 @@
       "OriginalItemSpec": "wwwroot\\foto\\e48ae194-acb8-4b8c-a17a-d2d188a9c965_011_002_user_profile_avatar_woman_girl_round-512.webp"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\pr.avif",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\fcc029f7-101d-4781-8174-11e467d09bb4_28a67a98-4dca-442a-8f86-13edebed29b9_phot6.jpg",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "BasePath": "_content/labback",
+      "RelativePath": "foto/fcc029f7-101d-4781-8174-11e467d09bb4_28a67a98-4dca-442a-8f86-13edebed29b9_phot6.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\foto\\fcc029f7-101d-4781-8174-11e467d09bb4_28a67a98-4dca-442a-8f86-13edebed29b9_phot6.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\foto\\pr.avif",
+      "SourceId": "labback",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "foto/pr.avif",
       "AssetKind": "All",
@@ -207,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\foto\\pr.avif"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\uploads\\acb45123-c298-4f37-8a72-6e3261800c73_pg.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\uploads\\acb45123-c298-4f37-8a72-6e3261800c73_pg.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "uploads/acb45123-c298-4f37-8a72-6e3261800c73_pg.png",
       "AssetKind": "All",
@@ -226,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\uploads\\acb45123-c298-4f37-8a72-6e3261800c73_pg.png"
     },
     {
-      "Identity": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\uploads\\ffda342d-a0df-425d-b278-dd5d19839762_png-transparent-pizza-food-small-piece-of-pizza-pizza-logo-cartoon-one-piece.png",
+      "Identity": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\uploads\\ffda342d-a0df-425d-b278-dd5d19839762_png-transparent-pizza-food-small-piece-of-pizza-pizza-logo-cartoon-one-piece.png",
       "SourceId": "labback",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\HP-650 G1\\OneDrive\\Desktop\\Lib\\Lab-Librari\\labback\\labback\\wwwroot\\",
       "BasePath": "_content/labback",
       "RelativePath": "uploads/ffda342d-a0df-425d-b278-dd5d19839762_png-transparent-pizza-food-small-piece-of-pizza-pizza-logo-cartoon-one-piece.png",
       "AssetKind": "All",

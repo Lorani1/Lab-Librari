@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import Product from "../Products/Product/Product.js";
@@ -12,17 +11,37 @@ const Manga = ({ onAddToCart }) => {
   const [mangaProducts, setMangaProducts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://localhost:7101/api/Libri")
-      .then((response) => {
-        console.log("Fetched data:", response.data); // Log the fetched data
-        const mangas = response.data.filter(
-          (product) => product.zhanri.emri === "Romance"
-        );
-        console.log("Filtered manga products:", mangas); // Log the filtered manga products
-        setMangaProducts(mangas);
-      })
-      .catch((error) => console.error("Error fetching manga data:", error));
+    let isMounted = true;
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://localhost:7101/api/Libri");
+        if (isMounted) {
+          const fetchedProducts = response.data?.["$values"];
+          if (Array.isArray(fetchedProducts)) {
+            // Filter manga products by genre "Romance"
+            const mangas = fetchedProducts.filter(
+              (product) => product.zhanri.emri === "Romance"
+            );
+            setMangaProducts(mangas);
+
+            // Log fetched data and filtered manga products
+            console.log("Fetched data:", fetchedProducts);
+            console.log("Filtered manga products:", mangas);
+          } else {
+            console.error("Fetched data is not an array:", fetchedProducts);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching book data:", error);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

@@ -25,23 +25,26 @@ const Products = ({ onAddToCart }) => {
 
   useEffect(() => {
     let isMounted = true;
-    axios
-      .get("https://localhost:7101/api/Libri")
-      .then((response) => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("https://localhost:7101/api/Libri");
         if (isMounted) {
-          if (Array.isArray(response.data)) {
-            setProducts(response.data);
+          const fetchedProducts = response.data?.["$values"];
+          if (Array.isArray(fetchedProducts)) {
+            setProducts(fetchedProducts);
           } else {
-            console.error("API response is not an array:", response.data);
+            console.error("Fetched data is not an array:", fetchedProducts);
           }
         }
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching book data:", error);
-      });
+      }
+    };
+
+    fetchProducts();
 
     return () => {
-      isMounted = false; // Cleanup on unmount
+      isMounted = false;
     };
   }, []);
 
@@ -59,10 +62,9 @@ const Products = ({ onAddToCart }) => {
     } else if (product.titulli) {
       const lowercaseTitulli = product.titulli.toLowerCase();
       const lowercaseSearchTerm = searchTerm.toLowerCase();
-      const isMatch = lowercaseTitulli.includes(lowercaseSearchTerm);
-      return isMatch;
+      return lowercaseTitulli.includes(lowercaseSearchTerm);
     }
-    return false; // If product.titulli doesn't exist, filter it out
+    return false;
   });
 
   useEffect(() => {

@@ -1,28 +1,30 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { AuthProvider } from './AuthContext';
-import ProtectedRoute from './ProtectedRoute';
-import Login from './Login';
-import Registration from './Registration';
-import Home from './Home';
-import Dashboard from './dashboard/Dashboard';
-import Klienti from './dashboard/Klienti';
-import Libri from './dashboard/Libri';
-import Autori from './dashboard/Autori';
-import Staf from './dashboard/Staf';
-import Cart from './components/Cart/Cart';
-import CartItem from './components/Cart/CartItem/CartItem';
-import AddressForm from './components/CheckoutForm/AddressForm';
-import Qyteti from './dashboard/Qyteti';
-import Profile from './components/Navbar/Profile';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { AuthProvider } from "./AuthContext";
+import ProtectedRoute from "./ProtectedRoute";
+import Login from "./Login";
+import Registration from "./Registration";
+import Home from "./Home";
+import Dashboard from "./dashboard/Dashboard";
+import Klienti from "./dashboard/Klienti";
+import Libri from "./dashboard/Libri";
+import Autori from "./dashboard/Autori";
+import Staf from "./dashboard/Staf";
+import Cart from "./components/Cart/Cart";
+import CartItem from "./components/Cart/CartItem/CartItem";
+import AddressForm from "./components/CheckoutForm/AddressForm";
+import Qyteti from "./dashboard/Qyteti";
+import Profile from "./components/Navbar/Profile";
 import Manga from "./components/Manga/Manga";
 import Biography from "./components/Bio/Biography";
 import Fiction from "./components/Fiction/Fiction";
 import Crime from "./components/Crime/Crime";
 import Anime from "./components/Anime/Anime";
 import ShtepiaBotuese from "./dashboard/ShtepiaBotuese";
-import zhanri from './dashboard/zhanri';
-
+import zhanri from "./dashboard/zhanri";
+import ProductView from "./components/ProductView/ProductView";
+import Product from "./components/Products/Product/Product";
+import Products from "./components/Products/Products";
 
 function App() {
   return (
@@ -47,8 +49,11 @@ function App() {
           <ProtectedRoute path="/crime" component={Crime} />
           <ProtectedRoute path="/anime" component={Anime} />
           <ProtectedRoute path="/shtepiabotuese" component={ShtepiaBotuese} />
+          <ProtectedRoute path="/Product" component={Product} />
+          <ProtectedRoute path="/Products" component={Products} />
           <Route path="/registration" component={Registration} />
           <Route path="/" component={Login} />
+          <ProtectedRoute path="/product-view/:id" component={ProductView} />
         </Switch>
       </Router>
     </AuthProvider>

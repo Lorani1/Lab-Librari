@@ -1,9 +1,9 @@
+import React, { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import Product from "../Products/Product/Product.js";
 import useStyles from "../Products/styles.js";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "../ProductView/style.css";
-import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const Crime = ({ onAddToCart }) => {
@@ -11,17 +11,36 @@ const Crime = ({ onAddToCart }) => {
   const [crimeProducts, setCrimeProducts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://localhost:7101/api/Libri")
-      .then((response) => {
-        console.log("Fetched data:", response.data); // Log the fetched data
-        const crimes = response.data.filter(
-          (product) => product.zhanri.emri === "Crime"
-        );
-        console.log("Filtered crime products:", crimes); // Log the filtered manga products
-        setCrimeProducts(crimes);
-      })
-      .catch((error) => console.error("Error fetching crime data:", error));
+    let isMounted = true;
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://localhost:7101/api/Libri");
+        if (isMounted) {
+          const fetchedProducts = response.data?.["$values"] || response.data;
+          if (Array.isArray(fetchedProducts)) {
+            const crimes = fetchedProducts.filter(
+              (product) => product.zhanri.emri === "Crime"
+            );
+            setCrimeProducts(crimes);
+
+            // Log fetched data and filtered crime products
+            console.log("Fetched data:", fetchedProducts);
+            console.log("Filtered crime products:", crimes);
+          } else {
+            console.error("Fetched data is not an array:", fetchedProducts);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching crime data:", error);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
@@ -37,7 +56,7 @@ const Crime = ({ onAddToCart }) => {
         <Grid
           className={classes.categoryFeatured}
           container
-          justifyContent="center" // Change justify to justifyContent
+          justifyContent="center" // Changed justify to justifyContent
           spacing={1}
         >
           {crimeProducts.length === 0 ? (
