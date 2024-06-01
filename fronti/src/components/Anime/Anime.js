@@ -1,4 +1,4 @@
-// Manga.jsx
+
 import React, { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import Product from "../Products/Product/Product.js";

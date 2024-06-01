@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace labback.Migrations
 {
     /// <inheritdoc />
-    public partial class ini : Migration
+    public partial class libri : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -128,12 +128,12 @@ namespace labback.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Isbn = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Titulli = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Kategoria = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VitiPublikimit = table.Column<int>(type: "int", nullable: false),
                     NrFaqeve = table.Column<int>(type: "int", nullable: false),
                     NrKopjeve = table.Column<int>(type: "int", nullable: false),
                     Gjuha = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InStock = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfilePicturePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShtepiaBotueseID = table.Column<int>(type: "int", nullable: false),
                     zhanriId = table.Column<int>(type: "int", nullable: false)
@@ -231,6 +231,34 @@ namespace labback.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "RatingComments",
+                columns: table => new
+                {
+                    RatingsCommentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Rating = table.Column<int>(type: "int", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    KlientID = table.Column<int>(type: "int", nullable: false),
+                    LibriID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RatingComments", x => x.RatingsCommentID);
+                    table.ForeignKey(
+                        name: "FK_RatingComments_Klients_KlientID",
+                        column: x => x.KlientID,
+                        principalTable: "Klients",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RatingComments_Librat_LibriID",
+                        column: x => x.LibriID,
+                        principalTable: "Librat",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "Roli",
                 columns: new[] { "ID", "Name" },
@@ -276,6 +304,17 @@ namespace labback.Migrations
                 column: "zhanriId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RatingComments_KlientID_LibriID",
+                table: "RatingComments",
+                columns: new[] { "KlientID", "LibriID" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RatingComments_LibriID",
+                table: "RatingComments",
+                column: "LibriID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_KlientID",
                 table: "RefreshTokens",
                 column: "KlientID");
@@ -289,6 +328,9 @@ namespace labback.Migrations
 
             migrationBuilder.DropTable(
                 name: "Exchanges");
+
+            migrationBuilder.DropTable(
+                name: "RatingComments");
 
             migrationBuilder.DropTable(
                 name: "RefreshTokens");

@@ -1,18 +1,13 @@
 import React, { useState, useEffect, Fragment } from "react";
-import Table from "react-bootstrap/Table";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Table, Button, Modal, Row, Col, Container } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-const zhanri = () => {
+const Zhanri = () => {
   const [zhanriList, setZhanriList] = useState([]);
   const [filteredZhanriList, setFilteredZhanriList] = useState([]);
   const [show, setShow] = useState(false);
@@ -22,7 +17,6 @@ const zhanri = () => {
   const [editId, setEditId] = useState("");
   const [editEmri, setEditEmri] = useState("");
   const [editDescription, setEditDescription] = useState("");
-
   const [emriFilter, setEmriFilter] = useState("");
 
   useEffect(() => {
@@ -33,55 +27,61 @@ const zhanri = () => {
     axios
       .get(`https://localhost:7101/api/Zhanri`)
       .then((result) => {
-        setZhanriList(result.data);
-        setFilteredZhanriList(result.data);
+        console.log("API Response:", result.data); // Log API response
+        if (Array.isArray(result.data)) {
+          setZhanriList(result.data);
+          setFilteredZhanriList(result.data);
+        } else if (result.data.$values) {
+          setZhanriList(result.data.$values);
+          setFilteredZhanriList(result.data.$values);
+        } else {
+          console.error("Unexpected data format:", result.data);
+          toast.error("Unexpected data format");
+        }
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
+        toast.error("Failed to fetch data");
       });
   };
 
-  const handleEdit = (zhanriId) => {
+  const handleEdit = (id) => {
     setShow(true);
     axios
-      .get(`https://localhost:7101/api/Zhanri/${zhanriId}`)
+      .get(`https://localhost:7101/api/Zhanri/${id}`)
       .then((result) => {
         setEditEmri(result.data.emri);
         setEditDescription(result.data.description);
-        setEditId(zhanriId);
+        setEditId(id);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
+        toast.error("Failed to fetch data");
       });
   };
 
-  const handleDelete = (zhanriId) => {
+  const handleDelete = (id) => {
     if (window.confirm("Are you sure to delete this genre?")) {
       axios
-        .delete(`https://localhost:7101/api/Zhanri/${zhanriId}`)
+        .delete(`https://localhost:7101/api/Zhanri/${id}`)
         .then((result) => {
           if (result.status === 200) {
             toast.success("Genre has been deleted");
-            const updatedList = zhanriList.filter(
-              (item) => item.zhanriId !== zhanriId
-            );
+            const updatedList = zhanriList.filter((item) => item.zhanriId !== id);
             setZhanriList(updatedList);
             setFilteredZhanriList(updatedList);
           }
         })
         .catch((error) => {
-          toast.error(error);
+          console.error(error);
+          toast.error("Failed to delete data");
         });
     }
   };
 
   const handleUpdate = () => {
     const url = `https://localhost:7101/api/Zhanri/${editId}`;
-    const data = {
-      zhanriId: editId,
-      emri: editEmri,
-      description: editDescription,
-    };
+    const data = { zhanriId: editId, emri: editEmri, description: editDescription };
     axios
       .put(url, data)
       .then((result) => {
@@ -91,27 +91,25 @@ const zhanri = () => {
         toast.success("Genre has been updated");
       })
       .catch((error) => {
-        toast.error(error);
+        console.error(error);
+        toast.error("Failed to update data");
       });
   };
 
   const handleSave = () => {
-    const url = `https://localhost:7101/api/Zhanri`;
-
-    const newData = {
-      emri: emri,
-      description: description,
-    };
-
+    const url = "https://localhost:7101/api/Zhanri";
+    const data = { emri: emri, description: description };
     axios
-      .post(url, newData)
+      .post(url, data)
       .then((result) => {
         fetchZhanriList();
         clear();
         toast.success("Genre has been added");
+        setShowAddModal(false);
       })
       .catch((error) => {
-        toast.error(error);
+        console.error(error);
+        toast.error("Failed to save data");
       });
   };
 
@@ -157,10 +155,8 @@ const zhanri = () => {
   return (
     <Fragment>
       <ToastContainer />
-
       <Container className="py-5">
         <h1>Genre List</h1>
-
         <Button variant="primary" onClick={() => setShowAddModal(true)}>
           Add New Genre
         </Button>
@@ -211,19 +207,21 @@ const zhanri = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
+              <th>
+                Emri
+                <Button variant="link" onClick={() => sortResult("emri", true)}>
+                  Asc
+                </Button>
+                <Button variant="link" onClick={() => sortResult("emri", false)}>
+                  Desc
+                </Button>
+              </th>
               <th>Description</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {filteredZhanriList.length === 0 ? (
-              <tr>
-                <td colSpan="4" className="text-center">
-                  No Data Found
-                </td>
-              </tr>
-            ) : (
+            {Array.isArray(filteredZhanriList) && filteredZhanriList.length > 0 ? (
               filteredZhanriList.map((item, key) => (
                 <tr key={key}>
                   <td>{item.zhanriId}</td>
@@ -231,9 +229,9 @@ const zhanri = () => {
                   <td>{item.description}</td>
                   <td>
                     <Button
-                      className="mr-2"
                       variant="warning"
                       onClick={() => handleEdit(item.zhanriId)}
+                      className="mr-2"
                     >
                       <BsFillPencilFill />
                     </Button>
@@ -246,6 +244,10 @@ const zhanri = () => {
                   </td>
                 </tr>
               ))
+            ) : (
+              <tr>
+                <td colSpan="4">No data available</td>
+              </tr>
             )}
           </tbody>
         </Table>
@@ -324,4 +326,4 @@ const zhanri = () => {
   );
 };
 
-export default zhanri;
+export default Zhanri;

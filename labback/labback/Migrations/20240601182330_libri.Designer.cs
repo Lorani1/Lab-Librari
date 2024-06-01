@@ -12,8 +12,8 @@ using labback.Models;
 namespace labback.Migrations
 {
     [DbContext(typeof(LibriContext))]
-    [Migration("20240601123012_ini")]
-    partial class ini
+    [Migration("20240601182330_libri")]
+    partial class libri
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,37 @@ namespace labback.Migrations
                     b.ToTable("Qytetet");
                 });
 
+            modelBuilder.Entity("RatingComment", b =>
+                {
+                    b.Property<int>("RatingsCommentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RatingsCommentID"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("KlientID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LibriID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.HasKey("RatingsCommentID");
+
+                    b.HasIndex("LibriID");
+
+                    b.HasIndex("KlientID", "LibriID")
+                        .IsUnique();
+
+                    b.ToTable("RatingComments");
+                });
+
             modelBuilder.Entity("labback.Libri", b =>
                 {
                     b.Property<int>("ID")
@@ -49,6 +80,10 @@ namespace labback.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gjuha")
                         .IsRequired()
@@ -58,10 +93,6 @@ namespace labback.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Isbn")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Kategoria")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -340,6 +371,25 @@ namespace labback.Migrations
                     b.ToTable("zhanri");
                 });
 
+            modelBuilder.Entity("RatingComment", b =>
+                {
+                    b.HasOne("labback.Models.Klient", "Klient")
+                        .WithMany("RatingComments")
+                        .HasForeignKey("KlientID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("labback.Libri", "Libri")
+                        .WithMany("RatingComments")
+                        .HasForeignKey("LibriID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Klient");
+
+                    b.Navigation("Libri");
+                });
+
             modelBuilder.Entity("labback.Libri", b =>
                 {
                     b.HasOne("labback.Models.ShtepiaBotuese", "ShtepiaBotuese")
@@ -430,6 +480,8 @@ namespace labback.Migrations
             modelBuilder.Entity("labback.Libri", b =>
                 {
                     b.Navigation("AutoriLibris");
+
+                    b.Navigation("RatingComments");
                 });
 
             modelBuilder.Entity("labback.Models.Autori", b =>
@@ -439,6 +491,8 @@ namespace labback.Migrations
 
             modelBuilder.Entity("labback.Models.Klient", b =>
                 {
+                    b.Navigation("RatingComments");
+
                     b.Navigation("RefreshTokens");
                 });
 

@@ -18,9 +18,8 @@ import axios from "axios";
 import Manga from "./components/Manga/Manga";
 import Crime from "./components/Crime/Crime";
 import Fiction from "./components/Fiction/Fiction";
-import { useHistory, Link } from "react-router-dom";
 const Home = () => {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [mangaProducts, setMangaProducts] = useState([]);
   const [fictionProducts, setFictionProducts] = useState([]);
@@ -28,18 +27,12 @@ const Home = () => {
   const [crimeProducts, setCrimeProducts] = useState([]);
   const [animeProducts, setAnimeProducts] = useState([]);
   const [featureProducts, setFeatureProducts] = useState([]);
-  const [books, setBooks] = useState([]); // New state for books
+  const [product, setBooks] = useState([]);
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [activeSection, setActiveSection] = useState("products");
-  const history = useHistory();
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (!token) {
-      history.push("/login");
-    }
-  }, [history]);
+
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
     const uniqueProducts = Array.from(
@@ -54,18 +47,6 @@ const Home = () => {
     });
     setMangaProducts(data);
   };
-  const fetchAnimeProducts = async () => {
-    try {
-      const { data } = await commerce.products.list({
-        category_slug: ["anime"],
-      });
-      setAnimeProducts(data);
-    } catch (error) {
-      console.error("Error fetching anime products:", error);
-      // Handle the error appropriately, such as displaying a message to the user
-      // or retrying the request after a delay
-    }
-  };
 
   const fetchFeatureProducts = async () => {
     const { data } = await commerce.products.list({
@@ -74,28 +55,11 @@ const Home = () => {
     setFeatureProducts(data);
   };
 
-  const fetchFictionProducts = async () => {
-    const { data } = await commerce.products.list({
-      category_slug: ["fiction"],
-    });
-    setFictionProducts(data);
-  };
-
   const fetchBioProducts = async () => {
     const { data } = await commerce.products.list({
       category_slug: ["biography"],
     });
     setBioProducts(data);
-  };
-  const fetchCrimeProducts = async () => {
-    try {
-      const { data } = await commerce.products.list({
-        category_slug: ["crime"],
-      });
-      setCrimeProducts(data);
-    } catch (error) {
-      console.error("Error fetching crime products:", error);
-    }
   };
 
   const fetchBooks = async () => {
@@ -110,6 +74,27 @@ const Home = () => {
       .catch((error) => {
         console.error("Error fetching book data:", error);
       });
+  };
+
+  const fetchFictionProducts = async () => {
+    try {
+      const zhanriResponse = await axios.get(
+        "https://localhost:7101/api/zhanri"
+      );
+      const libriResponse = await axios.get("https://localhost:7101/api/Libri");
+
+      const thrillerZhanri = zhanriResponse.data.filter(
+        (product) => product.emri === "Thriller"
+      );
+      const thrillerLibri = libriResponse.data.filter(
+        (book) => book.emri === "Thriller"
+      );
+
+      const mergedThrillers = [...thrillerZhanri, ...thrillerLibri];
+      setFictionProducts(mergedThrillers);
+    } catch (error) {
+      console.error("Error fetching thriller products:", error);
+    }
   };
 
   const fetchCart = async () => {
@@ -161,8 +146,6 @@ const Home = () => {
     fetchMangaProducts();
     fetchFictionProducts();
     fetchBioProducts();
-    fetchCrimeProducts();
-    fetchAnimeProducts();
     fetchBooks();
   }, []);
 
@@ -207,24 +190,12 @@ const Home = () => {
         return (
           <Biography bioProducts={bioProducts} onAddToCart={handleAddToCart} />
         );
-      case "crime":
-        return crimeProducts.length > 0 ? (
-          <Crime onAddToCart={handleAddToCart} crimeProducts={crimeProducts} />
-        ) : (
-          <p>Loading crime products...</p>
-        );
-      case "anime":
-        return animeProducts.length > 0 ? (
-          <Anime onAddToCart={handleAddToCart} animeProducts={animeProducts} />
-        ) : (
-          <p>Loading anime products...</p>
-        );
       case "books":
         return (
           <div className="container">
             <h1 className="text-center mt-5 mb-4">E-Library</h1>
             <div className="row row-cols-1 row-cols-md-3 g-4">
-              {books.map((book) => (
+              {visibleBooks.map((book) => (
                 <div key={book.id} className="col">
                   <div className="book-card">
                     <div className="book-cover">
@@ -262,7 +233,6 @@ const Home = () => {
     }
   };
 
-  console.log("Rendering Home component");
   return (
     <div>
       <CssBaseline />
@@ -271,6 +241,7 @@ const Home = () => {
         handleDrawerToggle={handleDrawerToggle}
       />
       <div style={{ display: "flex" }}>{renderActiveSection()}</div>
+
       <Footer />
     </div>
   );

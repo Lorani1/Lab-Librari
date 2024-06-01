@@ -83,28 +83,26 @@ const Libri = () => {
   const [itemsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1); // Change the number of items per page as needed
 
-  // Pagination Logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredLibriList.slice(
+  const currentItems = (Array.isArray(filteredLibriList) ? filteredLibriList : []).slice(
     indexOfFirstItem,
     indexOfLastItem
   );
-  const totalPages = Math.ceil(filteredLibriList.length / itemsPerPage);
-
+  const totalPages = Math.ceil((Array.isArray(filteredLibriList) ? filteredLibriList : []).length / itemsPerPage);
+  
   useEffect(() => {
     getData();
     getShtepiaList();
     getZhanriList();
   }, []);
-
   const getData = () => {
     axios
       .get(`https://localhost:7101/api/Libri`)
       .then((result) => {
         setData(result.data);
-        setFilteredLibriList(result.data);
-
+        setFilteredLibriList(result.data || []); // Ensure it is an array
+  
         // Assuming the API response includes a field called 'photoPath' for each book
         // Set the photo path in component state
         result.data.forEach((book) => {
@@ -118,11 +116,12 @@ const Libri = () => {
         console.log(error);
       });
   };
+  
 
   const getShtepiaList = () => {
     axios
       .get(`https://localhost:7101/api/ShtepiaBotuese`)
-      .then((result) => setShtepiaList(result.data))
+      .then((result) => setShtepiaList(Array.isArray(result.data) ? result.data : []))
       .catch((error) => {
         console.error("Error fetching publisher data:", error);
         toast.error("Failed to fetch publisher data.");
@@ -131,12 +130,13 @@ const Libri = () => {
   const getZhanriList = () => {
     axios
       .get(`https://localhost:7101/api/Zhanri`)
-      .then((result) => setZhanriList(result.data))
+      .then((result) => setZhanriList(Array.isArray(result.data) ? result.data : [])) // Ensure it is an array
       .catch((error) => {
         console.error("Error fetching genre data:", error);
         toast.error("Failed to fetch genre data.");
       });
   };
+  
   const handlePreviousPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
   };
@@ -377,10 +377,10 @@ const Libri = () => {
     setTitulliFilter(value);
     filterFn(data, value);
   };
-
+  
   const filterFn = (data, filterValue) => {
     if (filterValue.trim() === "") {
-      setFilteredLibriList(data);
+      setFilteredLibriList(data || []); // Ensure it is an array
     } else {
       const filteredData = data.filter((el) => {
         return (el.titulli?.toString() ?? "")
@@ -390,6 +390,7 @@ const Libri = () => {
       setFilteredLibriList(filteredData);
     }
   };
+  
 
   const sortResult = (prop, asc) => {
     const sortedData = [...filteredLibriList].sort((a, b) => {
@@ -656,7 +657,7 @@ const Libri = () => {
                   className="form-control"
                 >
                   <option value="">Select Publisher</option>
-                  {shtepiaList.map((shtepia) => (
+                  {Array.isArray(shtepiaList) && shtepiaList.map((shtepia, index) =>(
                     <option
                       key={shtepia.shtepiaBotueseID}
                       value={shtepia.shtepiaBotueseID}
@@ -674,7 +675,7 @@ const Libri = () => {
                   className="form-control"
                 >
                   <option value="">Select Genre</option>
-                  {zhanriList.map((zhanri) => (
+                  {Array.isArray(zhanriList) && zhanriList.map((zhanri, index) => (
                     <option key={zhanri.zhanriId} value={zhanri.zhanriId}>
                       {zhanri.emri}
                     </option>

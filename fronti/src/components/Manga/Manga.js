@@ -1,4 +1,4 @@
-// Manga.jsx
+
 import React, { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import Product from "../Products/Product/Product.js";
@@ -15,11 +15,11 @@ const Manga = ({ onAddToCart }) => {
     axios
       .get("https://localhost:7101/api/Libri")
       .then((response) => {
-        console.log("Fetched data:", response.data); 
+        console.log("Fetched data:", response.data); // Log the fetched data
         const mangas = response.data.filter(
-          (product) => product.kategoria === "Romance"
+          (product) => product.zhanri.emri === "Romance"
         );
-        console.log("Filtered manga products:", mangas); 
+        console.log("Filtered manga products:", mangas); // Log the filtered manga products
         setMangaProducts(mangas);
       })
       .catch((error) => console.error("Error fetching manga data:", error));
@@ -38,7 +38,7 @@ const Manga = ({ onAddToCart }) => {
         <Grid
           className={classes.categoryFeatured}
           container
-          justifyContent="center" 
+          justifyContent="center" // Change justify to justifyContent
           spacing={1}
         >
           {mangaProducts.length === 0 ? (
@@ -46,7 +46,7 @@ const Manga = ({ onAddToCart }) => {
           ) : (
             mangaProducts.map((product) => (
               <Grid
-                key={product.id} 
+                key={product.id} // Ensure each child in a list has a unique key prop
                 className={classes.categoryFeatured}
                 item
                 xs={6}

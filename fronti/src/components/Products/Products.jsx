@@ -1,68 +1,364 @@
-// Manga.jsx
-import React, { useState, useEffect } from "react";
-import { Grid } from "@material-ui/core";
-import Product from "../Products/Product/Product.js";
-import useStyles from "../Products/styles.js";
+import React, { useState, useEffect, useRef } from "react";
+import { Grid, InputAdornment, Input } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import Product from "./Product/Product.js";
+import useStyles from "./styles";
+import logo1 from "../../assets/Bookshop.gif";
+import scrollImg from "../../assets/scroll.gif";
+import { Link } from "react-router-dom";
+import mangaBg from "../../assets/romance.webp";
+import bioBg from "../../assets/his.jpg";
+import thrillerBg from "../../assets/thriller.jpg";
+import crimeBg from "../../assets/crime.jpg";
+import animeBg from "../../assets/anime.jpg";
+import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "../ProductView/style.css";
 import axios from "axios";
 
-const Manga = ({ onAddToCart }) => {
+const Products = ({ onAddToCart }) => {
   const classes = useStyles();
-  const [mangaProducts, setMangaProducts] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const sectionRef = useRef(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   useEffect(() => {
+    let isMounted = true;
     axios
       .get("https://localhost:7101/api/Libri")
       .then((response) => {
-        console.log("Fetched data:", response.data); // Log the fetched data
-        const mangas = response.data.filter(
-          (product) => product.zhanri.emri === "Romance"
-        );
-        console.log("Filtered manga products:", mangas); // Log the filtered manga products
-        setMangaProducts(mangas);
+        if (isMounted) {
+          if (Array.isArray(response.data)) {
+            setProducts(response.data);
+          } else {
+            console.error("API response is not an array:", response.data);
+          }
+        }
       })
-      .catch((error) => console.error("Error fetching manga data:", error));
+      .catch((error) => {
+        console.error("Error fetching book data:", error);
+      });
+
+    return () => {
+      isMounted = false; // Cleanup on unmount
+    };
   }, []);
+
+  const handleInputClick = () => {
+    sectionRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const uniqueProducts = Array.from(
+    new Set(products.map((product) => product.id))
+  ).map((id) => products.find((product) => product.id === id));
+
+  const filteredProducts = uniqueProducts.filter((product) => {
+    if (searchTerm === "") {
+      return true;
+    } else if (product.titulli) {
+      const lowercaseTitulli = product.titulli.toLowerCase();
+      const lowercaseSearchTerm = searchTerm.toLowerCase();
+      const isMatch = lowercaseTitulli.includes(lowercaseSearchTerm);
+      return isMatch;
+    }
+    return false; // If product.titulli doesn't exist, filter it out
+  });
+
+  useEffect(() => {
+    console.log("Filtered products list:", filteredProducts);
+  }, [filteredProducts]);
+
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
+  const FeaturedBooks = ({ filteredProducts, onAddToCart }) => {
+    const [featuredBooks, setFeaturedBooks] = useState([]);
+
+    useEffect(() => {
+      const shuffledProducts = shuffleArray(filteredProducts);
+      const selectedBooks = shuffledProducts.slice(0, 3);
+      setFeaturedBooks(selectedBooks);
+    }, [filteredProducts]);
+
+    return (
+      <Grid
+        className={classes.contentFeatured}
+        container
+        justifyContent="center"
+        spacing={1}
+      >
+        {featuredBooks.map((product) => (
+          <Grid
+            key={product.id}
+            className={classes.content}
+            item
+            xs={6}
+            sm={6}
+            md={4}
+            lg={3}
+            id="pro"
+          >
+            <Product product={product} onAddToCart={onAddToCart} />
+          </Grid>
+        ))}
+      </Grid>
+    );
+  };
+
+  const getVisibleProducts = () => {
+    const startIndex = 0;
+    const endIndex = currentPage * itemsPerPage;
+    return filteredProducts.slice(startIndex, endIndex);
+  };
+
+  const loadMoreProducts = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
 
   return (
     <main className={classes.mainPage}>
       <div className={classes.toolbar} />
-      <div className={classes.categorySection}>
-        <h3 className={classes.categoryHeader}>
-          <span style={{ color: "#f1361d" }}>Romance</span>
-        </h3>
-        <h3 className={classes.categoryDesc}>
-          Browse our handpicked selection of Romance series
-        </h3>
-        <Grid
-          className={classes.categoryFeatured}
-          container
-          justifyContent="center" // Change justify to justifyContent
-          spacing={1}
+      <img
+        src={scrollImg}
+        className={`${classes.scrollImg} copy`}
+        alt="scroll"
+      />
+      <div className={classes.hero}>
+        <img
+          className={classes.heroImg}
+          src={logo1}
+          height="720px"
+          alt="Bookshop Logo"
+        />
+
+        <div className={classes.heroCont}>
+          <h1 className={classes.heroHeader}>
+            Gjeni librin tuaj të preferuar.
+          </h1>
+          <h3 className={classes.heroDesc} ref={sectionRef}>
+            Eksploroni në koleksionin tonë të librave dhe gjeni librin tuaj të
+            radhës që doni ta lexoni.
+          </h3>
+          <div className={classes.searchs}>
+            <Input
+              className={classes.searchb}
+              type="text"
+              placeholder="Cilin libër po kërkoni?"
+              onClick={handleInputClick}
+              onChange={(event) => {
+                setSearchTerm(event.target.value);
+              }}
+              startAdornment={
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              }
+            />
+          </div>
+        </div>
+      </div>
+
+      {searchTerm === "" && (
+        <div className={classes.categorySection}>
+          <h1 className={classes.categoryHeader}>Kategoritë</h1>
+          <h3 className={classes.categoryDesc}>
+            Shfletoni kategoritë tona të librave
+          </h3>
+          <div className={classes.buttonSection}>
+            <div>
+              <Link to="manga">
+                <button
+                  className={classes.categoryButton}
+                  style={{ backgroundImage: `url(${mangaBg})` }}
+                ></button>
+              </Link>
+              <div className={classes.categoryName}>Romance</div>
+            </div>
+            <div>
+              <Link to="biography">
+                <button
+                  className={classes.categoryButton}
+                  style={{ backgroundImage: `url(${bioBg})` }}
+                ></button>
+              </Link>
+              <div className={classes.categoryName}>Biografi</div>
+            </div>
+            <div>
+              <Link to="fiction">
+                <button
+                  className={classes.categoryButton}
+                  style={{ backgroundImage: `url(${thrillerBg})` }}
+                ></button>
+              </Link>
+              <div className={classes.categoryName}>Thriller</div>
+            </div>
+            <div>
+              <Link to="crime">
+                <button
+                  className={classes.categoryButton}
+                  style={{ backgroundImage: `url(${crimeBg})` }}
+                ></button>
+              </Link>
+              <div className={classes.categoryName}>Crime</div>
+            </div>
+            <div>
+              <Link to="anime">
+                <button
+                  className={classes.categoryButton}
+                  style={{ backgroundImage: `url(${animeBg})` }}
+                ></button>
+              </Link>
+              <div className={classes.categoryName}>Animuar</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className={classes.carouselSection}>
+        <Carousel
+          showIndicators={false}
+          autoPlay={true}
+          infiniteLoop={true}
+          showArrows={true}
+          showStatus={false}
         >
-          {mangaProducts.length === 0 ? (
-            <p>No manga products available</p>
-          ) : (
-            mangaProducts.map((product) => (
+          <div>
+            <Link to="manga">
+              <button
+                className={classes.categoryButton}
+                style={{ backgroundImage: `url(${mangaBg})` }}
+              ></button>
+            </Link>
+            <div className={classes.categoryName}>Romance</div>
+          </div>
+          <div>
+            <Link to="biography">
+              <button
+                className={classes.categoryButton}
+                style={{ backgroundImage: `url(${bioBg})` }}
+              ></button>
+            </Link>
+            <div className={classes.categoryName}>Biografi</div>
+          </div>
+          <div>
+            <Link to="fiction">
+              <button
+                className={classes.categoryButton}
+                style={{ backgroundImage: `url(${thrillerBg})` }}
+              ></button>
+            </Link>
+            <div className={classes.categoryName}>Thriller</div>
+          </div>
+
+          <div>
+            <Link to="crime">
+              <button
+                className={classes.categoryButton}
+                style={{ backgroundImage: `url(${crimeBg})` }}
+              ></button>
+            </Link>
+            <div className={classes.categoryName}>Crime</div>
+          </div>
+          <div>
+            <Link to="anime">
+              <button
+                className={classes.categoryButton}
+                style={{ backgroundImage: `url(${animeBg})` }}
+              ></button>
+            </Link>
+            <div className={classes.categoryName}>Animuar</div>
+          </div>
+        </Carousel>
+      </div>
+
+      {searchTerm === "" && (
+        <>
+          <div>
+            <h3 className={classes.contentHeader}>
+              Më të <span style={{ color: "#f1361d" }}>huazuarat</span>
+            </h3>
+            {
+              <FeaturedBooks
+                filteredProducts={filteredProducts.slice(0, 3)} // Show only the first three books
+                onAddToCart={onAddToCart}
+              />
+            }
+          </div>
+        </>
+      )}
+
+      <div>
+        {searchTerm === "" && (
+          <>
+            <h1 className={classes.booksHeader}>
+              Zbulo <span style={{ color: "#f1361d" }}>librat</span>
+            </h1>
+            <h3 className={classes.booksDesc}>
+              Shfleto koleksionin tonë të librave.
+            </h3>
+          </>
+        )}
+        <div className={classes.mobileSearch}>
+          <div className={classes.mobSearchs}>
+            <Input
+              className={classes.mobSearchb}
+              type="text"
+              placeholder="Search for books"
+              onChange={(event) => {
+                setSearchTerm(event.target.value);
+              }}
+              startAdornment={
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              }
+            />
+          </div>
+        </div>
+        <div>
+          <Grid
+            className={classes.contentFeatured}
+            container
+            justifyContent="center"
+            spacing={1}
+          >
+            {getVisibleProducts().map((product) => (
               <Grid
-                key={product.id} // Ensure each child in a list has a unique key prop
-                className={classes.categoryFeatured}
+                key={product.id}
+                className={classes.content}
                 item
                 xs={6}
-                sm={5}
-                md={3}
-                lg={2}
+                sm={6}
+                md={4}
+                lg={3}
                 id="pro"
               >
                 <Product product={product} onAddToCart={onAddToCart} />
               </Grid>
-            ))
-          )}
-        </Grid>
+            ))}
+          </Grid>
+        </div>
+        {filteredProducts.length > currentPage * itemsPerPage && (
+          <div className={classes.loadMore}>
+            <div className="text-center mt-3">
+              <button
+                className={`btn btn-primary ${classes.loadMoreButton}`}
+                onClick={loadMoreProducts}
+              >
+                More Books
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );
 };
 
-export default Manga;
+export default Products;

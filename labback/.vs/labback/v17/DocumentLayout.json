@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\models\\libri.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|solutionrelative:labback\\models\\libri.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Migrations\\20240601182330_libri.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:labback\\Migrations\\20240601182330_libri.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|solutionrelative:labback\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\models\\libri.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|solutionrelative:labback\\models\\libri.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\controllers\\libricontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|solutionrelative:labback\\controllers\\libricontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|solutionrelative:labback\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\models\\autori.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -37,10 +49,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\models\\roli.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|solutionrelative:labback\\models\\roli.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|solutionrelative:labback\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\models\\registrationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -79,10 +87,6 @@
       "RelativeMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|solutionrelative:labback\\models\\exchange.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\controllers\\libricontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|solutionrelative:labback\\controllers\\libricontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\controllers\\qyteticontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|solutionrelative:labback\\controllers\\qyteticontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -105,10 +109,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\models\\partialupdateklientmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|solutionrelative:labback\\models\\partialupdateklientmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|d:\\desktop\\new folder\\lab-librari\\labback\\labback\\migrations\\20240601123012_ini.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DC013EE9-41B0-470D-A059-28E853EBE82C}|labback\\labback.csproj|solutionrelative:labback\\migrations\\20240601123012_ini.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -118,11 +118,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 8,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Program.cs",
               "RelativeDocumentMoniker": "labback\\Program.cs",
@@ -135,48 +139,21 @@
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Autori.cs",
-              "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\Autori.cs",
-              "RelativeDocumentMoniker": "labback\\Models\\Autori.cs",
-              "ToolTip": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\Autori.cs",
-              "RelativeToolTip": "labback\\Models\\Autori.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAAQwBUAAAAAAAAA",
+              "DocumentIndex": 1,
+              "Title": "20240601182330_libri.cs",
+              "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Migrations\\20240601182330_libri.cs",
+              "RelativeDocumentMoniker": "labback\\Migrations\\20240601182330_libri.cs",
+              "ToolTip": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Migrations\\20240601182330_libri.cs",
+              "RelativeToolTip": "labback\\Migrations\\20240601182330_libri.cs",
+              "ViewState": "AQIAAIgAAAAAAAAAAAAQwIcAAABfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T13:20:33.043Z"
+              "WhenOpened": "2024-06-01T18:23:30.363Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AutoriLibri.cs",
-              "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\AutoriLibri.cs",
-              "RelativeDocumentMoniker": "labback\\Models\\AutoriLibri.cs",
-              "ToolTip": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\AutoriLibri.cs",
-              "RelativeToolTip": "labback\\Models\\AutoriLibri.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T13:13:26.882Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "20240601123012_ini.cs",
-              "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Migrations\\20240601123012_ini.cs",
-              "RelativeDocumentMoniker": "labback\\Migrations\\20240601123012_ini.cs",
-              "ToolTip": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Migrations\\20240601123012_ini.cs",
-              "RelativeToolTip": "labback\\Migrations\\20240601123012_ini.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T12:30:13.546Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "KlientController.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Controllers\\KlientController.cs",
               "RelativeDocumentMoniker": "labback\\Controllers\\KlientController.cs",
@@ -188,7 +165,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 4,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\appsettings.json",
               "RelativeDocumentMoniker": "labback\\appsettings.json",
@@ -196,11 +173,12 @@
               "RelativeToolTip": "labback\\appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-05-25T19:31:11.369Z"
+              "WhenOpened": "2024-05-25T19:31:11.369Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "Roli.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\Roli.cs",
               "RelativeDocumentMoniker": "labback\\Models\\Roli.cs",
@@ -212,7 +190,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "ExchangeDTO.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\ExchangeDTO.cs",
               "RelativeDocumentMoniker": "labback\\Models\\ExchangeDTO.cs",
@@ -224,7 +202,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "Klient.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\Klient.cs",
               "RelativeDocumentMoniker": "labback\\Models\\Klient.cs",
@@ -236,7 +214,57 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 0,
+              "Title": "Libri.cs",
+              "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\Libri.cs",
+              "RelativeDocumentMoniker": "labback\\Models\\Libri.cs",
+              "ToolTip": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\Libri.cs",
+              "RelativeToolTip": "labback\\Models\\Libri.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAA0wBUAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T19:24:47.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LibriController.cs",
+              "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Controllers\\LibriController.cs",
+              "RelativeDocumentMoniker": "labback\\Controllers\\LibriController.cs",
+              "ToolTip": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Controllers\\LibriController.cs",
+              "RelativeToolTip": "labback\\Controllers\\LibriController.cs",
+              "ViewState": "AQIAAGoAAAAAAAAAAAAmwPUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T21:06:18.882Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AutoriLibri.cs",
+              "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\AutoriLibri.cs",
+              "RelativeDocumentMoniker": "labback\\Models\\AutoriLibri.cs",
+              "ToolTip": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\AutoriLibri.cs",
+              "RelativeToolTip": "labback\\Models\\AutoriLibri.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-01T13:13:26.882Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Autori.cs",
+              "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\Autori.cs",
+              "RelativeDocumentMoniker": "labback\\Models\\Autori.cs",
+              "ToolTip": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\Autori.cs",
+              "RelativeToolTip": "labback\\Models\\Autori.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAQwBUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-01T13:20:33.043Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "RegistrationModel.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\RegistrationModel.cs",
               "RelativeDocumentMoniker": "labback\\Models\\RegistrationModel.cs",
@@ -248,7 +276,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "LibriContext.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\LibriContext.cs",
               "RelativeDocumentMoniker": "labback\\Models\\LibriContext.cs",
@@ -260,7 +288,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "20240530131417_libri.cs",
               "DocumentMoniker": "D:\\Desktop\\lastlast one\\Lab-Librari\\labback\\labback\\Migrations\\20240530131417_libri.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\lastlast one\\Lab-Librari\\labback\\labback\\Migrations\\20240530131417_libri.cs",
@@ -272,7 +300,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "PartialUpdateKlientModel.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\PartialUpdateKlientModel.cs",
               "RelativeDocumentMoniker": "labback\\Models\\PartialUpdateKlientModel.cs",
@@ -284,7 +312,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "ZhanriController.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Controllers\\ZhanriController.cs",
               "RelativeDocumentMoniker": "labback\\Controllers\\ZhanriController.cs",
@@ -296,7 +324,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "QytetiController.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Controllers\\QytetiController.cs",
               "RelativeDocumentMoniker": "labback\\Controllers\\QytetiController.cs",
@@ -308,7 +336,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "20240530091737_libri.cs",
               "DocumentMoniker": "D:\\Desktop\\lastlast one\\Lab-Librari\\labback\\labback\\Migrations\\20240530091737_libri.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\lastlast one\\Lab-Librari\\labback\\labback\\Migrations\\20240530091737_libri.cs",
@@ -320,19 +348,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "LibriController.cs",
-              "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Controllers\\LibriController.cs",
-              "RelativeDocumentMoniker": "labback\\Controllers\\LibriController.cs",
-              "ToolTip": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Controllers\\LibriController.cs",
-              "RelativeToolTip": "labback\\Controllers\\LibriController.cs",
-              "ViewState": "AQIAAPsAAAAAAAAAAAAAABkBAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-23T21:06:18.882Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "AutoriController.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Controllers\\AutoriController.cs",
               "RelativeDocumentMoniker": "labback\\Controllers\\AutoriController.cs",
@@ -344,7 +360,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "Exchange.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\Exchange.cs",
               "RelativeDocumentMoniker": "labback\\Models\\Exchange.cs",
@@ -356,19 +372,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Libri.cs",
-              "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\Libri.cs",
-              "RelativeDocumentMoniker": "labback\\Models\\Libri.cs",
-              "ToolTip": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\Libri.cs",
-              "RelativeToolTip": "labback\\Models\\Libri.cs",
-              "ViewState": "AQIAABUAAAAAAAAAAAAAwCQAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T19:24:47.198Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "ExchangeController.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Controllers\\ExchangeController.cs",
               "RelativeDocumentMoniker": "labback\\Controllers\\ExchangeController.cs",
@@ -380,7 +384,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "20240525201410_Klienti.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Migrations\\20240525201410_Klienti.cs",
               "RelativeDocumentMoniker": "labback\\Migrations\\20240525201410_Klienti.cs",
@@ -392,7 +396,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "20240525201201_Klienti.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Migrations\\Klient\\20240525201201_Klienti.cs",
               "RelativeDocumentMoniker": "labback\\Migrations\\Klient\\20240525201201_Klienti.cs",
@@ -404,7 +408,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "20240525202332_addLibriMigration.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Migrations\\20240525202332_addLibriMigration.cs",
               "RelativeDocumentMoniker": "labback\\Migrations\\20240525202332_addLibriMigration.cs",
@@ -416,7 +420,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "Qyteti.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\Qyteti.cs",
               "RelativeDocumentMoniker": "labback\\Models\\Qyteti.cs",
@@ -428,7 +432,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "20240525202733_addLibriMigration.cs",
               "DocumentMoniker": "C:\\Users\\THIS\\OneDrive\\Desktop\\Labus3\\Lab-Librari\\labback\\labback\\Migrations\\20240525202733_addLibriMigration.cs",
               "ToolTip": "C:\\Users\\THIS\\OneDrive\\Desktop\\Labus3\\Lab-Librari\\labback\\labback\\Migrations\\20240525202733_addLibriMigration.cs",
@@ -437,7 +441,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "20240525193215_addLibriMigration.cs",
               "DocumentMoniker": "C:\\Users\\THIS\\OneDrive\\Desktop\\Labus3\\Lab-Librari\\labback\\labback\\Migrations\\20240525193215_addLibriMigration.cs",
               "ToolTip": "C:\\Users\\THIS\\OneDrive\\Desktop\\Labus3\\Lab-Librari\\labback\\labback\\Migrations\\20240525193215_addLibriMigration.cs",
@@ -446,7 +450,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "Zhanri.cs",
               "DocumentMoniker": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\Models\\Zhanri.cs",
               "RelativeDocumentMoniker": "labback\\Models\\Zhanri.cs",
