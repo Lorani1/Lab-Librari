@@ -18,7 +18,7 @@ import axios from "axios";
 import Manga from "./components/Manga/Manga";
 import Crime from "./components/Crime/Crime";
 import Fiction from "./components/Fiction/Fiction";
-
+import { useHistory, Link } from 'react-router-dom';
 const Home = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [products, setProducts] = useState([]);
@@ -33,7 +33,13 @@ const Home = () => {
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [activeSection, setActiveSection] = useState("products");
-
+  const history = useHistory();
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      history.push('/login');
+    }
+  }, [history]);
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
     const uniqueProducts = Array.from(

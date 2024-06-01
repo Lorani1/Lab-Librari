@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LoW9KxqEFIM=",
+  "dgSpecHash": "6KPxvQYEBkI=",
   "success": true,
-  "projectFilePath": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\labback.csproj",
+  "projectFilePath": "D:\\Desktop\\lastlast one\\Lab-Librari\\labback\\labback\\labback.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ADMIN\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

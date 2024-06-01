@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useHistory, Link } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import "bootstrap/dist/css/bootstrap.min.css";
-import pexelsImage from "./images/loginpic.jpg";
+import pexelsImage from "./images/log.jpg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -38,7 +38,8 @@ const Login = () => {
         {
           email,
           password,
-        }
+        },
+        { withCredentials: true }
       );
 
       console.log("Login Response Data:", response.data);
@@ -47,9 +48,11 @@ const Login = () => {
         const responseData = response.data;
         if (responseData.token) {
           localStorage.setItem('authToken', responseData.token);
-          console.log('Token set in localStorage:', localStorage.getItem('authToken')); 
+          console.log('Token set in localStorage:', {
+            authToken: localStorage.getItem('authToken'),
+          });
 
-          login(); 
+          login(responseData.token); // Pass the auth token to the login function
           history.push("/home");
           setEmail("");
           setPassword("");
@@ -79,14 +82,14 @@ const Login = () => {
         </div>
         <div className="col-md-6 d-flex justify-content-center align-items-center vh-100">
           <div className="card p-4" style={{ width: "600px", maxWidth: "90%" }}>
-            <h1 className="text-center mb-4">Welcome back</h1>
+            <h1 className="text-center mb-4" style={{ fontSize: "3em", color: "#001524", fontFamily: "system-ui", fontWeight: "bold" }}>Welcome back</h1>
 
             {errorMessage && (
               <div className="alert alert-danger">{errorMessage}</div>
             )}
             <form onSubmit={handleLogin}>
               <div className="form-group mb-4">
-                <label className="mb-3">Email:</label>
+                <label className="mb-3" style={{ fontSize: "1em", color: "#001524", fontFamily: "system-ui", fontWeight: "bold" }}>Email:</label>
                 <input
                   type="email"
                   className="form-control custom-input mb-4"
@@ -95,7 +98,7 @@ const Login = () => {
                 />
               </div>
               <div className="form-group mb-2">
-                <label className="mb-2">Password:</label>
+                <label className="mb-2" style={{ fontSize: "1em", color: "#001524", fontFamily: "system-ui", fontWeight: "bold" }}>Password:</label>
                 <input
                   type="password"
                   className="form-control custom-input mb-4"
@@ -111,12 +114,12 @@ const Login = () => {
                 {isSubmitting ? "Logging in..." : "Login"}
               </button>{" "}
             </form>
-            <p>
+            <p style={{ fontSize: "1.1em", color: "#001524", fontFamily: "system-ui" }}>
               Don't have an account?{" "}
               <Link
                 to="/registration"
                 className="text-decoration-none"
-                style={{ color: "black", transition: "color 0.3s ease" }}
+                style={{ color: "#001524", transition: "color 0.3s ease", fontFamily: "system-ui", fontWeight: "bold"}}
               >
                 Register
               </Link>
@@ -141,10 +144,8 @@ const Login = () => {
           }
 
           .custom-btn {
-            padding: 10px 20px; /* Increase padding to make the button bigger */
-            border-radius: 0; /* Remove border-radius */
-            background-color: black; /* Set background color to black */
-            color: white; /* Set text color to white */
+            background-color: #001524 !important;
+            border: none !important;
           }
 
           .custom-btn:hover {

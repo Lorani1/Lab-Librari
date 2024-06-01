@@ -27,7 +27,12 @@ const Products = ({ onAddToCart }) => {
       .get("https://localhost:7101/api/Libri")
       .then((response) => {
         if (isMounted) {
-          setProducts(response.data);
+          const fetchedProducts = response.data;
+          if (Array.isArray(fetchedProducts)) {
+            setProducts(fetchedProducts);
+          } else {
+            console.error("Fetched data is not an array:", fetchedProducts);
+          }
         }
       })
       .catch((error) => {
@@ -51,11 +56,9 @@ const Products = ({ onAddToCart }) => {
     if (searchTerm === "") {
       return true;
     } else if (product.titulli) {
-
       const lowercaseTitulli = product.titulli.toLowerCase();
       const lowercaseSearchTerm = searchTerm.toLowerCase();
-      const isMatch = lowercaseTitulli.includes(lowercaseSearchTerm);
-      return isMatch;
+      return lowercaseTitulli.includes(lowercaseSearchTerm);
     }
     return false;
   });
@@ -88,7 +91,7 @@ const Products = ({ onAddToCart }) => {
         justifyContent="center"
         spacing={1}
       >
-        {filteredProducts.map((product) => (
+        {featuredBooks.map((product) => (
           <Grid
             key={product.id}
             className={classes.content}
@@ -278,55 +281,31 @@ const Products = ({ onAddToCart }) => {
 
       <div>
         {searchTerm === "" && (
-          <>
-            <h1 className={classes.booksHeader}>
-              Zbulo <span style={{ color: "#f1361d" }}>librat</span>
-            </h1>
-            <h3 className={classes.booksDesc}>
-              Shfleto koleksionin tonë të librave.
-            </h3>
-          </>
+          <h3 className={classes.contentHeader}>
+            Të gjitha <span style={{ color: "#f1361d" }}>librat</span>
+          </h3>
         )}
-        <div className={classes.mobileSearch}>
-          <div className={classes.mobSearchs}>
-            <Input
-              className={classes.mobSearchb}
-              type="text"
-              placeholder="Search for books"
-              onChange={(event) => {
-                setSearchTerm(event.target.value);
-              }}
-              startAdornment={
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              }
-            />
-          </div>
-        </div>
-        <div>
-          <Grid
-            className={classes.contentFeatured}
-            container
-            justifyContent="center"
-            spacing={1}
-          >
-            {filteredProducts.map((product) => (
-              <Grid
-                key={product.id}
-                className={classes.content}
-                item
-                xs={6}
-                sm={6}
-                md={4}
-                lg={3}
-                id="pro"
-              >
-                <Product product={product} onAddToCart={onAddToCart} />
-              </Grid>
-            ))}
-          </Grid>
-        </div>
+        <Grid
+          className={classes.content}
+          container
+          justifyContent="center"
+          spacing={1}
+        >
+          {filteredProducts.map((product) => (
+            <Grid
+              key={product.id}
+              className={classes.content}
+              item
+              xs={6}
+              sm={6}
+              md={4}
+              lg={3}
+              id="pro"
+            >
+              <Product product={product} onAddToCart={onAddToCart} />
+            </Grid>
+          ))}
+        </Grid>
       </div>
     </main>
   );

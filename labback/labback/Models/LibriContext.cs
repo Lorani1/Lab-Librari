@@ -1,5 +1,4 @@
-﻿    using Microsoft.EntityFrameworkCore;
-
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace labback.Models
 {
@@ -17,6 +16,8 @@ namespace labback.Models
         public DbSet<Qyteti> Qytetet { get; set; }
         public DbSet<Autori> Autori { get; set; }
         public DbSet<AutoriLibri> AutoriLibris { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Roli> Roli { get; set; } // Add the Roli DbSet
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,7 +49,7 @@ namespace labback.Models
                 .HasForeignKey(e => e.LibriId);
 
             modelBuilder.Entity<AutoriLibri>()
-       .HasKey(al => new { al.Autori_ID, al.ID });
+                .HasKey(al => new { al.Autori_ID, al.ID });
 
             // Define navigation properties
             modelBuilder.Entity<AutoriLibri>()
@@ -60,6 +61,23 @@ namespace labback.Models
                 .HasOne(al => al.Librat)
                 .WithMany(l => l.AutoriLibris)
                 .HasForeignKey(al => al.ID);
+
+            modelBuilder.Entity<RefreshToken>()
+                .HasOne(rt => rt.Klient)
+                .WithMany(k => k.RefreshTokens)
+                .HasForeignKey(rt => rt.KlientID);
+
+            // Define the relationship between Klient and Roli
+            modelBuilder.Entity<Klient>()
+                .HasOne(k => k.Roli)
+                .WithMany(r => r.Klients)
+                .HasForeignKey(k => k.RoliID);
+
+            // Seed initial roles
+            modelBuilder.Entity<Roli>().HasData(
+                new Roli { ID = 1, Name = "user" },
+                new Roli { ID = 2, Name = "admin" }
+            );
         }
     }
 }

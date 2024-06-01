@@ -28,7 +28,7 @@ export default makeStyles((theme) => ({
   },
   cartt: {
     "&:hover": {
-      color: "#ffff",
+      color: "#001524",
       boxShadow: "none",
     },
   },

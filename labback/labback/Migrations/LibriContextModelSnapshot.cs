@@ -214,10 +214,12 @@ namespace labback.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfilePicturePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("QytetiID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoliID")
                         .HasColumnType("int");
 
                     b.Property<string>("Statusi")
@@ -228,7 +230,69 @@ namespace labback.Migrations
 
                     b.HasIndex("QytetiID");
 
+                    b.HasIndex("RoliID");
+
                     b.ToTable("Klients");
+                });
+
+            modelBuilder.Entity("labback.Models.RefreshToken", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("KlientID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Revoked")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("KlientID");
+
+                    b.ToTable("RefreshTokens");
+                });
+
+            modelBuilder.Entity("labback.Models.Roli", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Roli");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "user"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "admin"
+                        });
                 });
 
             modelBuilder.Entity("labback.Models.ShtepiaBotuese", b =>
@@ -338,7 +402,26 @@ namespace labback.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("labback.Models.Roli", "Roli")
+                        .WithMany("Klients")
+                        .HasForeignKey("RoliID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Qyteti");
+
+                    b.Navigation("Roli");
+                });
+
+            modelBuilder.Entity("labback.Models.RefreshToken", b =>
+                {
+                    b.HasOne("labback.Models.Klient", "Klient")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("KlientID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Klient");
                 });
 
             modelBuilder.Entity("labback.Libri", b =>
@@ -349,6 +432,16 @@ namespace labback.Migrations
             modelBuilder.Entity("labback.Models.Autori", b =>
                 {
                     b.Navigation("AutoriLibris");
+                });
+
+            modelBuilder.Entity("labback.Models.Klient", b =>
+                {
+                    b.Navigation("RefreshTokens");
+                });
+
+            modelBuilder.Entity("labback.Models.Roli", b =>
+                {
+                    b.Navigation("Klients");
                 });
 #pragma warning restore 612, 618
         }

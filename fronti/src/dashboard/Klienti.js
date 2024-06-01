@@ -48,6 +48,7 @@ const Klienti = () => {
   const [editSelectedFile, setEditSelectedFile] = useState(null);
   const [editProfilePictureUrl, setEditProfilePictureUrl] = useState("");
   const[editSelectedQyteti,setEditSelectedQyteti]=useState("");
+  const [role, setRole] = useState("");
 
   const [filteredKlientList, setFilteredKlientList] = useState([]);
   const [emriFilter, setEmriFilter] = useState("");
@@ -74,31 +75,58 @@ const Klienti = () => {
   useEffect(() => {
     getData();
     getQytetiList();
+    getUserRole();
   }, []);
-
-  const getData = () => {
+  const getUserRole = () => {
     axios
-      .get(`https://localhost:7101/api/Klient`)
+      .get(`https://localhost:7101/api/Klient/with-roles`)
       .then((result) => {
-        setData(result.data);
-        setFilteredKlientList(result.data);
+        setRole(result.data.role);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error fetching user role:", error);
+        toast.error("Failed to fetch user role.");
       });
   };
 
-
+  const getData = () => {
+    axios
+      .get(`https://localhost:7101/api/Klient/with-roles`)
+      .then((result) => {
+        const klientData = result.data?.$values;
+        if (Array.isArray(klientData)) {
+          setData(klientData);
+          setFilteredKlientList(klientData);
+        } else {
+          console.error("Unexpected data format:", result.data);
+          toast.error("Failed to fetch client data.");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Failed to fetch client data.");
+      });
+  };
+  
+  
   const getQytetiList = () => {
     axios
       .get(`https://localhost:7101/api/Qyteti`)
-      .then((result) => setQytetiList(result.data))
+      .then((result) => {
+        const qytetiData = result.data?.$values;
+        if (Array.isArray(qytetiData)) {
+          setQytetiList(qytetiData);
+        } else {
+          console.error("Unexpected data format:", result.data);
+          toast.error("Failed to fetch city data.");
+        }
+      })
       .catch((error) => {
         console.error("Error fetching city data:", error);
         toast.error("Failed to fetch city data.");
       });
   };
-
+  
   const handleEdit = (id) => {
     handleShow();
     setEditProfilePictureUrl(''); 
@@ -156,9 +184,6 @@ const Klienti = () => {
   
     if (editSelectedFile) {
       formData.append("profilePicturePath", editSelectedFile);  // Append the file with the correct key
-    } else {
-      toast.error("Profile picture is required.");
-      return;
     }
   
     if (editPassword) {
@@ -243,10 +268,7 @@ const Klienti = () => {
   
     if (selectedFile) {
       formData.append("profilePicturePath", selectedFile);  // Append the file with the correct key
-    } else {
-      toast.error("Profile picture is required.");
-      return;
-    }
+    } 
   
     axios
       .post(url, formData)
@@ -321,13 +343,19 @@ const Klienti = () => {
       setEditInStock(0);
     }
   };
-
   const handleFilterChange = (e) => {
-    const value = e.target.value;
+    const { value } = e.target;
     setEmriFilter(value);
-    filterFn(data, value);
+    if (value === "") {
+      setFilteredKlientList(data);
+    } else {
+      const filteredList = data.filter((klient) =>
+        klient.emri.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredKlientList(filteredList);
+    }
   };
-
+  
   const filterFn = (data, filterValue) => {
     if (filterValue.trim() === "") {
       setFilteredKlientList(data);
@@ -427,65 +455,71 @@ const handleEditFileChange = (event) => {
             </svg>
           </button>
         </div>
-      <Table striped bordered hover className="mt-4">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Emri</th>
-            <th>Mbiemri</th>
-            <th>Nr. Personal</th>
-            <th>Email</th>
-            <th>Adresa</th>
-            <th>Statusi</th>
-            <th>Nr. Tel</th>
-            <th>Password</th>
-            <th>Qyteti</th>
-            <th>Profili</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-        {filteredKlientList.map((client, index) => (
-    <tr key={client.id}>
-      <td>{index + 1}</td>
-      <td>{client.emri}</td>
-      <td>{client.mbiemri}</td>
-      <td>{client.nrPersonal}</td>
-      <td>{client.email}</td>
-      <td>{client.adresa}</td>
-      <td>{client.statusi}</td>
-      <td>{client.nrTel}</td>
-      <td>{client.password}</td>
-      <td>{client.qytetiID}</td>
-      <td>
-        {client.profilePicturePath ? (
-          <img
-            src={client.profilePictureUrl}
-            alt="Profile"
-            style={{ width: "50px", height: "50px" }}
-          />
-        ) : (
-          "No Image"
-        )}
-                  </td>
-              <td>
-                <Button
-                  variant="outline-primary"
-                  onClick={() => handleEdit(client.id)}
-                >
-                  <BsFillPencilFill />
-                </Button>
-                <Button
-                  variant="outline-danger"
-                  onClick={() => handleDelete(client.id)}
-                >
-                  <BsFillTrashFill />
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+        <Table striped bordered hover className="mt-4">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Emri</th>
+      <th>Mbiemri</th>
+      <th>Nr. Personal</th>
+      <th>Email</th>
+      <th>Adresa</th>
+      <th>Statusi</th>
+      <th>Nr. Tel</th>
+      <th>Password</th>
+      <th>Qyteti</th>
+      <th>Profili</th>
+      <th>Roli</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {Array.isArray(filteredKlientList) &&
+      filteredKlientList.map((client, index) => (
+        <tr key={client.id || index}>
+          <td>{index + 1}</td>
+          <td>{client.emri}</td>
+          <td>{client.mbiemri}</td>
+          <td>{client.nrPersonal}</td>
+          <td>{client.email}</td>
+          <td>{client.adresa}</td>
+          <td>{client.statusi}</td>
+          <td>{client.nrTel}</td>
+          <td>{client.password}</td>
+          <td>{client.qytetiEmri}</td>
+          <td>
+            {client.profilePictureUrl ? (
+              <img
+                src={client.profilePictureUrl}
+                alt="Profile"
+                style={{ width: "50px", height: "50px" }}
+              />
+            ) : (
+              "No Image"
+            )}
+          </td>
+          <td>{client.roliName}</td> {/* Display role */}
+          <td>
+            <Fragment>
+              <Button
+                variant="outline-primary"
+                onClick={() => handleEdit(client.id)}
+              >
+                <BsFillPencilFill />
+              </Button>
+              <Button
+                variant="outline-danger"
+                onClick={() => handleDelete(client.id)}
+              >
+                <BsFillTrashFill />
+              </Button>
+            </Fragment>
+          </td>
+        </tr>
+      ))}
+  </tbody>
+</Table>
+
       <Modal show={showAddModal} onHide={handleCloseAddModal}>
         <Modal.Header closeButton>
           <Modal.Title>Add Client</Modal.Title>

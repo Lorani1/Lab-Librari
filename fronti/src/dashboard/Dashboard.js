@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+
 import "./dashb.css";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -10,8 +10,8 @@ import Staf from "./Staf";
 import Qyteti from "./Qyteti";
 import zhanri from "./zhanri";
 import ShtepiaBotuese from "./ShtepiaBotuese";
-
-
+import { useHistory, Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
 function Dashboard() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
   const [showKlienti, setShowKlienti] = useState(false);
@@ -21,6 +21,14 @@ function Dashboard() {
   const [showQyteti, setShowQyteti] = useState(false); // State for Libri
   const [showZhanri, setShowZhanri] = useState(false); // State for Libri
   const [showShtepia, setShowShtepia] = useState(false); // State for Libri
+  const history = useHistory();
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      history.push('/login');
+    }
+  }, [history]);
+  
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle);
   };

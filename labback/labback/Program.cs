@@ -6,22 +6,24 @@ using labback.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
-
 // Add services to the container.
 builder.Services.AddDbContext<StafiContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
-
+    options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
 
 builder.Services.AddDbContext<LibriContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
 
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -45,7 +47,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder
+            .WithOrigins("http://localhost:3004") // Allow localhost:3004
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+});
 
 var app = builder.Build();
 
@@ -61,18 +71,12 @@ else
     app.UseHsts();
 }
 
-app.UseCors(builder =>
-{
-    builder.AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader();
-});
-
+app.UseCors("AllowSpecificOrigin"); // Apply CORS policy here
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
-app.UseAuthorization();
 app.UseAuthentication();
-
+app.UseAuthorization();
 
 app.UseStaticFiles(new StaticFileOptions
 {
@@ -80,7 +84,6 @@ app.UseStaticFiles(new StaticFileOptions
         Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "foto")),
     RequestPath = "/foto"
 });
-
 
 app.MapControllers();
 

@@ -15,7 +15,6 @@ const Qyteti = () => {
   const [emri, setEmri] = useState("");
   const [editId, setEditId] = useState("");
   const [editEmri, setEditEmri] = useState("");
-
   const [emriFilter, setEmriFilter] = useState("");
 
   useEffect(() => {
@@ -26,11 +25,21 @@ const Qyteti = () => {
     axios
       .get(`https://localhost:7101/api/Qyteti`)
       .then((result) => {
-        setQytetiList(result.data);
-        setFilteredQytetiList(result.data);
+        console.log('API Response:', result.data); // Log API response
+        if (Array.isArray(result.data)) {
+          setQytetiList(result.data);
+          setFilteredQytetiList(result.data);
+        } else if (result.data.$values) {
+          setQytetiList(result.data.$values);
+          setFilteredQytetiList(result.data.$values);
+        } else {
+          console.error('Unexpected data format:', result.data);
+          toast.error('Unexpected data format');
+        }
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
+        toast.error('Failed to fetch data');
       });
   };
 
@@ -43,7 +52,8 @@ const Qyteti = () => {
         setEditId(id);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
+        toast.error('Failed to fetch data');
       });
   };
 
@@ -54,15 +64,14 @@ const Qyteti = () => {
         .then((result) => {
           if (result.status === 200) {
             toast.success("Qyteti has been deleted");
-            const updatedList = qytetiList.filter(
-              (item) => item.id !== id
-            );
+            const updatedList = qytetiList.filter((item) => item.id !== id);
             setQytetiList(updatedList);
             setFilteredQytetiList(updatedList);
           }
         })
         .catch((error) => {
-          toast.error(error.message);
+          console.error(error);
+          toast.error('Failed to delete data');
         });
     }
   };
@@ -79,7 +88,8 @@ const Qyteti = () => {
         toast.success("Qyteti has been updated");
       })
       .catch((error) => {
-        toast.error(error.message);
+        console.error(error);
+        toast.error('Failed to update data');
       });
   };
 
@@ -95,7 +105,8 @@ const Qyteti = () => {
         setShowAddModal(false);
       })
       .catch((error) => {
-        toast.error(error.message);
+        console.error(error);
+        toast.error('Failed to save data');
       });
   };
 
@@ -140,19 +151,19 @@ const Qyteti = () => {
     <Fragment>
       <ToastContainer />
       <Container className="py-5">
-      <h1>Qyteti</h1>
-  <div className="d-flex justify-content-between mt-4 mb-4">
-    <Button variant="primary" onClick={() => setShowAddModal(true)}>
-      Shto Qytet
-    </Button>
-    <Button
-      variant="secondary"
-      as={Link}
-      to="/klienti"
-      className="ml-3"
-    >
-      Shko te Klienti
-    </Button>
+        <h1>Qyteti</h1>
+        <div className="d-flex justify-content-between mt-4 mb-4">
+          <Button variant="primary" onClick={() => setShowAddModal(true)}>
+            Shto Qytet
+          </Button>
+          <Button
+            variant="secondary"
+            as={Link}
+            to="/klienti"
+            className="ml-3"
+          >
+            Shko te Klienti
+          </Button>
         </div>
         <div className="ml-auto d-flex">
           <input
@@ -198,79 +209,98 @@ const Qyteti = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Emri</th>
+              <th>
+                Emri
+                <Button variant="link" onClick={() => sortResult("emri", true)}>
+                  Asc
+                </Button>
+                <Button variant="link" onClick={() => sortResult("emri", false)}>
+                  Desc
+                </Button>
+              </th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {filteredQytetiList.map((qyteti) => (
-              <tr key={qyteti.id}>
-                <td>{qyteti.id}</td>
-                <td>{qyteti.emri}</td>
-                <td>
-                  <Button
-                    className="mr-2"
-                    variant="warning"
-                    onClick={() => handleEdit(qyteti.id)}
-                  >
-                    <BsFillPencilFill />
-                  </Button>
-                  <Button
-                    variant="danger"
-                    onClick={() => handleDelete(qyteti.id)}
-                  >
-                    <BsFillTrashFill />
-                  </Button>
-                </td>
-              </tr>
-            ))}
+            {Array.isArray(filteredQytetiList) &&
+              filteredQytetiList.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.id}</td>
+                  <td>{item.emri}</td>
+                  <td>
+                    <Button
+                      variant="warning"
+                      onClick={() => handleEdit(item.id)}
+                      className="mr-2"
+                    >
+                      <BsFillPencilFill />
+                    </Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      <BsFillTrashFill />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </Table>
-        <Modal show={show} onHide={() => setShow(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Qyteti</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <label>Emri:</label>
-            <input
-              type="text"
-              value={editEmri}
-              onChange={(e) => setEditEmri(e.target.value)}
-              className="form-control"
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShow(false)}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleUpdate}>
-              Update
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Add New Qyteti</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <label>Emri:</label>
-            <input
-              type="text"
-              value={emri}
-              onChange={(e) => setEmri(e.target.value)}
-              className="form-control"
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowAddModal(false)}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleSave}>
-              Save
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </Container>
+
+      <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Qyteti</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row>
+            <Col>
+              <label>Emri</label>
+              <input
+                type="text"
+                className="form-control"
+                value={editEmri}
+                onChange={(e) => setEditEmri(e.target.value)}
+              />
+            </Col>
+          </Row>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShow(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleUpdate}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Qyteti</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row>
+            <Col>
+              <label>Emri</label>
+              <input
+                type="text"
+                className="form-control"
+                value={emri}
+                onChange={(e) => setEmri(e.target.value)}
+              />
+            </Col>
+          </Row>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSave}>
+            Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Fragment>
   );
 };

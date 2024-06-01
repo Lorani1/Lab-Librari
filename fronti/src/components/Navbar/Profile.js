@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api';
 import { useAuth } from '../../AuthContext';
 import { getUserIdFromToken } from './utilities'; // Corrected import path
 
@@ -15,11 +15,7 @@ const Profile = () => {
           const userId = getUserIdFromToken(token); // Get user ID from token
 
           if (userId) {
-            const response = await axios.get(`https://localhost:7101/api/Klient/${userId}`, {
-              headers: {
-                Authorization: `Bearer ${token}`
-              }
-            });
+            const response = await api.get(`/Klient/${userId}`);
             setKlientData(response.data);
           }
         }

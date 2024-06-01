@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\labback.csproj": {}
+    "D:\\Desktop\\lastlast one\\Lab-Librari\\labback\\labback\\labback.csproj": {}
   },
   "projects": {
-    "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\labback.csproj": {
+    "D:\\Desktop\\lastlast one\\Lab-Librari\\labback\\labback\\labback.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\labback.csproj",
+        "projectUniqueName": "D:\\Desktop\\lastlast one\\Lab-Librari\\labback\\labback\\labback.csproj",
         "projectName": "labback",
-        "projectPath": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\labback.csproj",
+        "projectPath": "D:\\Desktop\\lastlast one\\Lab-Librari\\labback\\labback\\labback.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\Desktop\\New folder\\Lab-Librari\\labback\\labback\\obj\\",
+        "outputPath": "D:\\Desktop\\lastlast one\\Lab-Librari\\labback\\labback\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",

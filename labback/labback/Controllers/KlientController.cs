@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System;
+using System.Security.Cryptography;
 
 namespace labback.Controllers
 {
@@ -30,7 +31,6 @@ namespace labback.Controllers
             _logger = logger;
             _hostingEnvironment = hostingEnvironment;
         }
-
         [HttpGet]
         public async Task<IActionResult> GetKlients()
         {
@@ -60,11 +60,43 @@ namespace labback.Controllers
             return Ok(klient);
         }
 
+
+        [HttpGet("with-roles")]
+        public async Task<IActionResult> GetKlientsWithRoles()
+        {
+            var klients = await _LibriContext.Klients
+                .Include(k => k.Qyteti)
+                .Include(k => k.Roli)
+                .ToListAsync();
+
+            var baseUrl = $"{Request.Scheme}://{Request.Host}/foto/";
+
+            var klientDtos = klients.Select(k => new
+            {
+                k.ID,
+                k.Emri,
+                k.Mbiemri,
+                k.NrPersonal,
+                k.Email,
+                k.Adresa,
+                k.Statusi,
+                k.NrTel,
+                k.Password,
+                ProfilePictureUrl = !string.IsNullOrEmpty(k.ProfilePicturePath) ? $"{baseUrl}{k.ProfilePicturePath}" : null,
+                QytetiEmri = k.Qyteti.Emri,
+                RoliName = k.Roli.Name // Include role name in the response
+            });
+
+            return Ok(klientDtos);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Klient>> PostKlient([FromForm] RegistrationModel model)
         {
             if (ModelState.IsValid)
             {
+                string uniqueFileName = null;
+
                 if (model.ProfilePicturePath != null && model.ProfilePicturePath.Length > 0)
                 {
                     string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "foto");
@@ -73,47 +105,65 @@ namespace labback.Controllers
                         Directory.CreateDirectory(uploadsFolder);
                     }
 
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(model.ProfilePicturePath.FileName);
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(model.ProfilePicturePath.FileName);
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await model.ProfilePicturePath.CopyToAsync(fileStream);
                     }
-
-                    Klient klient = new Klient
-                    {
-                        Emri = model.Emri,
-                        Mbiemri = model.Mbiemri,
-                        NrPersonal = model.NrPersonal,
-                        Email = model.Email,
-                        Adresa = model.Adresa,
-                        Statusi = model.Statusi,
-                        NrTel = model.NrTel,
-                        Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
-                        ProfilePicturePath = uniqueFileName,
-                        QytetiID = model.QytetiID,
-                    };
-
-                    _LibriContext.Klients.Add(klient);
-                    await _LibriContext.SaveChangesAsync();
-
-                    // Include the Qyteti entity in the response
-                    klient = await _LibriContext.Klients.Include(k => k.Qyteti).FirstOrDefaultAsync(k => k.ID == klient.ID);
-                    klient.ProfilePictureUrl = $"{Request.Scheme}://{Request.Host}/foto/{klient.ProfilePicturePath}";
-
-                    return CreatedAtAction(nameof(GetKlient), new { id = klient.ID }, klient);
                 }
-                else
+
+                // Set role based on email
+                var adminEmails = new List<string> { "erdina@gmail.com", "delfina@gmail.com", "loran@gmail.com", "jon@gmail.com" };
+                int roliID = adminEmails.Contains(model.Email) ? 2 : 1; // 2 for admin, 1 for user
+
+                Klient klient = new Klient
                 {
-                    ModelState.AddModelError("ProfilePicturePath", "Profile picture is required.");
-                    return BadRequest(ModelState);
+                    Emri = model.Emri,
+                    Mbiemri = model.Mbiemri,
+                    NrPersonal = model.NrPersonal,
+                    Email = model.Email,
+                    Adresa = model.Adresa,
+                    Statusi = model.Statusi,
+                    NrTel = model.NrTel,
+                    Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
+                    ProfilePicturePath = uniqueFileName,
+                    QytetiID = model.QytetiID,
+                    RoliID = roliID // Set the role ID
+                };
+
+                _LibriContext.Klients.Add(klient);
+                await _LibriContext.SaveChangesAsync();
+
+                // Include the Qyteti and Roli entities in the response
+                klient = await _LibriContext.Klients
+                    .Include(k => k.Qyteti)
+                    .Include(k => k.Roli)
+                    .FirstOrDefaultAsync(k => k.ID == klient.ID);
+                if (!string.IsNullOrEmpty(klient.ProfilePicturePath))
+                {
+                    klient.ProfilePictureUrl = $"{Request.Scheme}://{Request.Host}/foto/{klient.ProfilePicturePath}";
                 }
+
+                return CreatedAtAction(nameof(GetKlient), new { id = klient.ID }, new
+                {
+                    klient.ID,
+                    klient.Emri,
+                    klient.Mbiemri,
+                    klient.NrPersonal,
+                    klient.Email,
+                    klient.Adresa,
+                    klient.Statusi,
+                    klient.NrTel,
+                    klient.ProfilePictureUrl,
+                    QytetiEmri = klient.Qyteti.Emri, // Ensure Qyteti Emri is included in the response
+                    RoliName = klient.Roli.Name // Ensure Roli Name is included in the response
+                });
             }
 
             return BadRequest(ModelState);
         }
-
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutKlient(int id, [FromForm] RegistrationModel model)
@@ -197,7 +247,6 @@ namespace labback.Controllers
 
             return NoContent();
         }
-
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginModel model)
         {
@@ -205,7 +254,7 @@ namespace labback.Controllers
             {
                 _logger.LogInformation("Login attempt with email: {Email}", model.Email);
 
-                var klient = await _LibriContext.Klients.FirstOrDefaultAsync(k => k.Email == model.Email);
+                var klient = await _LibriContext.Klients.Include(k => k.Roli).FirstOrDefaultAsync(k => k.Email == model.Email);
                 if (klient == null || !BCrypt.Net.BCrypt.Verify(model.Password, klient.Password))
                 {
                     _logger.LogWarning("Login failed: Invalid email or password");
@@ -224,22 +273,180 @@ namespace labback.Controllers
                 {
                     Subject = new ClaimsIdentity(new[]
                     {
-                        new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
-                        new Claim(ClaimTypes.Email, klient.Email)
-                    }),
-                    Expires = DateTime.UtcNow.AddDays(7),
+                new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
+                new Claim(ClaimTypes.Email, klient.Email),
+                new Claim(ClaimTypes.Role, klient.Roli.Name) // Include role name in token
+            }),
+                    Expires = DateTime.UtcNow.AddMinutes(15), // Short-lived token (15 minutes)
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
                 };
+
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var tokenString = tokenHandler.WriteToken(token);
 
-                return Ok(new { token = tokenString, klient });
+                // Generate refresh token
+                var refreshToken = GenerateRefreshToken();
+                refreshToken.KlientID = klient.ID;
+
+                // Save the refresh token to the database
+                _LibriContext.RefreshTokens.Add(refreshToken);
+                await _LibriContext.SaveChangesAsync();
+
+                // Set HttpOnly refresh token cookie
+                HttpContext.Response.Cookies.Append("refreshToken", refreshToken.Token, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true, // Ensure this is true in production (HTTPS)
+                    SameSite = SameSiteMode.Strict, // Adjust based on your requirements
+                    Expires = refreshToken.Expires
+                });
+
+                _logger.LogInformation("Login successful for email: {Email}", model.Email);
+
+                return Ok(new
+                {
+                    Token = tokenString,
+                    Expiration = tokenDescriptor.Expires,
+                    Roli = klient.Roli.Name // Include role name in response
+                });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during login: {Message}", ex.Message);
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                _logger.LogError(ex, "An error occurred during login");
+                return StatusCode(500, "An error occurred during login");
             }
         }
+
+
+        private RefreshToken GenerateRefreshToken()
+        {
+            var randomBytes = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(randomBytes);
+            }
+            return new RefreshToken
+            {
+                Token = Convert.ToBase64String(randomBytes),
+                Expires = DateTime.UtcNow.AddDays(7), // Long-lived refresh token
+                Created = DateTime.UtcNow
+            };
+        }
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken()
+        {
+            if (!Request.Cookies.TryGetValue("refreshToken", out var requestRefreshToken))
+            {
+                return Unauthorized("Refresh token is missing");
+            }
+
+            var existingToken = await _LibriContext.RefreshTokens
+                .Include(rt => rt.Klient)
+                .FirstOrDefaultAsync(rt => rt.Token == requestRefreshToken);
+
+            if (existingToken == null || existingToken.Expires < DateTime.UtcNow)
+            {
+                return Unauthorized("Invalid or expired refresh token");
+            }
+
+            var klient = existingToken.Klient;
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET"));
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+            new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
+            new Claim(ClaimTypes.Email, klient.Email)
+        }),
+                Expires = DateTime.UtcNow.AddMinutes(15), // Access token expiration
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            // Optionally, generate a new refresh token
+            var newRefreshToken = GenerateRefreshToken();
+            newRefreshToken.KlientID = klient.ID;
+
+            _LibriContext.RefreshTokens.Add(newRefreshToken);
+            _LibriContext.RefreshTokens.Remove(existingToken); // Remove the old refresh token
+            await _LibriContext.SaveChangesAsync();
+
+            // Set HttpOnly refresh token cookie
+            HttpContext.Response.Cookies.Append("refreshToken", newRefreshToken.Token, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true, // Ensure this is true in production (HTTPS)
+                SameSite = SameSiteMode.Strict, // Adjust based on your requirements
+                Expires = newRefreshToken.Expires
+            });
+
+            return Ok(new
+            {
+                Token = tokenString,
+                RefreshToken = newRefreshToken.Token
+            });
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchKlient(int id, [FromForm] PartialUpdateKlientModel model)
+        {
+            var klient = await _LibriContext.Klients.FindAsync(id);
+            if (klient == null)
+            {
+                return NotFound();
+            }
+
+            if (!string.IsNullOrEmpty(model.Emri))
+            {
+                klient.Emri = model.Emri;
+            }
+
+            if (!string.IsNullOrEmpty(model.Mbiemri))
+            {
+                klient.Mbiemri = model.Mbiemri;
+            }
+
+            if (model.ProfilePicturePath != null && model.ProfilePicturePath.Length > 0)
+            {
+                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "foto");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                if (!string.IsNullOrEmpty(klient.ProfilePicturePath))
+                {
+                    var oldFilePath = Path.Combine(uploadsFolder, klient.ProfilePicturePath);
+                    if (System.IO.File.Exists(oldFilePath))
+                    {
+                        System.IO.File.Delete(oldFilePath);
+                    }
+                }
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(model.ProfilePicturePath.FileName);
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.ProfilePicturePath.CopyToAsync(fileStream);
+                }
+
+                klient.ProfilePicturePath = uniqueFileName;
+            }
+
+            _LibriContext.Entry(klient).State = EntityState.Modified;
+            await _LibriContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+
+
     }
+
+
 }
+

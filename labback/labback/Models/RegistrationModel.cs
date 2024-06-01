@@ -13,7 +13,7 @@ namespace labback.Models
         public int NrTel { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-        public IFormFile ProfilePicturePath { get; set; }
+        public IFormFile? ProfilePicturePath { get; set; }
         public int QytetiID { get; set; }
     }
 }
