@@ -19,9 +19,28 @@ namespace labback.Models
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Roli> Roli { get; set; } // Add the Roli DbSet
 
+        public DbSet<RatingComment> RatingComments { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<RatingComment>()
+            .HasOne(rc => rc.Klient)
+            .WithMany(k => k.RatingComments)
+            .HasForeignKey(rc => rc.KlientID)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<RatingComment>()
+                .HasOne(rc => rc.Libri)
+                .WithMany(l => l.RatingComments)
+                .HasForeignKey(rc => rc.LibriID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<RatingComment>()
+                .HasIndex(rc => new { rc.KlientID, rc.LibriID })
+                .IsUnique();
 
             modelBuilder.Entity<Libri>()
                 .HasOne(l => l.ShtepiaBotuese)

@@ -10,6 +10,10 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Define the JWT key
+var jwtKey = "5yGJ7c3QnD9e8LsR2P1Yk6T4F8bHwAeS";
+var key = Encoding.UTF8.GetBytes(jwtKey);
+
 // Add services to the container.
 builder.Services.AddDbContext<StafiContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
@@ -31,7 +35,6 @@ builder.Services.AddScoped<PasswordService>();
 builder.Services.AddLogging(); // Add logging
 
 // Add JWT authentication
-var key = Encoding.UTF8.GetBytes("5yGJ7c3QnD9e8LsR2P1Yk6T4F8bHwAeS");
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -51,11 +54,14 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         builder => builder
-            .WithOrigins("http://localhost:3004") // Allow localhost:3004
+            .WithOrigins("http://localhost:3001") // Allow localhost:3004
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
 });
+
+// Register the JWT key for dependency injection
+builder.Services.AddSingleton(jwtKey);
 
 var app = builder.Build();
 

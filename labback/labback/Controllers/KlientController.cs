@@ -24,12 +24,14 @@ namespace labback.Controllers
         private readonly LibriContext _LibriContext;
         private readonly ILogger<KlientController> _logger;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly string _jwtKey;
 
-        public KlientController(LibriContext LibriContext, ILogger<KlientController> logger, IWebHostEnvironment hostingEnvironment)
+        public KlientController(LibriContext LibriContext, ILogger<KlientController> logger, IWebHostEnvironment hostingEnvironment, string jwtKey)
         {
             _LibriContext = LibriContext;
             _logger = logger;
             _hostingEnvironment = hostingEnvironment;
+            _jwtKey = jwtKey;
         }
         [HttpGet]
         public async Task<IActionResult> GetKlients()
@@ -262,21 +264,15 @@ namespace labback.Controllers
                 }
 
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Environment.GetEnvironmentVariable("JWT_SECRET");
-                if (string.IsNullOrEmpty(key))
-                {
-                    throw new ArgumentNullException(nameof(key), "JWT_SECRET environment variable is not set");
-                }
-
-                var keyBytes = Encoding.UTF8.GetBytes(key);
+                var keyBytes = Encoding.UTF8.GetBytes(_jwtKey);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[]
                     {
-                new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
-                new Claim(ClaimTypes.Email, klient.Email),
-                new Claim(ClaimTypes.Role, klient.Roli.Name) // Include role name in token
-            }),
+                        new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
+                        new Claim(ClaimTypes.Email, klient.Email),
+                        new Claim(ClaimTypes.Role, klient.Roli.Name) // Include role name in token
+                    }),
                     Expires = DateTime.UtcNow.AddMinutes(15), // Short-lived token (15 minutes)
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
                 };
@@ -317,7 +313,6 @@ namespace labback.Controllers
             }
         }
 
-
         private RefreshToken GenerateRefreshToken()
         {
             var randomBytes = new byte[32];
@@ -332,6 +327,7 @@ namespace labback.Controllers
                 Created = DateTime.UtcNow
             };
         }
+
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken()
         {
@@ -352,16 +348,16 @@ namespace labback.Controllers
             var klient = existingToken.Klient;
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET"));
+            var keyBytes = Encoding.UTF8.GetBytes(_jwtKey);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-            new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
-            new Claim(ClaimTypes.Email, klient.Email)
-        }),
+                    new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
+                    new Claim(ClaimTypes.Email, klient.Email)
+                }),
                 Expires = DateTime.UtcNow.AddMinutes(15), // Access token expiration
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);

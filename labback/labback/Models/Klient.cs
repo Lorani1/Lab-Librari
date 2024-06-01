@@ -24,5 +24,6 @@ namespace labback.Models
 
         public int RoliID { get; set; } // Foreign key to Roli
         public Roli Roli { get; set; } // Navigation property
+        public ICollection<RatingComment> RatingComments { get; set; }
     }
 }

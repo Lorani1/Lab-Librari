@@ -15,7 +15,7 @@ const Fiction = ({ onAddToCart }) => {
       .then((response) => {
         console.log("Fetched data:", response.data); // Log the fetched data
         const fictions = response.data.filter(
-          (product) => product.kategoria === "Thriller"
+          (product) => product.zhanri.emri === "Thriller"
         );
         console.log("Filtered biografi products:", fictions); // Log the filtered manga products
         setFictionProducts(fictions);

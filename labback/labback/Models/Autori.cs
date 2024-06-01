@@ -17,6 +17,5 @@ namespace labback.Models;
 
         public string Nacionaliteti { get; set; }
 
-        public IList<AutoriLibri> AutoriLibris { get; set; }
-
-    }
+    public ICollection<AutoriLibri> AutoriLibris { get; set; }
+}

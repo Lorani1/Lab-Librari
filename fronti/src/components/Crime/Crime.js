@@ -16,7 +16,7 @@ const Crime = ({ onAddToCart }) => {
       .then((response) => {
         console.log("Fetched data:", response.data); // Log the fetched data
         const crimes = response.data.filter(
-          (product) => product.kategoria === "Crime"
+          (product) => product.zhanri.emri === "Crime"
         );
         console.log("Filtered crime products:", crimes); // Log the filtered manga products
         setCrimeProducts(crimes);

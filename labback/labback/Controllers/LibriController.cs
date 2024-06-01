@@ -7,6 +7,12 @@ using System.IO;
 using System.Threading.Tasks;
 using labback.Models;
 using Microsoft.Extensions.Logging;
+using Azure.Core;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.VisualBasic;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace labback.Controllers
 {
@@ -27,36 +33,59 @@ namespace labback.Controllers
             _logger = logger;
         }
 
+
+    
         [HttpGet]
-        public async Task<IActionResult> GetLibrat()
+public async Task<IActionResult> GetLibrat()
+    {
+        var librat = await _libriContext.Librat
+            .Include(l => l.zhanri) // Include related zhanri data
+            .ToListAsync();
+
+
+
+        var baseUrl = $"{Request.Scheme}://{Request.Host}/foto";
+
+        foreach (var libri in librat)
         {
-            var librat = await _libriContext.Librat.ToListAsync();
-            var baseUrl = $"{Request.Scheme}://{Request.Host}/foto/";
-
-            foreach (var libri in librat)
-            {
-                libri.ProfilePictureUrl = $"{baseUrl}{libri.ProfilePicturePath}";
-            }
-
-            return Ok(librat);
+            libri.ProfilePictureUrl = $"{baseUrl}/{libri.ProfilePicturePath}";
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetLibri(int id)
+        return Ok(librat);
+    }
+
+ [HttpGet("{id}")]
+public async Task<IActionResult> GetLibri(int id)
+{
+    _logger.LogInformation("Fetching book with ID: {ID}", id);
+    
+    try
+    {
+        var libri = await _libriContext.Librat
+            .Include(l => l.zhanri)
+            .FirstOrDefaultAsync(l => l.ID == id);
+
+        if (libri == null)
         {
-            var libri = await _libriContext.Librat.FindAsync(id);
-            if (libri == null)
-            {
-                return NotFound();
-            }
-
-            var baseUrl = $"{Request.Scheme}://{Request.Host}/foto/";
-            libri.ProfilePictureUrl = $"{baseUrl}{libri.ProfilePicturePath}";
-
-            return Ok(libri);
+            _logger.LogWarning("Book with ID: {ID} not found", id);
+            return NotFound();
         }
 
-        [HttpPost]
+        var baseUrl = $"{Request.Scheme}://{Request.Host}/foto";
+        libri.ProfilePictureUrl = $"{baseUrl}/{libri.ProfilePicturePath}";
+
+        return Ok(libri);
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "An error occurred while fetching book with ID: {ID}", id);
+        return StatusCode(500, "Internal server error");
+    }
+}
+
+
+
+    [HttpPost]
         public async Task<ActionResult<Libri>> PostLibri([FromForm] LibriDTO model, IFormFile profilePicture)
         {
             if (ModelState.IsValid)
@@ -82,12 +111,12 @@ namespace labback.Controllers
                     {
                         Isbn = model.Isbn,
                         Titulli = model.Titulli,
-                        Kategoria = model.Kategoria,
                         VitiPublikimit = model.VitiPublikimit,
                         NrFaqeve = model.NrFaqeve,
                         NrKopjeve = model.NrKopjeve,
                         Gjuha = model.Gjuha,
                         InStock = model.InStock,
+                        Description=model.Description,
                         ProfilePicturePath = uniqueFileName,
                         ShtepiaBotueseID = model.ShtepiaBotueseID,
                         zhanriId = model.zhanriId,
@@ -121,12 +150,12 @@ namespace labback.Controllers
                 {
                     libri.Isbn = model.Isbn;
                     libri.Titulli = model.Titulli;
-                    libri.Kategoria = model.Kategoria;
                     libri.VitiPublikimit = model.VitiPublikimit;
                     libri.NrFaqeve = model.NrFaqeve;
                     libri.NrKopjeve = model.NrKopjeve;
                     libri.Gjuha = model.Gjuha;
                     libri.InStock = model.InStock;
+                    libri.Description = model.Description;
                     libri.ShtepiaBotueseID = model.ShtepiaBotueseID;
                     libri.zhanriId = model.zhanriId;
 
@@ -212,73 +241,5 @@ namespace labback.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-
-        //Autori-Libri Many To Many Relationship Methods
-
-        [HttpGet("getAutoret/{id}")]
-        public async Task<IActionResult> getAutoretPrejLibrit(int id)
-        {
-            var libri = await _libriContext.Librat
-                .Include(l => l.AutoriLibris)
-                .ThenInclude(al => al.Autoret)
-                .FirstOrDefaultAsync(l => l.ID == id);
-
-            if (libri == null)
-            {
-                return NotFound();
-            }
-
-            var autori = libri.AutoriLibris.Select(al => new AutoriDTO
-            {
-                Emri = al.Autoret.Emri,
-                Mbiemri = al.Autoret.Mbiemri,
-                Nofka = al.Autoret.nofka,
-                Gjinia = al.Autoret.gjinia,
-                Data_E_Lindjes = al.Autoret.Data_E_Lindjes,
-                Nacionaliteti = al.Autoret.Nacionaliteti
-            }).ToList();
-
-            return Ok(autori);
-        }
-
-        [HttpPost("{id}/ShtoAutorin/{autori_ID}")]
-        public async Task<ActionResult> AddAuthorToBook(int id, int autori_ID)
-        {
-            var book = await _libriContext.Librat.FindAsync(id);
-            if (book == null)
-                return NotFound("Book not found.");
-
-            var author = await _libriContext.Autori.FindAsync(autori_ID);
-            if (author == null)
-                return NotFound("Author not found.");
-
-            var autoriLibri = new AutoriLibri
-            {
-                ID = id,
-                Autori_ID = autori_ID
-            };
-
-            _libriContext.AutoriLibris.Add(autoriLibri);
-            await _libriContext.SaveChangesAsync();
-
-            return Ok();
-        }
-
-
-        [HttpDelete("{id}/delete/{autori_ID}")]
-        public async Task<ActionResult> RemoveAuthorFromBook(int id, int autori_ID)
-        {
-            var autoriLibri = await _libriContext.AutoriLibris
-                .FirstOrDefaultAsync(al => al.ID == id && al.Autori_ID == autori_ID);
-
-            if (autoriLibri == null)
-                return NotFound("Relationship not found.");
-
-            _libriContext.AutoriLibris.Remove(autoriLibri);
-            await _libriContext.SaveChangesAsync();
-
-            return Ok();
-        }
-
     }
 }

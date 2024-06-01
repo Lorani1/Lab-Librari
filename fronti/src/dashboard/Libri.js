@@ -13,6 +13,22 @@ import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { Buffer } from "buffer";
 import process from "process";
 import { Link } from "react-router-dom";
+// import Sidebar from "./Sidebar";
+// import "./dashb.css";
+// import "./SideBar.css";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import {
+  BsCart3,
+  BsGrid1X2Fill,
+  BsFillArchiveFill,
+  BsFillGrid3X3GapFill,
+  BsPeopleFill,
+  BsListCheck,
+  BsMenuButtonWideFill,
+  BsFillGearFill,
+  BsBookFill,
+} from "react-icons/bs"; // Adjust the path as needed
+// import "./sidebar.css";
 
 window.Buffer = Buffer;
 window.process = process;
@@ -20,54 +36,41 @@ window.process = process;
 const Libri = () => {
   const [show, setShow] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [showAuthorsModal, setShowAuthorsModal] = useState(false);
-
-
-
   const [shtepiaList, setShtepiaList] = useState([]);
   const [selectedShtepia, setSelectedShtepia] = useState("");
-  
   const [zhanriList, setZhanriList] = useState([]);
   const [selectedZhanri, setSelectedZhanri] = useState("");
-  
   const [selectedFile, setSelectedFile] = useState(null);
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
-  
   const [isbn, setIsbn] = useState("");
   const [titulli, setTitulli] = useState("");
-  const [kategoria, setKategoria] = useState("");
+
   const [vitiPublikimit, setVitiPublikimit] = useState("");
   const [nrFaqeve, setNrFaqeve] = useState("");
   const [nrKopjeve, setNrKopjeve] = useState("");
   const [gjuha, setGjuha] = useState("");
   const [editProfilePictureUrl, setEditProfilePictureUrl] = useState("");
   const [inStock, setInStock] = useState(0);
+  const [description, setDescriptioni] = useState("");
   const [editId, setEditId] = useState("");
   const [editIsbn, setEditIsbn] = useState("");
   const [editTitulli, setEditTitulli] = useState("");
-  const [editKategoria, setEditKategoria] = useState("");
 
   const [editVitiPublikimit, setEditVitiPublikimit] = useState("");
   const [editNrFaqeve, setEditNrFaqeve] = useState("");
   const [editNrKopjeve, setEditNrKopjeve] = useState("");
   const [editGjuha, setEditGjuha] = useState("");
   const [editInStock, setEditInStock] = useState(0);
+  const [editDescriptioni, setEditDescriptioni] = useState("");
   const [editSelectedShtepiaID, setEditSelectedShtepiaID] = useState("");
   const [editSelectedZhanriID, setEditSelectedZhanriID] = useState("");
   const [editSelectedFile, setEditSelectedFile] = useState(null);
 
   const [filteredLibriList, setFilteredLibriList] = useState([]);
   const [titulliFilter, setTitulliFilter] = useState("");
+  const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
 
-
-   const [authors, setAuthors] = useState([]);
-   const [selectedAuthors, setSelectedAuthors] = useState([]);
-   const [allAuthors, setAllAuthors] = useState([]);
-   const [selectedAuthorsForNewBook, setSelectedAuthorsForNewBook] = useState([]);
-   const [editSelectedAuthors, setEditSelectedAuthors] = useState([]);
-   const [showAuthorsViewModal, setShowAuthorsViewModal] = useState(false);
-   const [selectedBookAuthors, setSelectedBookAuthors] = useState([])
- 
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const [data, setData] = useState([]);
 
@@ -77,15 +80,22 @@ const Libri = () => {
 
   const handleOpenAddModal = () => setShowAddModal(true);
   const handleCloseAddModal = () => setShowAddModal(false);
+  const [itemsPerPage] = useState(3);
+  const [currentPage, setCurrentPage] = useState(1); // Change the number of items per page as needed
 
-  const handleOpenAuthorsModal = () => setShowAuthorsModal(true);
-  const handleCloseAuthorsModal = () => setShowAuthorsModal(false);
+  // Pagination Logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredLibriList.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+  const totalPages = Math.ceil(filteredLibriList.length / itemsPerPage);
 
   useEffect(() => {
     getData();
     getShtepiaList();
     getZhanriList();
-    getAllAuthors();
   }, []);
 
   const getData = () => {
@@ -94,8 +104,12 @@ const Libri = () => {
       .then((result) => {
         setData(result.data);
         setFilteredLibriList(result.data);
+
+        // Assuming the API response includes a field called 'photoPath' for each book
+        // Set the photo path in component state
         result.data.forEach((book) => {
           if (book.photoPath) {
+            // Update the book's profile picture URL in state to show preview
             setProfilePictureUrl(book.photoPath);
           }
         });
@@ -123,12 +137,35 @@ const Libri = () => {
         toast.error("Failed to fetch genre data.");
       });
   };
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
 
-  const getAllAuthors = () => {
-    axios
-      .get("https://localhost:7101/api/Autori/getAll")
-      .then((result) => setAllAuthors(result.data))
-      .catch((error) => console.error("Error fetching authors:", error));
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+  const OpenSidebar = () => {
+    setOpenSidebarToggle(!openSidebarToggle);
+  };
+  const handleCustomersClick = () => {
+    setShowKlienti(true);
+    setShowLibri(false); // Hide Libri when showing Klienti
+  };
+
+  const handleLibriClick = () => {
+    setShowLibri(true);
+    setShowKlienti(false); // Hide Klienti when showing Libri
+  };
+  const handleAutoriClick = () => {
+    setShowLibri(false);
+    setShowKlienti(false);
+    setShowAutori(true);
+  };
+  const handleStafiClick = () => {
+    setShowLibri(false);
+    setShowKlienti(false);
+    setShowAutori(false);
+    setShowStafi(true);
   };
 
   const handleEdit = (id) => {
@@ -140,16 +177,15 @@ const Libri = () => {
         setEditId(bookData.id);
         setEditIsbn(bookData.isbn);
         setEditTitulli(bookData.titulli);
-        setEditKategoria(bookData.kategoria);
         setEditVitiPublikimit(bookData.vitiPublikimit);
         setEditNrFaqeve(bookData.nrFaqeve);
         setEditNrKopjeve(bookData.nrKopjeve);
         setEditGjuha(bookData.gjuha);
-        setEditInStock(bookData.inStock === 1 ? true : false);
+        setEditInStock(bookData.inStock === 1);
+        setEditDescriptioni(bookData.description);
         setEditSelectedShtepiaID(bookData.shtepiaBotueseID);
         setEditSelectedZhanriID(bookData.zhanriId);
         setEditProfilePictureUrl(bookData.profilePictureUrl);
-        fetchAuthorsForBook(bookData.id); 
       })
       .catch((error) => {
         console.error("Error fetching book data:", error);
@@ -176,19 +212,20 @@ const Libri = () => {
       console.error("Error handling file upload:", error);
     }
   };
+
   const handleUpdate = () => {
     const url = `https://localhost:7101/api/Libri/${editId}`;
     const formData = new FormData();
 
     formData.append("isbn", editIsbn);
     formData.append("titulli", editTitulli);
-    formData.append("kategoria", editKategoria);
     formData.append("vitiPublikimit", editVitiPublikimit);
     formData.append("nrFaqeve", editNrFaqeve);
     formData.append("nrKopjeve", editNrKopjeve);
     formData.append("gjuha", editGjuha);
     formData.append("inStock", editInStock ? 1 : 0);
-    formData.append("shtepiaBotueseID", editSelectedShtepiaID);   
+    formData.append("description", editDescriptioni);
+    formData.append("shtepiaBotueseID", editSelectedShtepiaID);
     formData.append("zhanriID", editSelectedZhanriID);
 
     const selectedPublisher = shtepiaList.find(
@@ -207,12 +244,7 @@ const Libri = () => {
       formData.append("profilePicture", editSelectedFile);
     }
 
-    formData.append("profilePicturePath", editProfilePictureUrl || ""); 
-    
-   
-    editSelectedAuthors.forEach(author => {
-      formData.append("authors", author.autori_ID); 
-    });
+    formData.append("profilePicturePath", editProfilePictureUrl || ""); // Add the existing profile picture path if needed
 
     axios
       .put(url, formData)
@@ -243,12 +275,12 @@ const Libri = () => {
     const formData = new FormData();
     formData.append("isbn", isbn);
     formData.append("titulli", titulli);
-    formData.append("kategoria", kategoria);
     formData.append("vitiPublikimit", vitiPublikimit);
     formData.append("nrFaqeve", nrFaqeve);
     formData.append("nrKopjeve", nrKopjeve);
     formData.append("gjuha", gjuha);
     formData.append("inStock", inStock);
+    formData.append("description", description);
     formData.append("shtepiaBotueseID", selectedShtepia);
     formData.append("zhanriID", selectedZhanri);
     formData.append(
@@ -278,10 +310,6 @@ const Libri = () => {
       })
     );
     formData.append("profilePicture", selectedFile);
-
-    selectedAuthorsForNewBook.forEach(author => {
-      formData.append("authors", author.autori_ID); 
-    });
 
     axios
       .post(url, formData)
@@ -313,62 +341,19 @@ const Libri = () => {
         });
     }
   };
-
-  
-
-   const fetchAuthorsForBook = (id) => {
-    axios.get(`https://localhost:7101/api/Libri/getAutoret/${id}`)
-      .then(result => setAuthors(result.data))
-      .catch(error => console.error('Error fetching authors:', error));
-  };
-
-  const fetchSelectedBookAuthors = (id) => {
-    axios
-      .get(`https://localhost:7101/api/Libri/getAutoret/${id}`)
-      .then((result) => setSelectedBookAuthors(result.data))
-      .catch((error) => console.error("Error fetching selected book authors:", error));
-  };
-
-  const addAuthorToBook = (id, autori_ID) => {
-    axios.post(`https://localhost:7101/api/Libri/${id}/ShtoAutorin/${autori_ID}`)
-      .then(() => {
-        fetchAuthorsForBook(id);
-        toast.success('Author added to book');
-      })
-      .catch(error => {
-        console.error('Failed to add author to book:', error);
-        toast.error('Failed to add author to book. Please try again.');
-      });
-  };
-
-
-const handleAuthorSelection = (autori_ID) => {
-  const authorToAdd = allAuthors.find(author => author.autori_ID === autori_ID);
-  setSelectedAuthorsForNewBook([...selectedAuthorsForNewBook, authorToAdd]);
-};
-
-const handleOpenAuthorsViewModal = (id) => {
-  fetchSelectedBookAuthors(id);
-  setShowAuthorsViewModal(true);
-};
-
-const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
-
-
   const clear = () => {
     setIsbn("");
     setTitulli("");
-    setKategoria("");
     setVitiPublikimit("");
     setNrFaqeve("");
     setNrKopjeve("");
     setGjuha("");
     setInStock(0);
+    setDescriptioni("");
     setSelectedShtepia("");
     setSelectedZhanri("");
     setSelectedFile(null);
     setProfilePictureUrl("");
-    setSelectedAuthorsForNewBook([]);
   };
 
   const handleActiveChange = (e) => {
@@ -405,6 +390,7 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
       setFilteredLibriList(filteredData);
     }
   };
+
   const sortResult = (prop, asc) => {
     const sortedData = [...filteredLibriList].sort((a, b) => {
       if (asc) {
@@ -416,37 +402,34 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
 
     setFilteredLibriList(sortedData);
   };
-
+  const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
+  };
   return (
     <Fragment>
+      <div className="sidebar-container">
+        {/* Icon to toggle sidebar visibility */}
+        <div className="sidebar-toggle-icon-container">
+          <BsThreeDotsVertical
+            className="sidebar-toggle-icon"
+            onClick={toggleSidebar}
+          />
+        </div>
+
+        {/* Render the Sidebar component conditionally */}
+        {showSidebar && <Sidebar />}
+      </div>
+
       <ToastContainer />
       <Container className="py-5">
         <h1>Book List</h1>
         <Button variant="primary" onClick={handleOpenAddModal}>
           Add New Book
         </Button>
-        <Button
-          variant="secondary"
-          as={Link}
-          to="/shtepiabotuese"
-          className="ml-3"
-        >
+        <Button variant="secondary" as={Link} to="/ratings" className="ml-3">
           Go to Shtepia Botuese
         </Button>
-        <Button
-          variant="secondary"
-          as={Link}
-          to="/autori"
-          className="ml-3"
-        >
-          Go to Autori
-        </Button>
-        <Button
-          variant="secondary"
-          as={Link}
-          to="/zhanri"
-          className="ml-3"
-        >
+        <Button variant="secondary" as={Link} to="/zhanri" className="ml-3">
           Go to Zhanri
         </Button>
         <div className="ml-auto d-flex">
@@ -494,15 +477,14 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
             <tr>
               <th>ISBN</th>
               <th>Title</th>
-              <th>Category</th>
               <th>Publication Year</th>
               <th>Pages</th>
               <th>Copies</th>
               <th>Language</th>
               <th>Publisher</th>
-              <th>Autoret</th>
               <th>Genre</th>
               <th>In Stock</th>
+              <th>Description</th>
               <th>Images</th>
             </tr>
           </thead>
@@ -514,23 +496,19 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
                 </td>
               </tr>
             ) : (
-              filteredLibriList.map((item, key) => (
+              currentItems.map((item, key) => (
                 <tr key={key}>
                   <td>{item.isbn}</td>
                   <td>{item.titulli}</td>
-                  <td>{item.kategoria}</td>
                   <td>{item.vitiPublikimit}</td>
                   <td>{item.nrFaqeve}</td>
                   <td>{item.nrKopjeve}</td>
                   <td>{item.gjuha}</td>
                   <td>{item.shtepiaBotueseID}</td>
-                  <td>
-                  <Button variant="secondary" onClick={() => handleOpenAuthorsViewModal(item.id)}>
-                    View Authors
-                  </Button>
-                </td>
                   <td>{item.zhanriId}</td>
                   <td>{item.inStock ? "Yes" : "No"}</td>
+                  <td>{item.description}</td>
+
                   <td>
                     {item.profilePicturePath ? (
                       <img
@@ -570,6 +548,38 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
             )}
           </tbody>
         </Table>
+        {/* Pagination Controls */}
+        <div className="d-flex justify-content-center align-items-center mt-4">
+          <Button
+            variant="secondary"
+            disabled={currentPage === 1}
+            onClick={handlePreviousPage}
+            className="mr-3"
+            style={{
+              backgroundColor: "#C39898",
+              borderColor: "#C39898",
+              cursor: currentPage === 1 ? "not-allowed" : "pointer",
+            }}
+          >
+            Previous
+          </Button>
+          <div className="mx-4">
+            Page {currentPage} of {totalPages}
+          </div>
+          <Button
+            variant="secondary"
+            disabled={currentPage === totalPages}
+            onClick={handleNextPage}
+            className="ml-3"
+            style={{
+              backgroundColor: "#C39898",
+              borderColor: "#C39898",
+              cursor: currentPage === totalPages ? "not-allowed" : "pointer",
+            }}
+          >
+            Next
+          </Button>
+        </div>
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
@@ -596,17 +606,7 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
                 />
               </Col>
             </Row>
-            <Row>
-              <Col>
-                <label>Category</label>
-                <input
-                  type="text"
-                  value={editKategoria}
-                  onChange={(e) => setEditKategoria(e.target.value)}
-                  className="form-control"
-                />
-              </Col>
-            </Row>
+
             <Row>
               <Col>
                 <label>Publication Year</label>
@@ -689,6 +689,18 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
                 />
                 <label>In-Stock</label>
               </Col>
+              <Row>
+                <Row>
+                  <Col>
+                    <label>Description</label>
+                    <textarea
+                      value={editDescriptioni}
+                      onChange={(e) => setEditDescriptioni(e.target.value)}
+                      className="form-control"
+                    />
+                  </Col>
+                </Row>
+              </Row>
             </Row>
 
             <Row>
@@ -708,9 +720,6 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
                 )}
               </Col>
             </Row>
-            <Button variant="secondary" onClick={handleOpenAuthorsModal}>
-                Manage Authors
-            </Button>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -747,17 +756,7 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
                 />
               </Col>
             </Row>
-            <Row>
-              <Col>
-                <label>Category</label>
-                <input
-                  type="text"
-                  value={kategoria}
-                  onChange={(e) => setKategoria(e.target.value)}
-                  className="form-control"
-                />
-              </Col>
-            </Row>
+
             <Row>
               <Col>
                 <label>Publication Year</label>
@@ -842,6 +841,18 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
               </Col>
             </Row>
             <Row>
+              <Row>
+                <Col>
+                  <label>Description</label>
+                  <textarea
+                    value={description}
+                    onChange={(e) => setDescriptioni(e.target.value)}
+                    className="form-control"
+                  />
+                </Col>
+              </Row>
+            </Row>
+            <Row>
               <Col>
                 <label>Profile Picture</label>
                 <input
@@ -861,54 +872,8 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
             </Button>
           </Modal.Footer>
         </Modal>
-        
-        
-        
-        <Modal show={showAuthorsModal} onHide={handleCloseAuthorsModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Manage Authors</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h5>Add Authors:</h5>
-          <ul>
-            {allAuthors.map(author => (
-              <li key={author.autori_ID}>
-                {author.emri}
-                
-                {!selectedAuthors.some(a => a.autori_ID === selectedAuthors.autori_ID) && (
-                  <Button
-                    variant="success"
-                    size="sm"
-                    onClick={() => {
-                      handleAuthorSelection(author.autori_ID); 
-                      addAuthorToBook(editId, author.autori_ID); 
-                    }}
-                    className="ml-2"
-                  >
-                    Add
-                  </Button>
-                )}
-              </li>
-            ))}
-          </ul>
-        </Modal.Body>
-      </Modal>
-
-      <Modal show={showAuthorsViewModal} onHide={handleCloseAuthorsViewModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Selected Book Authors</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <ul>
-            {selectedBookAuthors.map((author) => (
-              <li key={author.autori_ID}>{author.emri}</li>
-            ))}
-          </ul>
-        </Modal.Body>
-      </Modal>
-   
-    </Container>
-  </Fragment>
+      </Container>
+    </Fragment>
   );
 };
 

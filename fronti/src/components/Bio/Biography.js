@@ -13,11 +13,11 @@ const Biography = ({ onAddToCart }) => {
     axios
       .get("https://localhost:7101/api/Libri")
       .then((response) => {
-        console.log("Fetched data:", response.data); 
+        console.log("Fetched data:", response.data); // Log the fetched data
         const biografis = response.data.filter(
-          (product) => product.kategoria === "Biografi"
+          (product) => product.zhanri.emri === "Biografi"
         );
-        console.log("Filtered biografi products:", biografis); 
+        console.log("Filtered biografi products:", biografis); // Log the filtered manga products
         setBioProducts(biografis);
       })
       .catch((error) => console.error("Error fetching biografi data:", error));
@@ -35,7 +35,7 @@ const Biography = ({ onAddToCart }) => {
         <Grid
           className={classes.categoryFeatured}
           container
-          justifyContent="center" 
+          justifyContent="center" // Change justify to justifyContent
           spacing={1}
         >
           {bioProducts.length === 0 ? (
