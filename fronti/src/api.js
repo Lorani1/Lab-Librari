@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 const api = axios.create({
   baseURL: 'https://localhost:7101/api',
@@ -26,13 +25,24 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        const response = await axios.post('https://localhost:7101/api/Klient/refresh-token', {}, { withCredentials: true });
-        const { token } = response.data;
-        localStorage.setItem('authToken', token);
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        const refreshToken = sessionStorage.getItem('refreshToken');
+        if (!refreshToken) {
+          throw new Error('No refresh token available');
+        }
+        const response = await axios.post('/Klient/refresh-token', {}, {
+          headers: {
+            'Authorization': `Bearer ${refreshToken}`
+          },
+          withCredentials: true
+        });
+        const { authToken } = response.data;
+        localStorage.setItem('authToken', authToken);
+        api.defaults.headers.common['Authorization'] = 'Bearer ' + authToken;
+        originalRequest.headers['Authorization'] = 'Bearer ' + authToken;
         return api(originalRequest);
       } catch (refreshError) {
         localStorage.removeItem('authToken');
+        sessionStorage.removeItem('refreshToken');
         window.location.href = '/login';
       }
     }

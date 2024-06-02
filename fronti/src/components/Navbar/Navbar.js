@@ -7,7 +7,7 @@ import { getUserIdFromToken } from './utilities';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../../AuthContext'; // Import useAuth hook to access userRole
-
+import Cookies from 'js-cookie';
 const CustomNavbar = ({ totalItems }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -114,9 +114,10 @@ const CustomNavbar = ({ totalItems }) => {
 
   const logout = () => {
     localStorage.removeItem('authToken');
-    localStorage.removeItem('refreshToken');
+   sessionStorage.removeItem('refreshToken'); // Ensure refresh token is also removed
     history.push('/login');
   };
+  
 
   const triggerFileInput = () => {
     document.getElementById('profilePicInput').click();

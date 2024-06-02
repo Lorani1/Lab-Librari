@@ -23,15 +23,15 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     if (!email || !password) {
       setErrorMessage("Email and password are required.");
       return;
     }
-
+  
     setIsSubmitting(true);
     setErrorMessage("");
-
+  
     try {
       const response = await axios.post(
         `https://localhost:7101/api/Klient/login`,
@@ -41,17 +41,19 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-
+  
       console.log("Login Response Data:", response.data);
-
+  
       if (response.status === 200) {
         const responseData = response.data;
-        if (responseData.token) {
+        if (responseData.token && responseData.refreshToken) {
           localStorage.setItem('authToken', responseData.token);
-          console.log('Token set in localStorage:', {
+          sessionStorage.setItem('refreshToken', responseData.refreshToken);
+          console.log('Tokens set in storage:', {
             authToken: localStorage.getItem('authToken'),
+            refreshToken: sessionStorage.getItem('refreshToken')
           });
-
+  
           login(responseData.token); // Pass the auth token to the login function
           history.push("/home");
           setEmail("");
@@ -69,6 +71,7 @@ const Login = () => {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
     <div className="container-fluid">

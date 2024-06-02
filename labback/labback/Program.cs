@@ -1,19 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
-using labback.Models;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using labback.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Read JWT settings from configuration
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+builder.Services.Configure<JwtSettings>(jwtSettings);
 
-var jwtKey = "5yGJ7c3QnD9e8LsR2P1Yk6T4F8bHwAeS";
+var jwtKey = jwtSettings.GetValue<string>("Key");
 var key = Encoding.UTF8.GetBytes(jwtKey);
-
 
 builder.Services.AddDbContext<StafiContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
@@ -28,12 +29,11 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<PasswordService>();
-builder.Services.AddLogging(); // Add logging
 
+builder.Services.AddScoped<PasswordService>();
+builder.Services.AddLogging();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -44,8 +44,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "yourdomain.com", 
-            ValidAudience = "yourdomain.com", 
+            ValidIssuer = jwtSettings.GetValue<string>("Issuer"),
+            ValidAudience = jwtSettings.GetValue<string>("Audience"),
             IssuerSigningKey = new SymmetricSecurityKey(key)
         };
     });
@@ -54,41 +54,32 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         builder => builder
-            .WithOrigins("http://localhost:3002") 
+            .WithOrigins("http://localhost:3006", "https://localhost:3006")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
 });
 
-
-builder.Services.AddSingleton(jwtKey);
+// Register the jwtKey as a singleton service
+builder.Services.AddSingleton<string>(jwtKey);
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-else
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
 
-app.UseCors("AllowSpecificOrigin"); 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "foto")),
-    RequestPath = "/foto"
-});
 
 app.MapControllers();
 

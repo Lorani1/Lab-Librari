@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import { useHistory } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const AuthContext = createContext();
 
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem('authToken');
-    localStorage.setItem('logout-event', Date.now()); // Write a timestamp to trigger the event
+    sessionStorage.removeItem('refreshToken');
     setIsAuthenticated(false);
     setUserRole(null);
     history.push('/login');
@@ -29,8 +30,13 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
-      const decodedToken = jwtDecode(token);
-      setUserRole(decodedToken.role); // Assuming the role is stored under 'role' in your JWT payload
+      try {
+        const decodedToken = jwtDecode(token);
+        setUserRole(decodedToken.role); // Assuming the role is stored under 'role' in your JWT payload
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        logout(); // Log out if token is invalid
+      }
     }
   }, []);
 

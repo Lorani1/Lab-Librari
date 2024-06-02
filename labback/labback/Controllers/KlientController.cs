@@ -269,10 +269,10 @@ namespace labback.Controllers
                 {
                     Subject = new ClaimsIdentity(new[]
                     {
-                        new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
-                        new Claim(ClaimTypes.Email, klient.Email),
-                        new Claim(ClaimTypes.Role, klient.Roli.Name) // Include role name in token
-                    }),
+                new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
+                new Claim(ClaimTypes.Email, klient.Email),
+                new Claim(ClaimTypes.Role, klient.Roli.Name) // Include role name in token
+            }),
                     Expires = DateTime.UtcNow.AddMinutes(15), // Short-lived token (15 minutes)
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
                 };
@@ -288,21 +288,13 @@ namespace labback.Controllers
                 _LibriContext.RefreshTokens.Add(refreshToken);
                 await _LibriContext.SaveChangesAsync();
 
-                // Set HttpOnly refresh token cookie
-                HttpContext.Response.Cookies.Append("refreshToken", refreshToken.Token, new CookieOptions
-                {
-                    HttpOnly = true,
-                    Secure = true, // Ensure this is true in production (HTTPS)
-                    SameSite = SameSiteMode.Strict, // Adjust based on your requirements
-                    Expires = refreshToken.Expires
-                });
-
                 _logger.LogInformation("Login successful for email: {Email}", model.Email);
 
                 return Ok(new
                 {
                     Token = tokenString,
                     Expiration = tokenDescriptor.Expires,
+                    RefreshToken = refreshToken.Token,
                     Roli = klient.Roli.Name // Include role name in response
                 });
             }
@@ -313,25 +305,10 @@ namespace labback.Controllers
             }
         }
 
-        private RefreshToken GenerateRefreshToken()
-        {
-            var randomBytes = new byte[32];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(randomBytes);
-            }
-            return new RefreshToken
-            {
-                Token = Convert.ToBase64String(randomBytes),
-                Expires = DateTime.UtcNow.AddDays(7), // Long-lived refresh token
-                Created = DateTime.UtcNow
-            };
-        }
-
         [HttpPost("refresh-token")]
-        public async Task<IActionResult> RefreshToken()
+        public async Task<IActionResult> RefreshToken([FromBody] string requestRefreshToken)
         {
-            if (!Request.Cookies.TryGetValue("refreshToken", out var requestRefreshToken))
+            if (string.IsNullOrEmpty(requestRefreshToken))
             {
                 return Unauthorized("Refresh token is missing");
             }
@@ -353,9 +330,9 @@ namespace labback.Controllers
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
-                    new Claim(ClaimTypes.Email, klient.Email)
-                }),
+            new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
+            new Claim(ClaimTypes.Email, klient.Email)
+        }),
                 Expires = DateTime.UtcNow.AddMinutes(15), // Access token expiration
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
             };
@@ -370,15 +347,6 @@ namespace labback.Controllers
             _LibriContext.RefreshTokens.Remove(existingToken); // Remove the old refresh token
             await _LibriContext.SaveChangesAsync();
 
-            // Set HttpOnly refresh token cookie
-            HttpContext.Response.Cookies.Append("refreshToken", newRefreshToken.Token, new CookieOptions
-            {
-                HttpOnly = true,
-                Secure = true, // Ensure this is true in production (HTTPS)
-                SameSite = SameSiteMode.Strict, // Adjust based on your requirements
-                Expires = newRefreshToken.Expires
-            });
-
             return Ok(new
             {
                 Token = tokenString,
@@ -386,62 +354,10 @@ namespace labback.Controllers
             });
         }
 
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> PatchKlient(int id, [FromForm] PartialUpdateKlientModel model)
-        {
-            var klient = await _LibriContext.Klients.FindAsync(id);
-            if (klient == null)
-            {
-                return NotFound();
-            }
-
-            if (!string.IsNullOrEmpty(model.Emri))
-            {
-                klient.Emri = model.Emri;
-            }
-
-            if (!string.IsNullOrEmpty(model.Mbiemri))
-            {
-                klient.Mbiemri = model.Mbiemri;
-            }
-
-            if (model.ProfilePicturePath != null && model.ProfilePicturePath.Length > 0)
-            {
-                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "foto");
-                if (!Directory.Exists(uploadsFolder))
-                {
-                    Directory.CreateDirectory(uploadsFolder);
-                }
-
-                if (!string.IsNullOrEmpty(klient.ProfilePicturePath))
-                {
-                    var oldFilePath = Path.Combine(uploadsFolder, klient.ProfilePicturePath);
-                    if (System.IO.File.Exists(oldFilePath))
-                    {
-                        System.IO.File.Delete(oldFilePath);
-                    }
-                }
-
-                string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(model.ProfilePicturePath.FileName);
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await model.ProfilePicturePath.CopyToAsync(fileStream);
-                }
-
-                klient.ProfilePicturePath = uniqueFileName;
-            }
-
-            _LibriContext.Entry(klient).State = EntityState.Modified;
-            await _LibriContext.SaveChangesAsync();
-
-            return NoContent();
-        }
         [HttpPost("logout")]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout([FromBody] string refreshToken)
         {
-            if (!Request.Cookies.TryGetValue("refreshToken", out var refreshToken))
+            if (string.IsNullOrEmpty(refreshToken))
             {
                 return BadRequest("No refresh token found");
             }
@@ -453,13 +369,23 @@ namespace labback.Controllers
                 await _LibriContext.SaveChangesAsync();
             }
 
-            // Remove the refresh token cookie
-            HttpContext.Response.Cookies.Delete("refreshToken");
-
             return Ok(new { message = "Logout successful" });
         }
 
-
+        private RefreshToken GenerateRefreshToken()
+                {
+                    var randomBytes = new byte[32];
+                    using (var rng = RandomNumberGenerator.Create())
+                    {
+                        rng.GetBytes(randomBytes);
+                    }
+                    return new RefreshToken
+                    {
+                        Token = Convert.ToBase64String(randomBytes),
+                        Expires = DateTime.UtcNow.AddDays(7), // Long-lived refresh token
+                        Created = DateTime.UtcNow
+                    };
+                }
 
     }
 
