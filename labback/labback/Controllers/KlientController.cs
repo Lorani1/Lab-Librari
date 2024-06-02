@@ -438,6 +438,26 @@ namespace labback.Controllers
 
             return NoContent();
         }
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            if (!Request.Cookies.TryGetValue("refreshToken", out var refreshToken))
+            {
+                return BadRequest("No refresh token found");
+            }
+
+            var existingToken = await _LibriContext.RefreshTokens.FirstOrDefaultAsync(rt => rt.Token == refreshToken);
+            if (existingToken != null)
+            {
+                _LibriContext.RefreshTokens.Remove(existingToken);
+                await _LibriContext.SaveChangesAsync();
+            }
+
+            // Remove the refresh token cookie
+            HttpContext.Response.Cookies.Delete("refreshToken");
+
+            return Ok(new { message = "Logout successful" });
+        }
 
 
 

@@ -1,7 +1,7 @@
-// src/apiService.js
+
 import axios from 'axios';
 
-const API_URL = 'https://localhost:7101/api/Exchange'; // Adjust the URL if your API is hosted elsewhere
+const API_URL = 'https://localhost:7101/api/Exchange'; 
 
 export const getExchanges = async () => {
   return axios.get(API_URL);

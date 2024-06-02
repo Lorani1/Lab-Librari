@@ -188,7 +188,7 @@ const Autori = () => {
             <th>Nacionaliteti</th>
             <th>Nofka</th>
             <th>Gjinia</th>
-            <th>Books Written</th> {/* New column for books written */}
+            <th>Books Written</th> 
             <th>Options</th>
           </tr>
         </thead>
@@ -202,7 +202,7 @@ const Autori = () => {
               <td>{item.nacionaliteti}</td>
               <td>{item.nofka}</td>
               <td>{item.gjinia}</td>
-              <td>{item.bookCount}</td> {/* Display the number of books written */}
+              <td>{item.bookCount}</td>
               <td colSpan={2}>
                 <button className="btn btn-warning" onClick={() => handleEdit(item.autori_ID)}>Update</button>
                 &nbsp;

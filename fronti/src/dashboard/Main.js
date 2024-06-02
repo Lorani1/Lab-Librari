@@ -66,16 +66,16 @@ function Main() {
       amt: 2100,
     },
   ];
-  const [bookCount, setBookCount] = useState(0); // Initialize book count state
+  const [bookCount, setBookCount] = useState(0); 
 
   useEffect(() => {
-    // Fetch the count of books
+    
     const fetchBookCount = async () => {
       try {
         const response = await fetch("https://localhost:7101/api/Libri/count");
         if (response.ok) {
           const data = await response.json();
-          setBookCount(data.count); // Update book count state with the fetched count
+          setBookCount(data.count); 
         } else {
           throw new Error("Failed to fetch book count");
         }
@@ -84,7 +84,7 @@ function Main() {
       }
     };
 
-    fetchBookCount(); // Call the function to fetch book count
+    fetchBookCount(); 
   }, []);
 
   return (

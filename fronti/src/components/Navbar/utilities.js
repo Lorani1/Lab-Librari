@@ -1,3 +1,4 @@
+// util[ities.js
 import {jwtDecode} from 'jwt-decode';
 
 export const getUserIdFromToken = (token) => {

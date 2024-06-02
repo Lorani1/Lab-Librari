@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace labback.Migrations
 {
     /// <inheritdoc />
-    public partial class llibri : Migration
+    public partial class libri : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

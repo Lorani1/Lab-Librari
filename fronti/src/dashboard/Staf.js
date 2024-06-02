@@ -268,7 +268,7 @@ const Staf = () => {
       <th>Orari</th>
       <th>nrTel</th>
       <th>Gjinia</th>
-      <th>Actions</th> {/* Added a new column for actions */}
+      <th>Actions</th> 
     </tr>
   </thead>
   <tbody>
@@ -292,7 +292,7 @@ const Staf = () => {
       ))
     ) : (
       <tr>
-        <td colSpan="10">Loading...</td> {/* Colspan is set to the number of columns in the table */}
+        <td colSpan="10">Loading...</td> 
       </tr>
     )}
   </tbody>

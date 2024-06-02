@@ -28,17 +28,16 @@ const ExchangeForm = ({ exchange, onFormSubmit }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     
-    // Prepare the exchangeDTO object
+   
     const exchangeDTO = { klientId, libriId };
     
-    // Check if it's an update or create operation
+ 
     if (exchange) {
       await updateExchange(exchange.exchangeId, exchangeDTO);
     } else {
       await createExchange(exchangeDTO);
     }
-    
-    // Call the onFormSubmit function after the operation is completed
+ 
     if (typeof onFormSubmit === 'function') {
       onFormSubmit();
     }

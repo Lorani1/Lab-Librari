@@ -12,8 +12,8 @@ using labback.Models;
 namespace labback.Migrations
 {
     [DbContext(typeof(LibriContext))]
-    [Migration("20240601191356_llibri")]
-    partial class llibri
+    [Migration("20240601210548_libri")]
+    partial class libri
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -10,11 +10,11 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Define the JWT key
+
 var jwtKey = "5yGJ7c3QnD9e8LsR2P1Yk6T4F8bHwAeS";
 var key = Encoding.UTF8.GetBytes(jwtKey);
 
-// Add services to the container.
+
 builder.Services.AddDbContext<StafiContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
 
@@ -34,7 +34,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddLogging(); // Add logging
 
-// Add JWT authentication
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -44,8 +44,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "yourdomain.com", // Replace with your valid issuer
-            ValidAudience = "yourdomain.com", // Replace with your valid audience
+            ValidIssuer = "yourdomain.com", 
+            ValidAudience = "yourdomain.com", 
             IssuerSigningKey = new SymmetricSecurityKey(key)
         };
     });
@@ -54,18 +54,17 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         builder => builder
-            .WithOrigins("http://localhost:3000") // Allow localhost:3004
+            .WithOrigins("http://localhost:3002") 
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
 });
 
-// Register the JWT key for dependency injection
+
 builder.Services.AddSingleton(jwtKey);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -77,7 +76,7 @@ else
     app.UseHsts();
 }
 
-app.UseCors("AllowSpecificOrigin"); // Apply CORS policy here
+app.UseCors("AllowSpecificOrigin"); 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
