@@ -7,7 +7,8 @@ import { getUserIdFromToken } from './utilities';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../../AuthContext'; // Import useAuth hook to access userRole
-import Cookies from 'js-cookie';
+import checkRefreshTokenValidity from './checkRefreshTokenValidity'; // Import the check function
+
 const CustomNavbar = ({ totalItems }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -42,6 +43,32 @@ const CustomNavbar = ({ totalItems }) => {
 
     fetchUserInfo();
   }, [history]);
+
+  useEffect(() => {
+    const validateRefreshToken = async () => {
+        const refreshToken = sessionStorage.getItem('refreshToken');
+        if (refreshToken) {
+            try {
+                const response = await api.post('/api/Klient/refresh-token', { refreshToken });
+                const { Token, RefreshToken } = response.data;
+
+                // Update session storage
+                sessionStorage.setItem('refreshToken', RefreshToken);
+                localStorage.setItem('authToken', Token);
+            } catch (error) {
+                console.error('Error validating refresh token:', error);
+                sessionStorage.removeItem('refreshToken');
+                localStorage.removeItem('authToken');
+                history.push('/login');
+            }
+        } else {
+            history.push('/login');
+        }
+    };
+
+    const interval = setInterval(validateRefreshToken, 300000); // Check every 5 minutes
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+}, [history]);
 
   const handleNameChange = (e) => {
     setEditName(e.target.value);
@@ -112,17 +139,24 @@ const CustomNavbar = ({ totalItems }) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    const refreshToken = sessionStorage.getItem('refreshToken');
+    if (refreshToken) {
+        try {
+            await api.post(`https://localhost:7101/api/Klient/logout`, { refreshToken });
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
+    }
     localStorage.removeItem('authToken');
-   sessionStorage.removeItem('refreshToken'); // Ensure refresh token is also removed
+    sessionStorage.removeItem('refreshToken'); // Ensure refresh token is also removed
     history.push('/login');
-  };
-  
+};
+
 
   const triggerFileInput = () => {
     document.getElementById('profilePicInput').click();
-  };
-
+  }
   return (
     <>
       <style>

@@ -86,7 +86,7 @@ namespace labback.Controllers
                 k.Password,
                 ProfilePictureUrl = !string.IsNullOrEmpty(k.ProfilePicturePath) ? $"{baseUrl}{k.ProfilePicturePath}" : null,
                 QytetiEmri = k.Qyteti.Emri,
-                RoliName = k.Roli.Name // Include role name in the response
+                RoliName = k.Roli.Name 
             });
 
             return Ok(klientDtos);
@@ -116,9 +116,9 @@ namespace labback.Controllers
                     }
                 }
 
-                // Set role based on email
+               
                 var adminEmails = new List<string> { "erdina@gmail.com", "delfina@gmail.com", "loran@gmail.com", "jon@gmail.com" };
-                int roliID = adminEmails.Contains(model.Email) ? 2 : 1; // 2 for admin, 1 for user
+                int roliID = adminEmails.Contains(model.Email) ? 2 : 1; 
 
                 Klient klient = new Klient
                 {
@@ -132,13 +132,13 @@ namespace labback.Controllers
                     Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
                     ProfilePicturePath = uniqueFileName,
                     QytetiID = model.QytetiID,
-                    RoliID = roliID // Set the role ID
+                    RoliID = roliID 
                 };
 
                 _LibriContext.Klients.Add(klient);
                 await _LibriContext.SaveChangesAsync();
 
-                // Include the Qyteti and Roli entities in the response
+                
                 klient = await _LibriContext.Klients
                     .Include(k => k.Qyteti)
                     .Include(k => k.Roli)
@@ -159,8 +159,8 @@ namespace labback.Controllers
                     klient.Statusi,
                     klient.NrTel,
                     klient.ProfilePictureUrl,
-                    QytetiEmri = klient.Qyteti.Emri, // Ensure Qyteti Emri is included in the response
-                    RoliName = klient.Roli.Name // Ensure Roli Name is included in the response
+                    QytetiEmri = klient.Qyteti.Emri, 
+                    RoliName = klient.Roli.Name 
                 });
             }
 
@@ -271,20 +271,20 @@ namespace labback.Controllers
                     {
                 new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
                 new Claim(ClaimTypes.Email, klient.Email),
-                new Claim(ClaimTypes.Role, klient.Roli.Name) // Include role name in token
+                new Claim(ClaimTypes.Role, klient.Roli.Name) 
             }),
-                    Expires = DateTime.UtcNow.AddMinutes(15), // Short-lived token (15 minutes)
+                    Expires = DateTime.UtcNow.AddDays(7), 
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
                 };
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var tokenString = tokenHandler.WriteToken(token);
 
-                // Generate refresh token
+                
                 var refreshToken = GenerateRefreshToken();
                 refreshToken.KlientID = klient.ID;
 
-                // Save the refresh token to the database
+               
                 _LibriContext.RefreshTokens.Add(refreshToken);
                 await _LibriContext.SaveChangesAsync();
 
@@ -295,7 +295,7 @@ namespace labback.Controllers
                     Token = tokenString,
                     Expiration = tokenDescriptor.Expires,
                     RefreshToken = refreshToken.Token,
-                    Roli = klient.Roli.Name // Include role name in response
+                    Roli = klient.Roli.Name 
                 });
             }
             catch (Exception ex)
@@ -319,6 +319,9 @@ namespace labback.Controllers
 
             if (existingToken == null || existingToken.Expires < DateTime.UtcNow)
             {
+                
+                HttpContext.Session.Remove("refreshToken");
+
                 return Unauthorized("Invalid or expired refresh token");
             }
 
@@ -333,19 +336,24 @@ namespace labback.Controllers
             new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
             new Claim(ClaimTypes.Email, klient.Email)
         }),
-                Expires = DateTime.UtcNow.AddMinutes(15), // Access token expiration
+                Expires = DateTime.UtcNow.AddMinutes(15), 
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            // Optionally, generate a new refresh token
             var newRefreshToken = GenerateRefreshToken();
             newRefreshToken.KlientID = klient.ID;
 
             _LibriContext.RefreshTokens.Add(newRefreshToken);
-            _LibriContext.RefreshTokens.Remove(existingToken); // Remove the old refresh token
+            _LibriContext.RefreshTokens.Remove(existingToken); 
             await _LibriContext.SaveChangesAsync();
+
+            _logger.LogInformation("Generated new Refresh Token: {Token}", newRefreshToken.Token);
+            _logger.LogInformation("Refresh Token Expires at: {Expires}", newRefreshToken.Expires);
+
+
+            HttpContext.Session.SetString("refreshToken", newRefreshToken.Token);
 
             return Ok(new
             {
@@ -354,23 +362,23 @@ namespace labback.Controllers
             });
         }
 
-        [HttpPost("logout")]
-        public async Task<IActionResult> Logout([FromBody] string refreshToken)
-        {
-            if (string.IsNullOrEmpty(refreshToken))
-            {
-                return BadRequest("No refresh token found");
-            }
 
-            var existingToken = await _LibriContext.RefreshTokens.FirstOrDefaultAsync(rt => rt.Token == refreshToken);
-            if (existingToken != null)
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout([FromBody] LogoutRequest request)
+        {
+            var refreshToken = await _LibriContext.RefreshTokens.FirstOrDefaultAsync(rt => rt.Token == request.RefreshToken);
+            if (refreshToken != null)
             {
-                _LibriContext.RefreshTokens.Remove(existingToken);
+                _LibriContext.RefreshTokens.Remove(refreshToken);
                 await _LibriContext.SaveChangesAsync();
             }
 
+            
+            HttpContext.Session.Remove("refreshToken");
+
             return Ok(new { message = "Logout successful" });
         }
+
 
         private RefreshToken GenerateRefreshToken()
                 {
@@ -382,10 +390,27 @@ namespace labback.Controllers
                     return new RefreshToken
                     {
                         Token = Convert.ToBase64String(randomBytes),
-                        Expires = DateTime.UtcNow.AddDays(7), // Long-lived refresh token
+                        Expires = DateTime.UtcNow.AddMinutes(40), 
                         Created = DateTime.UtcNow
                     };
                 }
+
+        [HttpPost("check-refresh-token")]
+        public async Task<IActionResult> CheckRefreshToken([FromBody] string refreshToken)
+        {
+            if (string.IsNullOrEmpty(refreshToken))
+            {
+                return BadRequest("Refresh token is missing");
+            }
+
+            var token = await _LibriContext.RefreshTokens.FirstOrDefaultAsync(rt => rt.Token == refreshToken);
+            if (token != null)
+            {
+                return Ok(new { valid = true });
+            }
+
+            return Ok(new { valid = false });
+        }
 
     }
 
