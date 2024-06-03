@@ -25,6 +25,7 @@ import zhanri from "./dashboard/zhanri";
 import ProductView from "./components/ProductView/ProductView";
 import Product from "./components/Products/Product/Product";
 import Products from "./components/Products/Products";
+import Ratings from "./dashboard/Ratings";
 
 function App() {
   return (
@@ -51,7 +52,9 @@ function App() {
           <ProtectedRoute path="/shtepiabotuese" component={ShtepiaBotuese} />
           <ProtectedRoute path="/Product" component={Product} />
           <ProtectedRoute path="/Products" component={Products} />
+          <ProtectedRoute path="/ratings" component={Ratings} />
           <ProtectedRoute path="/product-view/:id" component={ProductView} />
+
           <Route path="/registration" component={Registration} />
           <Route path="/" component={Login} />
         </Switch>

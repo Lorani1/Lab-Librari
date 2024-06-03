@@ -33,59 +33,73 @@ namespace labback.Controllers
             _logger = logger;
         }
 
-
-    
+        //Ndryshimeeeeee
         [HttpGet]
-public async Task<IActionResult> GetLibrat()
-    {
-        var librat = await _libriContext.Librat
-            .Include(l => l.zhanri) // Include related zhanri data
-            .ToListAsync();
-
-
-
-        var baseUrl = $"{Request.Scheme}://{Request.Host}/foto";
-
-        foreach (var libri in librat)
+        public async Task<IActionResult> GetLibrat()
         {
-            libri.ProfilePictureUrl = $"{baseUrl}/{libri.ProfilePicturePath}";
+            var librat = await _libriContext.Librat
+                .Include(l => l.zhanri) // Ensure Zhanri is included in the query
+                .Select(l => new
+                {
+                    l.ID,
+                    l.Isbn,
+                    l.Titulli,
+                    l.VitiPublikimit,
+                    l.NrFaqeve,
+                    l.NrKopjeve,
+                    l.Gjuha,
+                    l.InStock,
+                    l.Description,
+                    l.ProfilePicturePath,
+                    ProfilePictureUrl = $"{Request.Scheme}://{Request.Host}/foto/{l.ProfilePicturePath}",
+                    l.ShtepiaBotueseID,
+                    Zhanri = l.zhanri != null ? new
+                    {
+                        l.zhanri.zhanriId,
+                        l.zhanri.emri
+                    } : null // Include all necessary Zhanri properties with null check
+                })
+                .ToListAsync();
+
+            return Ok(librat);
         }
 
-        return Ok(librat);
-    }
-
- [HttpGet("{id}")]
-public async Task<IActionResult> GetLibri(int id)
-{
-    _logger.LogInformation("Fetching book with ID: {ID}", id);
-    
-    try
-    {
-        var libri = await _libriContext.Librat
-            .Include(l => l.zhanri)
-            .FirstOrDefaultAsync(l => l.ID == id);
-
-        if (libri == null)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetLibri(int id)
         {
-            _logger.LogWarning("Book with ID: {ID} not found", id);
-            return NotFound();
+            _logger.LogInformation("Fetching book with ID: {ID}", id);
+
+            try
+            {
+                var libri = await _libriContext.Librat
+                    .Include(l => l.zhanri)
+                    .Include(l => l.RatingComments) // Ensure RatingComments are included
+                    .ThenInclude(rc => rc.Klient) // Include Klient if necessary
+                    .FirstOrDefaultAsync(l => l.ID == id);
+
+                if (libri == null)
+                {
+                    _logger.LogWarning("Book with ID: {ID} not found", id);
+                    return NotFound();
+                }
+
+                var baseUrl = $"{Request.Scheme}://{Request.Host}/foto";
+                libri.ProfilePictureUrl = $"{baseUrl}/{libri.ProfilePicturePath}";
+
+                // Optionally map to a DTO or view model here if needed
+
+                return Ok(libri);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while fetching book with ID: {ID}", id);
+                return StatusCode(500, "Internal server error");
+            }
         }
 
-        var baseUrl = $"{Request.Scheme}://{Request.Host}/foto";
-        libri.ProfilePictureUrl = $"{baseUrl}/{libri.ProfilePicturePath}";
-
-        return Ok(libri);
-    }
-    catch (Exception ex)
-    {
-        _logger.LogError(ex, "An error occurred while fetching book with ID: {ID}", id);
-        return StatusCode(500, "Internal server error");
-    }
-}
 
 
-
-    [HttpPost]
+        [HttpPost]
         public async Task<ActionResult<Libri>> PostLibri([FromForm] LibriDTO model, IFormFile profilePicture)
         {
             if (ModelState.IsValid)
@@ -116,7 +130,7 @@ public async Task<IActionResult> GetLibri(int id)
                         NrKopjeve = model.NrKopjeve,
                         Gjuha = model.Gjuha,
                         InStock = model.InStock,
-                        Description=model.Description,
+                        Description = model.Description,
                         ProfilePicturePath = uniqueFileName,
                         ShtepiaBotueseID = model.ShtepiaBotueseID,
                         zhanriId = model.zhanriId,

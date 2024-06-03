@@ -18,27 +18,7 @@ namespace labback.Controllers
             _context = context;
         }
 
-        // GET: api/RatingComment
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<RatingCommentDto>>> GetRatingComments()
-        {
-            var ratingComments = await _context.RatingComments
-                                               .Include(rc => rc.Klient)
-                                               .Include(rc => rc.Libri)
-                                               .Select(rc => new RatingCommentDto
-                                               {
-                                                   RatingsCommentID = rc.RatingsCommentID,
-                                                   Rating = rc.Rating,
-                                                   Comment = rc.Comment,
-                                                   KlientID = rc.KlientID,
-                                                   KlientName = rc.Klient.Emri + " " + rc.Klient.Mbiemri,
-                                                   LibriID = rc.LibriID,
-                                                   LibriTitle = rc.Libri.Titulli
-                                               })
-                                               .ToListAsync();
-
-            return ratingComments;
-        }
+        
 
         // GET: api/RatingComment/5
         [HttpGet("{id}")]
@@ -67,7 +47,27 @@ namespace labback.Controllers
             return ratingComment;
         }
 
-        // POST: api/RatingComment
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<RatingCommentDto>>> GetRatingComments()
+        {
+            var ratingComments = await _context.RatingComments
+                                               .Include(rc => rc.Klient)
+                                               .Include(rc => rc.Libri)
+                                               .Select(rc => new RatingCommentDto
+                                               {
+                                                   RatingsCommentID = rc.RatingsCommentID,
+                                                   Rating = rc.Rating,
+                                                   Comment = rc.Comment,
+                                                   KlientID = rc.KlientID,
+                                                   KlientName = rc.Klient.Emri + " " + rc.Klient.Mbiemri,
+                                                   LibriID = rc.LibriID,
+                                                   LibriTitle = rc.Libri.Titulli
+                                               })
+                                               .ToListAsync();
+
+            return ratingComments;
+        }
+
         [HttpPost]
         public async Task<ActionResult<RatingCommentDto>> PostRatingComment(RatingCommentDto ratingCommentDto)
         {
@@ -78,6 +78,11 @@ namespace labback.Controllers
             if (existingRating != null)
             {
                 return Conflict(new { message = "The client has already rated this book." });
+            }
+
+            if (string.IsNullOrEmpty(ratingCommentDto.KlientName))
+            {
+                return BadRequest(new { message = "KlientName is required." });
             }
 
             var ratingComment = new RatingComment
@@ -108,6 +113,7 @@ namespace labback.Controllers
 
             return CreatedAtAction("GetRatingComment", new { id = newRatingComment.RatingsCommentID }, newRatingComment);
         }
+
 
         // PUT: api/RatingComment/5
         [HttpPut("{id}")]
@@ -171,5 +177,6 @@ namespace labback.Controllers
         {
             return _context.RatingComments.Any(e => e.RatingsCommentID == id);
         }
+
     }
 }

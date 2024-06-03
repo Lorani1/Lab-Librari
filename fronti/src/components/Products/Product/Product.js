@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Card,
   CardContent,
   CardMedia,
   Typography,
-  Button,
-  TextField,
   Chip,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
@@ -17,7 +15,7 @@ const Product = ({ product }) => {
   return (
     <div className={classes.cardContainer}>
       <Card className={classes.card}>
-        <Link to={`product-view/${product.id}`}>
+      <Link to={`/product-view/${product.id}`}>
           <div className={classes.imageContainer}>
             <CardMedia
               component="img"
