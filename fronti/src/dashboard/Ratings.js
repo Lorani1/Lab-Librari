@@ -37,31 +37,57 @@ const Ratings = () => {
     axios
       .get(`https://localhost:7101/api/RatingComment`)
       .then((result) => {
-        setRatingsList(result.data);
-        setFilteredRatingsList(result.data);
+        console.log("API Response:", result.data); // Log API response
+        if (Array.isArray(result.data)) {
+          setRatingsList(result.data);
+          setFilteredRatingsList(result.data);
+        } else if (result.data.$values) {
+          setRatingsList(result.data.$values);
+          setFilteredRatingsList(result.data.$values);
+        } else {
+          console.error("Unexpected data format:", result.data);
+          toast.error("Unexpected data format");
+        }
       })
       .catch((error) => {
-        console.error("Error fetching ratings list:", error);
+        console.error(error);
+        toast.error("Failed to fetch data");
       });
   };
 
   const getLibri = () => {
     axios
       .get(`https://localhost:7101/api/Libri`)
-      .then((result) => setLibriList(result.data))
+      .then((result) => {
+        const LibriData = result.data?.$values;
+        if (Array.isArray(LibriData)) {
+          setLibriList(LibriData);
+        } else {
+          console.error("Unexpected data format:", result.data);
+          toast.error("Failed to fetch city data.");
+        }
+      })
       .catch((error) => {
-        console.error("Error fetching libri data:", error);
-        toast.error("Failed to fetch libri data.");
+        console.error("Error fetching city data:", error);
+        toast.error("Failed to fetch city data.");
       });
   };
 
   const getKlienti = () => {
     axios
       .get(`https://localhost:7101/api/Klient`)
-      .then((result) => setKlientiList(result.data))
+      .then((result) => {
+        const KlientData = result.data?.$values;
+        if (Array.isArray(KlientData)) {
+          setKlientiList(KlientData);
+        } else {
+          console.error("Unexpected data format:", result.data);
+          toast.error("Failed to fetch city data.");
+        }
+      })
       .catch((error) => {
-        console.error("Error fetching klient data:", error);
-        toast.error("Failed to fetch klient data.");
+        console.error("Error fetching city data:", error);
+        toast.error("Failed to fetch city data.");
       });
   };
 
@@ -211,9 +237,11 @@ const Ratings = () => {
       <ToastContainer />
       <Container className="py-5">
         <h1>Ratings List</h1>
-        <Button variant="primary" onClick={() => setShowAddModal(true)}>
-          Add New Rating
-        </Button>
+        <div className="d-flex justify-content-between mt-4 mb-4">
+          <Button variant="primary" onClick={() => setShowAddModal(true)}>
+            Add New Rating
+          </Button>
+        </div>
         <div className="ml-auto d-flex">
           <input
             className="form-control m-2"
@@ -265,29 +293,30 @@ const Ratings = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredRatingsList.map((item) => (
-              <tr key={item.ratingsCommentID}>
-                <td>{item.rating}</td>
-                <td>{item.comment}</td>
-                <td>{item.klientName}</td>
-                <td>{item.libriTitle}</td>
-                <td>
-                  <Button
-                    className="mr-2"
-                    variant="info"
-                    onClick={() => handleEdit(item.ratingsCommentID)}
-                  >
-                    <BsFillPencilFill />
-                  </Button>
-                  <Button
-                    variant="danger"
-                    onClick={() => handleDelete(item.ratingsCommentID)}
-                  >
-                    <BsFillTrashFill />
-                  </Button>
-                </td>
-              </tr>
-            ))}
+            {Array.isArray(filteredRatingsList) &&
+              filteredRatingsList.map((item, index) => (
+                <tr key={item.ratingsCommentID}>
+                  <td>{item.rating}</td>
+                  <td>{item.comment}</td>
+                  <td>{item.klientName}</td>
+                  <td>{item.libriTitle}</td>
+                  <td>
+                    <Button
+                      className="mr-2"
+                      variant="info"
+                      onClick={() => handleEdit(item.ratingsCommentID)}
+                    >
+                      <BsFillPencilFill />
+                    </Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDelete(item.ratingsCommentID)}
+                    >
+                      <BsFillTrashFill />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </Table>
       </Container>
@@ -325,11 +354,12 @@ const Ratings = () => {
                 }}
               >
                 <option value="">Select Klient</option>
-                {klientiList.map((klient) => (
-                  <option key={klient.klientID} value={klient.id}>
-                    {klient.emri}
-                  </option>
-                ))}
+                {Array.isArray(klientiList) &&
+                  klientiList.map((klient, index) => (
+                    <option key={klient.klientID} value={klient.id}>
+                      {klient.emri}
+                    </option>
+                  ))}
               </select>
               <select
                 className="form-control"
@@ -342,11 +372,12 @@ const Ratings = () => {
                 }}
               >
                 <option value="">Select Libri</option>
-                {libriList.map((libri) => (
-                  <option key={libri.libriID} value={libri.id}>
-                    {libri.titulli}
-                  </option>
-                ))}
+                {Array.isArray(libriList) &&
+                  libriList.map((libri, index) => (
+                    <option key={libri.libriID} value={libri.id}>
+                      {libri.titulli}
+                    </option>
+                  ))}
               </select>
             </Col>
           </Row>

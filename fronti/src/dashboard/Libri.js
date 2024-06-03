@@ -80,18 +80,16 @@ const Libri = () => {
 
   const handleOpenAddModal = () => setShowAddModal(true);
   const handleCloseAddModal = () => setShowAddModal(false);
-  const [itemsPerPage] = useState(3);
-  const [currentPage, setCurrentPage] = useState(1); // Change the number of items per page as needed
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+  // Pagination Logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = (
-    Array.isArray(filteredLibriList) ? filteredLibriList : []
-  ).slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(
-    (Array.isArray(filteredLibriList) ? filteredLibriList : []).length /
-      itemsPerPage
+  const currentItems = filteredLibriList.slice(
+    indexOfFirstItem,
+    indexOfLastItem
   );
+  const totalPages = Math.ceil(filteredLibriList.length / itemsPerPage);
 
   useEffect(() => {
     getData();
@@ -151,7 +149,6 @@ const Libri = () => {
         toast.error("Failed to fetch city data.");
       });
   };
-
   const handlePreviousPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
   };
@@ -420,6 +417,16 @@ const Libri = () => {
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
+
+  useEffect(() => {
+    setFilteredLibriList(
+      data.filter((item) =>
+        item.titulli.toLowerCase().includes(titulliFilter.toLowerCase())
+      )
+    );
+    setCurrentPage(1); // Reset to first page whenever the filter changes
+  }, [titulliFilter, data]);
+
   return (
     <Fragment>
       <div className="sidebar-container">
@@ -451,6 +458,9 @@ const Libri = () => {
         </Button>
         <Button variant="secondary" as={Link} to="/zhanri" className="ml-3">
           Go to Zhanri
+        </Button>
+        <Button variant="secondary" as={Link} to="/Ratings" className="ml-3">
+          Go to Ratings
         </Button>
         <div className="ml-auto d-flex">
           <input
@@ -563,39 +573,20 @@ const Libri = () => {
               ))}
           </tbody>
         </Table>
-        {/* Pagination Controls */}
-        <div className="d-flex justify-content-center align-items-center mt-4">
-          <Button
-            variant="secondary"
-            disabled={currentPage === 1}
-            onClick={handlePreviousPage}
-            className="mr-3"
-            style={{
-              backgroundColor: "#C39898",
-              borderColor: "#C39898",
-              cursor: currentPage === 1 ? "not-allowed" : "pointer",
-            }}
-          >
+        <div className="pagination">
+          <Button onClick={handlePreviousPage} disabled={currentPage === 1}>
             Previous
           </Button>
-          <div className="mx-4">
+          <span>
             Page {currentPage} of {totalPages}
-          </div>
+          </span>
           <Button
-            variant="secondary"
-            disabled={currentPage === totalPages}
             onClick={handleNextPage}
-            className="ml-3"
-            style={{
-              backgroundColor: "#C39898",
-              borderColor: "#C39898",
-              cursor: currentPage === totalPages ? "not-allowed" : "pointer",
-            }}
+            disabled={currentPage === totalPages}
           >
             Next
           </Button>
         </div>
-
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Edit Book</Modal.Title>

@@ -160,6 +160,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\5ba4ae2a-b53f-422b-863e-bfc5df321b5f_Libri5.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\6996f5ee-411f-42e1-b8cc-75bee812e76c_2055168a-7949-4a5e-b729-21582bdbe670_6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>labback</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/labback</BasePath>
+      <RelativePath>foto/6996f5ee-411f-42e1-b8cc-75bee812e76c_2055168a-7949-4a5e-b729-21582bdbe670_6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\6996f5ee-411f-42e1-b8cc-75bee812e76c_2055168a-7949-4a5e-b729-21582bdbe670_6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\6a1232c2-ce91-4f1b-b508-be4e97870b4a_a.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>labback</SourceId>
@@ -223,6 +239,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\8f9d095a-c91e-40f5-850c-07b9fac9797d_1412223899.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\96a940b7-7487-4f4c-a8cd-abca5fe91920_2740bc0a-6760-43ed-b518-d9b45f5f060e_011_002_user_profile_avatar_woman_girl_round-512.webp))">
+      <SourceType>Package</SourceType>
+      <SourceId>labback</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/labback</BasePath>
+      <RelativePath>foto/96a940b7-7487-4f4c-a8cd-abca5fe91920_2740bc0a-6760-43ed-b518-d9b45f5f060e_011_002_user_profile_avatar_woman_girl_round-512.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\96a940b7-7487-4f4c-a8cd-abca5fe91920_2740bc0a-6760-43ed-b518-d9b45f5f060e_011_002_user_profile_avatar_woman_girl_round-512.webp))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\a.jpg))">
       <SourceType>Package</SourceType>

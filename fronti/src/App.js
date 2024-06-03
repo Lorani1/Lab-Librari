@@ -51,9 +51,9 @@ function App() {
           <ProtectedRoute path="/shtepiabotuese" component={ShtepiaBotuese} />
           <ProtectedRoute path="/Product" component={Product} />
           <ProtectedRoute path="/Products" component={Products} />
+          <ProtectedRoute path="/product-view/:id" component={ProductView} />
           <Route path="/registration" component={Registration} />
           <Route path="/" component={Login} />
-          <ProtectedRoute path="/product-view/:id" component={ProductView} />
         </Switch>
       </Router>
     </AuthProvider>
