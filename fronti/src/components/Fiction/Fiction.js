@@ -5,7 +5,19 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "../ProductView/style.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import Navbar from "../Navbar/Navbar";
+import {
+  Container,
+  Button,
+  Typography,
+  CssBaseline,
+  TextField,
+  Box,
+  Paper,
+  Avatar,
+  Collapse,
+  makeStyles,
+} from "@material-ui/core";
 const Fiction = ({ onAddToCart }) => {
   const classes = useStyles();
   const [fictionProducts, setFictionProducts] = useState([]);
@@ -29,9 +41,12 @@ const Fiction = ({ onAddToCart }) => {
       })
       .catch((error) => console.error("Error fetching thriller data:", error));
   }, []);
+  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
   return (
     <main className={classes.mainPage}>
+      <CssBaseline />
+      <Navbar handleDrawerToggle={handleDrawerToggle} />
       <div className={classes.toolbar} />
       <div className={classes.categorySection}>
         <h3 className={classes.categoryHeader}>

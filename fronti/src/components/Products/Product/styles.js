@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
   card: {
     maxWidth: "100%",
   },
@@ -17,6 +17,14 @@ export default makeStyles(() => ({
     width: "100%",
     height: "100%",
     objectFit: "cover", // Ensure image covers the container
+  },
+  inStock: {
+    backgroundColor: theme.palette.success.main,
+    color: theme.palette.success.contrastText,
+  },
+  outOfStock: {
+    backgroundColor: theme.palette.error.main,
+    color: theme.palette.error.contrastText,
   },
 }));
 //   cardActions: {

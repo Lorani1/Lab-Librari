@@ -29,6 +29,9 @@ import {
   BsBookFill,
 } from "react-icons/bs"; // Adjust the path as needed
 // import "./sidebar.css";
+import "./dashb.css";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 window.Buffer = Buffer;
 window.process = process;
@@ -82,6 +85,7 @@ const Libri = () => {
   const handleCloseAddModal = () => setShowAddModal(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
+
   // Pagination Logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -91,6 +95,17 @@ const Libri = () => {
   );
   const totalPages = Math.ceil(filteredLibriList.length / itemsPerPage);
 
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
   useEffect(() => {
     getData();
     getShtepiaList();
@@ -149,13 +164,7 @@ const Libri = () => {
         toast.error("Failed to fetch city data.");
       });
   };
-  const handlePreviousPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
-  };
 
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle);
   };
@@ -443,11 +452,13 @@ const Libri = () => {
       </div>
 
       <ToastContainer />
+
       <Container className="py-5">
         <h1>Book List</h1>
         <Button variant="primary" onClick={handleOpenAddModal}>
           Add New Book
         </Button>
+
         <Button
           variant="secondary"
           as={Link}
@@ -459,7 +470,7 @@ const Libri = () => {
         <Button variant="secondary" as={Link} to="/zhanri" className="ml-3">
           Go to Zhanri
         </Button>
-        <Button variant="secondary" as={Link} to="/Ratings" className="ml-3">
+        <Button variant="secondary" as={Link} to="/ratings" className="ml-3">
           Go to Ratings
         </Button>
         <div className="ml-auto d-flex">
@@ -520,8 +531,8 @@ const Libri = () => {
             </tr>
           </thead>
           <tbody>
-            {Array.isArray(filteredLibriList) &&
-              filteredLibriList.map((item, index) => (
+            {Array.isArray(currentItems) &&
+              currentItems.map((item, index) => (
                 <tr key={item.id || index}>
                   <td>{index + 1}</td>
                   <td>{item.isbn}</td>
@@ -573,19 +584,24 @@ const Libri = () => {
               ))}
           </tbody>
         </Table>
-        <div className="pagination">
-          <Button onClick={handlePreviousPage} disabled={currentPage === 1}>
+        <div className="d-flex justify-content-center align-items-center my-3">
+          <button
+            className="btn btn-primary mx-2"
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+          >
             Previous
-          </Button>
-          <span>
+          </button>
+          <span className="mx-2">
             Page {currentPage} of {totalPages}
           </span>
-          <Button
+          <button
+            className="btn btn-primary mx-2"
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
           >
             Next
-          </Button>
+          </button>
         </div>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>

@@ -15,7 +15,7 @@ const Product = ({ product }) => {
   return (
     <div className={classes.cardContainer}>
       <Card className={classes.card}>
-      <Link to={`/product-view/${product.id}`}>
+        <Link to={`product-view/${product.id}`}>
           <div className={classes.imageContainer}>
             <CardMedia
               component="img"
@@ -27,8 +27,13 @@ const Product = ({ product }) => {
             />
           </div>
         </Link>
-        <CardContent>
-          <Typography variant="h6" component="h2" align="center">
+        <CardContent className={classes.cardContent}>
+          <Typography
+            variant="h6"
+            component="h2"
+            align="center"
+            className={classes.title}
+          >
             {product.titulli}
           </Typography>
           <Typography
@@ -41,7 +46,9 @@ const Product = ({ product }) => {
             <br />
             <Chip
               label={product.inStock ? "In Stock" : "Out of Stock"}
-              className={product.inStock ? classes.inStock : classes.outOfStock}
+              className={`${classes.chip} ${
+                product.inStock ? classes.inStock : classes.outOfStock
+              }`}
             />
           </Typography>
         </CardContent>

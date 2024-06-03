@@ -20,10 +20,49 @@ import Navbar from "../Navbar/Navbar";
 import "./style.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {jwtDecode} from "jwt-decode"; // Import without destructuring
+import { jwtDecode } from "jwt-decode";
 
 const useStyles = makeStyles((theme) => ({
-  // ... your styles here
+  root: {
+    marginTop: theme.spacing(8),
+  },
+  productImage: {
+    width: "100%",
+    borderRadius: theme.shape.borderRadius,
+  },
+  addToCartButton: {
+    marginTop: theme.spacing(2),
+  },
+  reviewSection: {
+    marginTop: theme.spacing(5),
+    padding: theme.spacing(3),
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: theme.shadows[3],
+  },
+  reviewPaper: {
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    display: "flex",
+    alignItems: "center",
+  },
+  reviewAvatar: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+  },
+  reviewContent: {
+    flex: 1,
+  },
+  submitButton: {
+    marginTop: theme.spacing(2),
+    alignSelf: "flex-start",
+  },
+  productTitle: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(2),
+    fontSize: "3rem",
+    fontWeight: "bold",
+  },
 }));
 
 const createMarkup = (text) => {
@@ -80,14 +119,15 @@ const ProductView = () => {
   const fetchCart = async () => {
     setCart(await commerce.cart.retrieve());
   };
+
   const fetchReviews = async (bookId) => {
     try {
       const response = await axios.get(
         `https://localhost:7101/api/Libri/${bookId}`
       );
+
       if (response.data && response.data.ratingComments) {
         const reviews = response.data.ratingComments.$values;
-        console.log("Fetched reviews:", reviews); // Log the reviews data
         setReviews(reviews);
       } else {
         setReviews([]);
@@ -98,14 +138,13 @@ const ProductView = () => {
       setReviews([]);
     }
   };
-  
+
   const fetchUserData = async (userId) => {
     try {
-      console.log(`Fetching user data for userId: ${userId}`);
-      const response = await axios.get(`https://localhost:7101/api/Klient/${userId}`);
-      console.log("Response data:", response.data);
-  
-      if (response.data && typeof response.data === 'object') {
+      const response = await axios.get(
+        `https://localhost:7101/api/Klient/${userId}`
+      );
+      if (response.data && typeof response.data === "object") {
         setKlientData(response.data);
       } else {
         setKlientData(null);
@@ -113,20 +152,28 @@ const ProductView = () => {
       }
     } catch (error) {
       console.error("Error fetching klient data:", error);
+      if (error.response) {
+        console.error("Error response data:", error.response.data);
+        console.error("Error response status:", error.response.status);
+        console.error("Error response headers:", error.response.headers);
+      }
       setKlientData(null);
     }
   };
-  
+
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     if (authToken) {
       try {
         const decodedToken = jwtDecode(authToken);
-        console.log("Decoded token:", decodedToken); // Log the decoded token
         setUser({
-          id: decodedToken.nameid, // Verify this field
+          id: decodedToken.nameid,
           email: decodedToken.email,
           role: decodedToken.role,
+          klientName: decodedToken.emri,
+          klientProfilePicture: decodedToken.profilePicturePath
+            ? `https://localhost:7101/foto/${decodedToken.profilePicturePath}`
+            : null,
         });
         setIsAuthenticated(true);
         fetchUserData(decodedToken.nameid);
@@ -137,14 +184,13 @@ const ProductView = () => {
     } else {
       setIsAuthenticated(false);
     }
-  
+
     const bookId = id.replace("book-", "");
     fetchBookProduct(bookId);
     fetchReviews(bookId);
     fetchCart();
   }, [id]);
-  
-  
+
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
   const handleRatingSubmit = () => {
@@ -152,7 +198,7 @@ const ProductView = () => {
       toast.error("Please log in to leave a rating and comment");
       return;
     }
-  
+
     if (rating < 1 || rating > 5) {
       toast.error("Rating must be between 1 and 5");
       return;
@@ -161,28 +207,26 @@ const ProductView = () => {
       toast.error("Comment cannot be empty");
       return;
     }
-  
+
     const authToken = localStorage.getItem("authToken");
     const bookId = id.replace("book-", "");
-  
+
     if (!klientData) {
       toast.error("Failed to retrieve user data. Please try again.");
       return;
     }
-  
+
     const data = {
       ratingsCommentID: 0,
       rating: rating,
       comment: comment,
       klientID: user?.id,
-      klientName: `${klientData?.emri} ${klientData?.mbiemri}`,
-      klientProfilePicture: klientData?.profilePictureUrl,
+      klientName: `${klientData.emri} ${klientData.mbiemri}`,
+      klientProfilePicture: user?.klientProfilePicture,
       libriID: bookId,
       libriTitle: product.titulli,
     };
-  
-    console.log("Submitting rating with data:", data);
-  
+
     axios
       .post("https://localhost:7101/api/RatingComment", data, {
         headers: {
@@ -191,7 +235,6 @@ const ProductView = () => {
         },
       })
       .then((result) => {
-        console.log("Rating submitted successfully:", result);
         toast.success("Rating has been added");
         setRating(0);
         setComment("");
@@ -206,12 +249,11 @@ const ProductView = () => {
         }
       });
   };
-  
-  
 
   const handleToggleReviews = () => {
     setShowReviews(!showReviews);
   };
+
   if (error) {
     return (
       <Container className={classes.root}>
@@ -236,28 +278,32 @@ const ProductView = () => {
             <img
               src={product.src}
               alt={product.titulli}
-              className="product-image"
+              className={classes.productImage}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography variant="h4">{product.titulli}</Typography>
+            <Typography variant="h4" className={classes.productTitle}>
+              {product.titulli}
+            </Typography>
             <Typography
               variant="body1"
               dangerouslySetInnerHTML={createMarkup(product.description)}
             />
-            {/* Add to cart button */}
             <Button
               variant="contained"
               color="primary"
+              className={classes.addToCartButton}
               onClick={() => commerce.cart.add(id, 1)}
             >
-              Add to Cart
+              Huazo
             </Button>
           </Grid>
         </Grid>
         {/* Rating and comment form */}
-        <Box mt={5}>
-          <Typography variant="h5">Leave a Rating and Comment</Typography>
+        <Box className={classes.reviewSection}>
+          <Typography variant="h5" gutterBottom>
+            Leave a Rating and Comment
+          </Typography>
           <Rating
             name="rating"
             value={rating}
@@ -273,10 +319,12 @@ const ProductView = () => {
             fullWidth
             value={comment}
             onChange={(e) => setComment(e.target.value)}
+            margin="normal"
           />
           <Button
             variant="contained"
             color="primary"
+            className={classes.submitButton}
             onClick={handleRatingSubmit}
           >
             Submit
@@ -284,28 +332,38 @@ const ProductView = () => {
         </Box>
         {/* Reviews section */}
         <Box mt={5}>
-  <Button onClick={handleToggleReviews}>
-    {showReviews ? "Hide Reviews" : "Show Reviews"}
-  </Button>
-  <Collapse in={showReviews}>
-  {reviews.map((review) => (
-    <Paper key={review.ratingsCommentID} className={classes.review}>
-      <Box display="flex" alignItems="center">
-        <Avatar src={review.klientProfilePicture} />
-        <Box ml={2}>
-          <Typography variant="h6">
-            {review.klientName ? review.klientName : "Anonymous"}
-          </Typography>
-          <Rating value={review.rating} readOnly />
+          <Button onClick={handleToggleReviews}>
+            {showReviews ? "Hide Reviews" : "Show Reviews"}
+          </Button>
+          <Collapse in={showReviews}>
+            {reviews.length > 0 ? (
+              reviews.map((review, index) => (
+                <Paper key={index} className={classes.reviewPaper}>
+                  <Grid container spacing={2} alignItems="center">
+                    <Grid item>
+                      <Avatar
+                        className={classes.reviewAvatar}
+                        src={
+                          review.klient.profilePictureUrl ||
+                          `https://localhost:7101/foto/${review.klient.profilePicturePath}`
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs className={classes.reviewContent}>
+                      <Typography variant="h6">
+                        {`${review.klient.emri} ${review.klient.mbiemri}`}
+                      </Typography>
+                      <Rating value={review.rating} readOnly />
+                      <Typography variant="body1">{review.comment}</Typography>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              ))
+            ) : (
+              <Typography variant="body1">No reviews yet.</Typography>
+            )}
+          </Collapse>
         </Box>
-      </Box>
-      <Typography variant="body1">{review.comment}</Typography>
-    </Paper>
-  ))}
-</Collapse>
-
-</Box>
-
       </Container>
       <ToastContainer />
     </div>

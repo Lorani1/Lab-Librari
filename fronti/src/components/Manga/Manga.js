@@ -5,7 +5,19 @@ import useStyles from "../Products/styles.js";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "../ProductView/style.css";
 import axios from "axios";
-
+import Navbar from "../Navbar/Navbar";
+import {
+  Container,
+  Button,
+  Typography,
+  CssBaseline,
+  TextField,
+  Box,
+  Paper,
+  Avatar,
+  Collapse,
+  makeStyles,
+} from "@material-ui/core";
 const Manga = ({ onAddToCart }) => {
   const classes = useStyles();
   const [mangaProducts, setMangaProducts] = useState([]);
@@ -43,9 +55,12 @@ const Manga = ({ onAddToCart }) => {
       isMounted = false;
     };
   }, []);
+  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
   return (
     <main className={classes.mainPage}>
+      <CssBaseline />
+      <Navbar handleDrawerToggle={handleDrawerToggle} />
       <div className={classes.toolbar} />
       <div className={classes.categorySection}>
         <h3 className={classes.categoryHeader}>
