@@ -255,5 +255,119 @@ namespace labback.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        //Autori-Libri Many To Many Relationship Methods
+
+        [HttpGet("getAutoret/{id}")]
+        public async Task<IActionResult> getAutoretPrejLibrit(int id)
+        {
+            var libri = await _libriContext.Librat
+                .Include(l => l.AutoriLibris)
+                .ThenInclude(al => al.Autoret)
+                .FirstOrDefaultAsync(l => l.ID == id);
+
+            if (libri == null)
+            {
+                return NotFound();
+            }
+
+            var autori = libri.AutoriLibris.Select(al => new AutoriDTO
+            {
+                Emri = al.Autoret.Emri,
+                Mbiemri = al.Autoret.Mbiemri,
+                Nofka = al.Autoret.nofka,
+                Gjinia = al.Autoret.gjinia,
+                Data_E_Lindjes = al.Autoret.Data_E_Lindjes,
+                Nacionaliteti = al.Autoret.Nacionaliteti
+            }).ToList();
+
+            return Ok(autori);
+        }
+
+        [HttpPost("{id}/ShtoAutorin/{autori_ID}")]
+        public async Task<ActionResult> AddAuthorToBook(int id, int autori_ID)
+        {
+            var book = await _libriContext.Librat.FindAsync(id);
+            if (book == null)
+                return NotFound("Book not found.");
+
+            var author = await _libriContext.Autori.FindAsync(autori_ID);
+            if (author == null)
+                return NotFound("Author not found.");
+
+            var autoriLibri = new AutoriLibri
+            {
+                ID = id,
+                Autori_ID = autori_ID
+            };
+
+            _libriContext.AutoriLibris.Add(autoriLibri);
+            await _libriContext.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+
+        [HttpDelete("{id}/delete/{autori_ID}")]
+        public async Task<ActionResult> RemoveAuthorFromBook(int id, int autori_ID)
+        {
+            var autoriLibri = await _libriContext.AutoriLibris
+                .FirstOrDefaultAsync(al => al.ID == id && al.Autori_ID == autori_ID);
+
+            if (autoriLibri == null)
+                return NotFound("Relationship not found.");
+
+            _libriContext.AutoriLibris.Remove(autoriLibri);
+            await _libriContext.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut("{id}/UpdateAuthors")]
+        public async Task<IActionResult> UpdateAuthorsOfBook(int id, [FromBody] List<int> authorIds)
+        {
+            try
+            {
+                var book = await _libriContext.Librat
+                    .Include(b => b.AutoriLibris)
+                    .FirstOrDefaultAsync(b => b.ID == id);
+
+                if (book == null)
+                {
+                    return NotFound("Book not found.");
+                }
+
+                // Remove all current author associations
+                _libriContext.AutoriLibris.RemoveRange(book.AutoriLibris);
+
+                // Add the new author associations
+                foreach (var authorId in authorIds)
+                {
+                    var author = await _libriContext.Autori.FindAsync(authorId);
+                    if (author == null)
+                    {
+                        return NotFound($"Author with ID {authorId} not found.");
+                    }
+
+                    book.AutoriLibris.Add(new AutoriLibri
+                    {
+                        Autori_ID = authorId,
+                        ID = book.ID
+                    });
+                }
+
+                await _libriContext.SaveChangesAsync();
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                _logger.LogError(ex, "An error occurred while updating the authors of the book.");
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }
+

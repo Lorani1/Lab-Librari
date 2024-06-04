@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Table from "react-bootstrap/Table";
+import Select from 'react-select';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -39,6 +40,8 @@ window.process = process;
 const Libri = () => {
   const [show, setShow] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showAuthorsModal, setShowAuthorsModal] = useState(false);
+
   const [shtepiaList, setShtepiaList] = useState([]);
   const [selectedShtepia, setSelectedShtepia] = useState("");
   const [zhanriList, setZhanriList] = useState([]);
@@ -75,6 +78,15 @@ const Libri = () => {
 
   const [showSidebar, setShowSidebar] = useState(false);
 
+  //Libri-Autori Many to Many
+  const [authors, setAuthors] = useState([]);
+  const [selectedAuthorsForNewBook, setSelectedAuthorsForNewBook] = useState([]);
+  const [allAuthors, setAllAuthors] = useState([]);
+  const [editSelectedAuthors, setEditSelectedAuthors] = useState([]);
+  const [showAuthorsViewModal, setShowAuthorsViewModal] = useState(false);
+  const [selectedBookAuthors, setSelectedBookAuthors] = useState([])
+
+
   const [data, setData] = useState([]);
 
   const handleClose = () => setShow(false);
@@ -83,6 +95,10 @@ const Libri = () => {
 
   const handleOpenAddModal = () => setShowAddModal(true);
   const handleCloseAddModal = () => setShowAddModal(false);
+
+  const handleOpenAuthorsModal = () => setShowAuthorsModal(true);
+  const handleCloseAuthorsModal = () => setShowAuthorsModal(false);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
 
@@ -110,6 +126,7 @@ const Libri = () => {
     getData();
     getShtepiaList();
     getZhanriList();
+    getAllAuthors();
   }, []);
   const getData = () => {
     axios
@@ -165,6 +182,24 @@ const Libri = () => {
       });
   };
 
+  const getAllAuthors = () => {
+    axios
+      .get("https://localhost:7101/api/Autori/getAll")
+      .then((result) => {
+        const autoriData = result.data?.$values;
+        if (Array.isArray(autoriData)) {
+          setAllAuthors(autoriData);
+        } else {
+          console.error("Unexpected data format:", result.data);
+          toast.error("Failed to fetch Autori data.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching Autori data:", error);
+        toast.error("Failed to fetch Autori data.");
+      });
+  };
+
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle);
   };
@@ -206,6 +241,7 @@ const Libri = () => {
         setEditDescriptioni(bookData.description);
         setEditSelectedShtepiaID(bookData.shtepiaBotueseID);
         setEditSelectedZhanriID(bookData.zhanriId);
+        fetchAuthorsForBook(bookData.id);
         setEditProfilePictureUrl(bookData.profilePictureUrl);
       })
       .catch((error) => {
@@ -267,10 +303,15 @@ const Libri = () => {
 
     formData.append("profilePicturePath", editProfilePictureUrl || ""); // Add the existing profile picture path if needed
 
+    editSelectedAuthors.forEach(author => {
+      formData.append("authors", author.autori_ID); 
+    });
+
     axios
       .put(url, formData)
       .then((response) => {
         if (response.status === 204) {
+          handleUpdateAuthors(editId, editSelectedAuthors);
           handleClose();
           getData();
           clear();
@@ -335,6 +376,14 @@ const Libri = () => {
     axios
       .post(url, formData)
       .then((result) => {
+        const bookId = result.data.id;
+        if (!bookId) {
+          throw new Error("Book ID is not defined in the response");
+        }
+        const addAuthorsPromises = selectedAuthorsForNewBook.map((author) =>
+          addAuthorToBook(bookId, author.value)
+        );
+        Promise.all(addAuthorsPromises)
         getData();
         clear();
         toast.success("Book has been added");
@@ -362,6 +411,72 @@ const Libri = () => {
         });
     }
   };
+
+ //Autori-Libri Many-To-Many
+
+ const fetchAuthorsForBook = (id) => {
+  axios.get(`https://localhost:7101/api/Libri/getAutoret/${id}`)
+    .then(result => {setAuthors(result.data);
+      const autor = result.data.map(author => ({
+        value: author.autori_ID,
+        label: author.emri,
+      }));
+      setEditSelectedAuthors(autor);;
+    })
+    .catch(error => console.error('Error fetching authors:', error));
+};
+
+const fetchSelectedBookAuthors = (id) => {
+  axios
+    .get(`https://localhost:7101/api/Libri/getAutoret/${id}`)
+    .then((result) => setSelectedBookAuthors(result.data?.$values))
+    .catch((error) => console.error("Error fetching selected book authors:", error));
+};
+
+const addAuthorToBook = (id, autori_ID) => {
+  axios.post(`https://localhost:7101/api/Libri/${id}/ShtoAutorin/${autori_ID}`)
+    .then(() => {
+      fetchAuthorsForBook(id);
+      toast.success('Author added to book');
+    })
+    .catch(error => {
+      console.error('Failed to add author to book:', error);
+      toast.error('Failed to add author to book. Please try again.');
+    });
+};
+
+
+const handleAuthorSelection = (selectedOptions) => {
+  setSelectedAuthorsForNewBook(selectedOptions);
+};
+const handleEditAuthorSelection = (selectedOptions) => setEditSelectedAuthors(selectedOptions);
+const handleOpenAuthorsViewModal = (id) => {
+fetchSelectedBookAuthors(id);
+setShowAuthorsViewModal(true);
+};
+
+const handleUpdateAuthors = (id, selectedAuthors) => {
+const authorIds = selectedAuthors.map((author) => author.value);
+axios
+.put(`https://localhost:7101/api/Libri/${id}/UpdateAuthors`, authorIds)
+.then((response) => {
+  if (response.status === 204) {
+    // Optionally, you can fetch the updated book data here
+    fetchAuthorsForBook(id); // Fetch updated authors for the edited book
+    toast.success("Authors have been updated");
+  } else {
+    console.error("Unexpected response status:", response.status);
+    toast.error("Failed to update authors.");
+  }
+})
+.catch((error) => {
+  console.error("Error updating authors:", error);
+  toast.error("Failed to update authors.");
+});
+};
+
+const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
+
   const clear = () => {
     setIsbn("");
     setTitulli("");
@@ -375,6 +490,7 @@ const Libri = () => {
     setSelectedZhanri("");
     setSelectedFile(null);
     setProfilePictureUrl("");
+    setSelectedAuthorsForNewBook([]);
   };
 
   const handleActiveChange = (e) => {
@@ -467,6 +583,9 @@ const Libri = () => {
         >
           Go to Shtepia Botuese
         </Button>
+        <Button variant="secondary" as={Link} to="/Autori" className="ml-3">
+          Go to Autoret
+        </Button>
         <Button variant="secondary" as={Link} to="/zhanri" className="ml-3">
           Go to Zhanri
         </Button>
@@ -524,6 +643,7 @@ const Libri = () => {
               <th>Copies</th>
               <th>Language</th>
               <th>Publisher</th>
+              <th>Autoret</th>
               <th>Genre</th>
               <th>In Stock</th>
               <th>Description</th>
@@ -542,6 +662,11 @@ const Libri = () => {
                   <td>{item.nrKopjeve}</td>
                   <td>{item.gjuha}</td>
                   <td>{item.shtepiaBotueseID}</td>
+                  <td>
+                  <Button variant="secondary" onClick={() => handleOpenAuthorsViewModal(item.id)}>
+                    View Authors
+                  </Button>
+                </td>
                   <td>{item.zhanriId}</td>
                   <td>{item.inStock ? "Yes" : "No"}</td>
                   <td>{item.description}</td>
@@ -726,7 +851,20 @@ const Libri = () => {
                 </Row>
               </Row>
             </Row>
-
+            <Row>
+            <Col>
+              <label>Authors</label>
+              <Select
+                isMulti
+                value={editSelectedAuthors}
+                onChange={handleEditAuthorSelection}
+                options={allAuthors.map(author => ({
+                  value: author.autori_ID,
+                  label: author.emri,
+                }))}
+              />
+            </Col>
+          </Row>
             <Row>
               <Col>
                 <label>Images</label>
@@ -877,6 +1015,19 @@ const Libri = () => {
               </Row>
             </Row>
             <Row>
+            <Col>
+              <label>Authors</label>
+              <Select
+                isMulti
+                options={allAuthors.map(author => ({
+                  value: author.autori_ID,
+                  label: author.emri,
+                }))}
+                onChange={handleAuthorSelection}
+              />
+            </Col>
+          </Row>
+            <Row>
               <Col>
                 <label>Profile Picture</label>
                 <input
@@ -896,6 +1047,40 @@ const Libri = () => {
             </Button>
           </Modal.Footer>
         </Modal>
+
+        <Modal show={showAuthorsViewModal} onHide={handleCloseAuthorsViewModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Selected Book Authors</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Table striped bordered hover className="mt-4">
+        <tr>
+              <th>Emri</th>
+              <th>Mbiemri</th>
+              <th>Nofka</th>
+        </tr>
+
+        <tbody>
+            {selectedBookAuthors.length === 0 ? (
+              <tr>
+                <td colSpan="12" className="text-center">
+                  Loading...
+                </td>
+              </tr>
+            ) : (
+              selectedBookAuthors.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.emri}</td>
+                  <td>{item.mbiemri}</td>
+                  <td>{item.nofka}</td>
+                </tr>
+                ))
+              )}
+                </tbody>
+                </Table>
+        </Modal.Body>
+      </Modal>  
+
       </Container>
     </Fragment>
   );

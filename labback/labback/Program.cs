@@ -16,8 +16,6 @@ builder.Services.Configure<JwtSettings>(jwtSettings);
 var jwtKey = jwtSettings.GetValue<string>("Key");
 var key = Encoding.UTF8.GetBytes(jwtKey);
 
-builder.Services.AddDbContext<StafiContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
 
 builder.Services.AddDbContext<LibriContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("local")));

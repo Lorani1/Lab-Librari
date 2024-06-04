@@ -39,7 +39,7 @@ const Autori = () => {
   const getData = () => {
     axios.get(`https://localhost:7101/api/Autori/getAll`)
       .then((result) => {
-        const authors = result.data;
+        const authors = result.data?.$values;
         const promises = authors.map(author => {
           return axios.get(`https://localhost:7101/api/Autori/librat/${author.autori_ID}/count`)
             .then(res => ({ ...author, bookCount: res.data }));
@@ -59,6 +59,24 @@ const Autori = () => {
         toast.error("An error occurred while fetching data.");
       });
   }
+
+  // const getAllAuthors = () => {
+  //   axios
+  //     .get("https://localhost:7101/api/Autori/getAll")
+  //     .then((result) => {
+  //       const autoriData = result.data?.$values;
+  //       if (Array.isArray(autoriData)) {
+  //         setAllAuthors(autoriData);
+  //       } else {
+  //         console.error("Unexpected data format:", result.data);
+  //         toast.error("Failed to fetch Autori data.");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching Autori data:", error);
+  //       toast.error("Failed to fetch Autori data.");
+  //     });
+  // };
 
   const handleEdit = (Autori_ID) => {
     handleShow();

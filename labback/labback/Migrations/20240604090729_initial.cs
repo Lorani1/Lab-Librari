@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace labback.Migrations
 {
     /// <inheritdoc />
-    public partial class Libri : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,6 +29,19 @@ namespace labback.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Autori", x => x.Autori_ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pozitat",
+                columns: table => new
+                {
+                    pozita_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    roli = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pozitat", x => x.pozita_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,6 +96,35 @@ namespace labback.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_zhanri", x => x.zhanriId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Stafis",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    emri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    mbiemri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    nrPersonal = table.Column<long>(type: "bigint", nullable: true),
+                    adresa = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    orari = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    active = table.Column<int>(type: "int", nullable: false),
+                    data_E_Punesimit = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    data_E_doreheqjes = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    nrTelefonit = table.Column<long>(type: "bigint", nullable: true),
+                    gjinia = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    pozita_ID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stafis", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Stafis_Pozitat_pozita_ID",
+                        column: x => x.pozita_ID,
+                        principalTable: "Pozitat",
+                        principalColumn: "pozita_ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -318,6 +360,11 @@ namespace labback.Migrations
                 name: "IX_RefreshTokens_KlientID",
                 table: "RefreshTokens",
                 column: "KlientID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stafis_pozita_ID",
+                table: "Stafis",
+                column: "pozita_ID");
         }
 
         /// <inheritdoc />
@@ -336,6 +383,9 @@ namespace labback.Migrations
                 name: "RefreshTokens");
 
             migrationBuilder.DropTable(
+                name: "Stafis");
+
+            migrationBuilder.DropTable(
                 name: "Autori");
 
             migrationBuilder.DropTable(
@@ -343,6 +393,9 @@ namespace labback.Migrations
 
             migrationBuilder.DropTable(
                 name: "Klients");
+
+            migrationBuilder.DropTable(
+                name: "Pozitat");
 
             migrationBuilder.DropTable(
                 name: "ShtepiteBotuese");

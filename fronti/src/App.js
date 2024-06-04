@@ -26,6 +26,7 @@ import ProductView from "./components/ProductView/ProductView";
 import Product from "./components/Products/Product/Product";
 import Products from "./components/Products/Products";
 import Ratings from "./dashboard/Ratings";
+import Pozita from "./dashboard/pozita";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <ProtectedRoute path="/dashboard" component={Dashboard} />
           <ProtectedRoute path="/klienti" component={Klienti} />
           <ProtectedRoute path="/autori" component={Autori} />
+          <ProtectedRoute path="/pozita" component={Pozita} />
           <ProtectedRoute path="/staf" component={Staf} />
           <ProtectedRoute path="/cart" component={Cart} />
           <ProtectedRoute path="/addressform" component={AddressForm} />

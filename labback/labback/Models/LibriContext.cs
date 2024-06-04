@@ -17,7 +17,10 @@ namespace labback.Models
         public DbSet<Autori> Autori { get; set; }
         public DbSet<AutoriLibri> AutoriLibris { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-        public DbSet<Roli> Roli { get; set; } // Add the Roli DbSet
+        public DbSet<Roli> Roli { get; set; } 
+
+        public DbSet<pozita> Pozitat { get; set; } 
+        public DbSet<Stafi> Stafis { get; set; }
 
         public DbSet<RatingComment> RatingComments { get; set; }
 
@@ -66,6 +69,11 @@ namespace labback.Models
                 .HasOne(e => e.Libri)
                 .WithMany()
                 .HasForeignKey(e => e.LibriId);
+
+            modelBuilder.Entity<Stafi>()
+                .HasOne(s => s.pozita) 
+                .WithMany() 
+                .HasForeignKey(s => s.pozita_ID);
 
             modelBuilder.Entity<AutoriLibri>()
                 .HasKey(al => new { al.Autori_ID, al.ID });

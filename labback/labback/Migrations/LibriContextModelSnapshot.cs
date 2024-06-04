@@ -347,6 +347,55 @@ namespace labback.Migrations
                     b.ToTable("ShtepiteBotuese");
                 });
 
+            modelBuilder.Entity("labback.Models.Stafi", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("active")
+                        .HasColumnType("int");
+
+                    b.Property<string>("adresa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("data_E_Punesimit")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("data_E_doreheqjes")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("emri")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("gjinia")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("mbiemri")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("nrPersonal")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("nrTelefonit")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("orari")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("pozita_ID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("pozita_ID");
+
+                    b.ToTable("Stafis");
+                });
+
             modelBuilder.Entity("labback.Models.Zhanri", b =>
                 {
                     b.Property<int>("zhanriId")
@@ -366,6 +415,23 @@ namespace labback.Migrations
                     b.HasKey("zhanriId");
 
                     b.ToTable("zhanri");
+                });
+
+            modelBuilder.Entity("labback.Models.pozita", b =>
+                {
+                    b.Property<int>("pozita_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("pozita_ID"));
+
+                    b.Property<string>("roli")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("pozita_ID");
+
+                    b.ToTable("Pozitat");
                 });
 
             modelBuilder.Entity("RatingComment", b =>
@@ -472,6 +538,17 @@ namespace labback.Migrations
                         .IsRequired();
 
                     b.Navigation("Klient");
+                });
+
+            modelBuilder.Entity("labback.Models.Stafi", b =>
+                {
+                    b.HasOne("labback.Models.pozita", "pozita")
+                        .WithMany()
+                        .HasForeignKey("pozita_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("pozita");
                 });
 
             modelBuilder.Entity("labback.Libri", b =>

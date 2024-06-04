@@ -4,90 +4,152 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 
-namespace labback.Models
+namespace labback.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class StafiController : ControllerBase
     {
-        private readonly StafiContext _stafiContext;
+        private readonly LibriContext _LibriContext;
 
-        public StafiController(StafiContext klientContext)
+        public StafiController(LibriContext klientContext)
         {
-            _stafiContext = klientContext;
+            _LibriContext = klientContext;
         }
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Stafi>>> GetStafi()
+        public async Task<ActionResult<IEnumerable<Stafi>>> GetAllStafi()
         {
-            if (_stafiContext.stafis == null)
+            if (_LibriContext.Stafis == null)
             {
-                return NotFound();
+                return NotFound("Stafi set is null.");
             }
-            return await _stafiContext.stafis.ToListAsync();
+            return await _LibriContext.Stafis.Include(s => s.pozita).ToListAsync();
         }
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Stafi>> GetStafi(int id)
+        public async Task<ActionResult<Stafi>> GetStafiById(int id)
         {
-            if (_stafiContext.stafis == null)
+            if (_LibriContext.Stafis == null)
+            {
+                return NotFound("Stafi set is null.");
+            }
+            var stafi = await _LibriContext.Stafis.Include(s => s.pozita).FirstOrDefaultAsync(s => s.ID == id);
+            if (stafi == null)
             {
                 return NotFound();
             }
-            var klient = await _stafiContext.stafis.FindAsync(id);
-            if (klient == null)
-            {
-                return NotFound();
-            }
-            return klient;
+            return stafi;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Stafi>> PostKlient(Stafi stafi)
+        [HttpPost("add")]
+        public async Task<ActionResult<Stafi>> AddStafi(Stafi stafi)
         {
-            _stafiContext.stafis.Add(stafi);
-            await _stafiContext.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetStafi), new { id = stafi.ID }, stafi);
+            var existingPozita = await _LibriContext.Pozitat.FirstOrDefaultAsync(p => p.pozita_ID == stafi.pozita_ID);
+
+            if (existingPozita == null)
+            {
+                return BadRequest("Invalid Pozita ID");
+            }
+
+            stafi.pozita = existingPozita;
+
+            // Handle data_E_Punesimit and data_E_doreheqjes based on active status
+            if (stafi.active == 1)
+            {
+                stafi.data_E_Punesimit = DateTime.Now;
+                stafi.data_E_doreheqjes = null;
+            }
+            else
+            {
+                stafi.data_E_doreheqjes = DateTime.Now;
+                stafi.data_E_Punesimit = null;
+            }
+
+            _LibriContext.Stafis.Add(stafi);
+            await _LibriContext.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetStafiById), new { id = stafi.ID }, stafi);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> PutStafi(int id, Stafi stafi)
+
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> UpdateStafi(int id, Stafi stafi)
         {
             if (id != stafi.ID)
             {
-                return BadRequest();
+                return BadRequest("ID mismatch.");
             }
 
-            _stafiContext.Entry(stafi).State = EntityState.Modified;
+            var existingPozita = await _LibriContext.Pozitat.FirstOrDefaultAsync(p => p.pozita_ID == stafi.pozita_ID);
+
+            if (existingPozita == null)
+            {
+                return BadRequest("Invalid Pozita ID");
+            }
+
+            var existingStafi = await _LibriContext.Stafis.FindAsync(id);
+            if (existingStafi == null)
+            {
+                return NotFound();
+            }
+
+            stafi.pozita = existingPozita;
+
+            // Handle data_E_Punesimit and data_E_doreheqjes based on active status
+            if (stafi.active == 1)
+            {
+                stafi.data_E_Punesimit = DateTime.Now;
+                stafi.data_E_doreheqjes = null;
+            }
+            else
+            {
+                stafi.data_E_doreheqjes = DateTime.Now;
+                stafi.data_E_Punesimit = null;
+            }
+
+            _LibriContext.Entry(existingStafi).CurrentValues.SetValues(stafi);
             try
             {
-                await _stafiContext.SaveChangesAsync();
+                await _LibriContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                throw;
+                if (!StafiExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
+            return NoContent();
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStafi(int id)
+        {
+            if (_LibriContext.Stafis == null)
+            {
+                return NotFound("Stafi set is null.");
+            }
+            var stafi = await _LibriContext.Stafis.FindAsync(id);
+            if (stafi == null)
+            {
+                return NotFound();
+            }
+            _LibriContext.Stafis.Remove(stafi);
+            await _LibriContext.SaveChangesAsync();
             return Ok();
         }
 
-        [HttpDelete("{id}")]
-
-        public async Task<ActionResult> DeleteStafi(int id)
+        private bool StafiExists(int id)
         {
-            if (_stafiContext.stafis == null)
-            {
-                return NotFound();
-            }
-            var klient = await _stafiContext.stafis.FindAsync(id);
-            if (klient == null)
-            {
-                return NotFound();
-            }
-            _stafiContext.stafis.Remove(klient);
-            await _stafiContext.SaveChangesAsync();
-            return Ok();
+            return _LibriContext.Stafis.Any(e => e.ID == id);
         }
     }
 }
