@@ -28,7 +28,6 @@ getBooks: async () => {
 },
 
 
-// Response interceptor to handle token refresh on 401 status
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -40,7 +39,7 @@ api.interceptors.response.use(
         if (!refreshToken) {
           throw new Error('No refresh token available');
         }
-        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL || 'https://localhost:7101/api'}/Klient/refresh-token`, {}, {
+        const response = await axios.post('/Klient/refresh-token', {}, {
           headers: {
             'Authorization': `Bearer ${refreshToken}`
           },
@@ -52,7 +51,6 @@ api.interceptors.response.use(
         originalRequest.headers['Authorization'] = 'Bearer ' + authToken;
         return api(originalRequest);
       } catch (refreshError) {
-        console.error('Failed to refresh token', refreshError);
         localStorage.removeItem('authToken');
         sessionStorage.removeItem('refreshToken');
         window.location.href = '/login';
@@ -61,5 +59,4 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
 export default api;

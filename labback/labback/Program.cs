@@ -6,22 +6,19 @@ using System.Text;
 using labback.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text.Json.Serialization;
-using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure JWT settings
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 builder.Services.Configure<JwtSettings>(jwtSettings);
 
 var jwtKey = jwtSettings.GetValue<string>("Key");
 var key = Encoding.UTF8.GetBytes(jwtKey);
 
-// Configure DbContext
+
 builder.Services.AddDbContext<LibriContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
 
-// Configure Controllers with JSON options
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -29,43 +26,12 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
-// Configure Swagger
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-    {
-        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-        Description = "Please enter a valid token",
-        Name = "Authorization",
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
-        BearerFormat = "JWT",
-        Scheme = "Bearer"
-    });
+builder.Services.AddSwaggerGen();
 
-    options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
-    {
-        {
-            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-            {
-                Reference = new Microsoft.OpenApi.Models.OpenApiReference
-                {
-                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[] {}
-        }
-    });
-});
-
-// Configure PasswordService
 builder.Services.AddScoped<PasswordService>();
-
-// Configure Logging
 builder.Services.AddLogging();
 
-// Configure Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -77,24 +43,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtSettings.GetValue<string>("Issuer"),
             ValidAudience = jwtSettings.GetValue<string>("Audience"),
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            RoleClaimType = "role", // Assuming "role" is your role claim
-            TokenDecryptionKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtKey)),
-            ClockSkew = TimeSpan.Zero
-        };
-
-        options.Events = new JwtBearerEvents
-        {
-            OnMessageReceived = context =>
-            {
-                // Log the incoming token
-                Console.WriteLine($"Incoming token: {context.Token}");
-                return Task.CompletedTask;
-            }
+            IssuerSigningKey = new SymmetricSecurityKey(key)
         };
     });
 
-// Configure CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
@@ -105,10 +57,8 @@ builder.Services.AddCors(options =>
             .AllowCredentials());
 });
 
-// Add JwtKey as a singleton
 builder.Services.AddSingleton<string>(jwtKey);
 
-// Configure Distributed Memory Cache and Session
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -116,6 +66,9 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+// Register the LibriContext for use in the middleware
+builder.Services.AddScoped<LibriContext>();
 
 var app = builder.Build();
 
@@ -137,13 +90,16 @@ app.UseAuthorization();
 // Add session middleware
 app.UseSession();
 
+// Add the token validation middleware
+
+
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
         Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "foto")),
     RequestPath = "/foto"
 });
-
+app.UseMiddleware<TokenValidationMiddleware>();
 app.MapControllers();
 
 app.Run();
