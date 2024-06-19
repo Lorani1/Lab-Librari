@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("labback")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3ebdc2a06259d5fbb3ec5009cf1e432a9b224120")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1941b1c515cd5e0b2008f5413d94c3b80f66bbba")]
 [assembly: System.Reflection.AssemblyProductAttribute("labback")]
 [assembly: System.Reflection.AssemblyTitleAttribute("labback")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
