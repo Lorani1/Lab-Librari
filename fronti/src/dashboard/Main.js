@@ -66,16 +66,15 @@ function Main() {
       amt: 2100,
     },
   ];
-  const [bookCount, setBookCount] = useState(0); 
+  const [bookCount, setBookCount] = useState(0);
 
   useEffect(() => {
-    
     const fetchBookCount = async () => {
       try {
         const response = await fetch("https://localhost:7101/api/Libri/count");
         if (response.ok) {
           const data = await response.json();
-          setBookCount(data.count); 
+          setBookCount(data.count);
         } else {
           throw new Error("Failed to fetch book count");
         }
@@ -84,7 +83,7 @@ function Main() {
       }
     };
 
-    fetchBookCount(); 
+    fetchBookCount();
   }, []);
 
   return (
@@ -147,8 +146,8 @@ function Main() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="pv" fill="#8884d8" />
-            <Bar dataKey="uv" fill="#82ca9d" />
+            <Bar dataKey="pv" fill="#762b47" />
+            <Bar dataKey="uv" fill="#b5c0d0" />
           </BarChart>
         </ResponsiveContainer>
 
@@ -172,10 +171,10 @@ function Main() {
             <Line
               type="monotone"
               dataKey="pv"
-              stroke="#8884d8"
+              stroke="#762b47"
               activeDot={{ r: 8 }}
             />
-            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="uv" stroke="#b5c0d0" />
           </LineChart>
         </ResponsiveContainer>
       </div>

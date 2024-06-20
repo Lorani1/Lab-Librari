@@ -40,7 +40,7 @@ namespace labback.Models
                 .HasOne(rc => rc.Libri)
                 .WithMany(l => l.RatingComments)
                 .HasForeignKey(rc => rc.LibriID)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<RatingComment>()
                 .HasIndex(rc => new { rc.KlientID, rc.LibriID })

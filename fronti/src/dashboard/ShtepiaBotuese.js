@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import "./styles.css";
 
 const Shtepia = () => {
   const [shtepiaList, setShtepiaList] = useState([]);
@@ -108,6 +109,24 @@ const Shtepia = () => {
   const handleSave = () => {
     const url = `https://localhost:7101/api/ShtepiaBotuese`;
 
+    // Basic validation
+    if (!emri || !adresa) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    // Ensure that emri and adresa are strings
+    if (typeof emri !== "string" || typeof adresa !== "string") {
+      toast.error("Fields must be strings.");
+      return;
+    }
+
+    // Ensure that emri and adresa are not purely numeric strings
+    if (!isNaN(emri) || !isNaN(adresa)) {
+      toast.error("Fields must be valid strings, not numbers.");
+      return;
+    }
+
     const newData = {
       emri: emri,
       adresa: adresa,
@@ -121,7 +140,7 @@ const Shtepia = () => {
         toast.success("Publishing house has been added");
       })
       .catch((error) => {
-        toast.error(error);
+        toast.error("Failed to add publishing house. Please try again.");
       });
   };
 
@@ -171,10 +190,19 @@ const Shtepia = () => {
       <Container className="py-5">
         <h1>ShtepiaBotuese List</h1>
 
-        <Button variant="primary" onClick={() => setShowAddModal(true)}>
+        <Button
+          variant="custom"
+          className="other-button"
+          onClick={() => setShowAddModal(true)}
+        >
           Add New ShtepiaBotuese
         </Button>
-        <Button variant="secondary" as={Link} to="/libri" className="ml-3">
+        <Button
+          variant="custom"
+          className="ml-3 other-button"
+          as={Link}
+          to="/libri"
+        >
           Go to Libri
         </Button>
         <div className="ml-auto d-flex">
@@ -235,14 +263,15 @@ const Shtepia = () => {
                   <td>{item.adresa}</td>
                   <td>
                     <Button
-                      className="mr-2"
-                      variant="warning"
+                      className="mr-2 edit-button"
+                      variant="custom"
                       onClick={() => handleEdit(item.shtepiaBotueseID)}
                     >
                       <BsFillPencilFill />
                     </Button>
                     <Button
-                      variant="danger"
+                      className="mr-2 delete-button"
+                      variant="custom"
                       onClick={() => handleDelete(item.shtepiaBotueseID)}
                     >
                       <BsFillTrashFill />
@@ -284,10 +313,18 @@ const Shtepia = () => {
             </Row>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShow(false)}>
+            <Button
+              variant="custom"
+              className="edit-button"
+              onClick={() => setShow(false)}
+            >
               Close
             </Button>
-            <Button variant="primary" onClick={handleUpdate}>
+            <Button
+              variant="custom"
+              className="delete-button"
+              onClick={handleUpdate}
+            >
               Save Changes
             </Button>
           </Modal.Footer>
@@ -319,10 +356,18 @@ const Shtepia = () => {
             </Row>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+            <Button
+              variant="custom"
+              className="edit-button"
+              onClick={() => setShowAddModal(false)}
+            >
               Close
             </Button>
-            <Button variant="primary" onClick={handleSave}>
+            <Button
+              variant="custom"
+              className="delete-button"
+              onClick={handleSave}
+            >
               Save
             </Button>
           </Modal.Footer>

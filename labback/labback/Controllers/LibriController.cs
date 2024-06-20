@@ -39,6 +39,8 @@ namespace labback.Controllers
         {
             var librat = await _libriContext.Librat
                 .Include(l => l.zhanri) // Ensure Zhanri is included in the query
+                .Include(l => l.AutoriLibris)
+                    .ThenInclude(al => al.Autoret) // Include the Autori details through the join table
                 .Select(l => new
                 {
                     l.ID,
@@ -57,12 +59,24 @@ namespace labback.Controllers
                     {
                         l.zhanri.zhanriId,
                         l.zhanri.emri
-                    } : null // Include all necessary Zhanri properties with null check
+                    } : null, // Include all necessary Zhanri properties with null check
+                    Autoret = l.AutoriLibris.Select(al => new
+                    {
+                        al.Autoret.Autori_ID,
+                        al.Autoret.Emri,
+                        al.Autoret.Mbiemri,
+                        al.Autoret.nofka,
+                        al.Autoret.gjinia,
+                        al.Autoret.Data_E_Lindjes,
+                        al.Autoret.Nacionaliteti
+                    }).ToList() // Include all necessary Autori properties
                 })
                 .ToListAsync();
 
             return Ok(librat);
         }
+
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetLibri(int id)
@@ -216,7 +230,6 @@ namespace labback.Controllers
             }
         }
 
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLibri(int id)
         {
@@ -241,6 +254,7 @@ namespace labback.Controllers
 
             return NoContent();
         }
+
         [HttpGet("count")]
         public IActionResult GetBookCount()
         {
@@ -255,6 +269,32 @@ namespace labback.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+       
+        [HttpPatch("rating-comment/{id}")]
+        public async Task<IActionResult> PatchRatingComment(int id, [FromBody] PartialUpdateRatingCommentModel model)
+        {
+            var ratingComment = await _libriContext.RatingComments.FindAsync(id);
+            if (ratingComment == null)
+            {
+                return NotFound();
+            }
+
+            if (model.Rating.HasValue)
+            {
+                ratingComment.Rating = model.Rating.Value;
+            }
+
+            if (!string.IsNullOrEmpty(model.Comment))
+            {
+                ratingComment.Comment = model.Comment;
+            }
+
+            _libriContext.Entry(ratingComment).State = EntityState.Modified;
+            await _libriContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+
 
         //Autori-Libri Many To Many Relationship Methods
 

@@ -10,6 +10,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
+import "./styles.css";
 
 const Ratings = () => {
   const [ratingsList, setRatingsList] = useState([]);
@@ -238,10 +239,15 @@ const Ratings = () => {
       <Container className="py-5">
         <h1>Ratings List</h1>
         <div className="d-flex justify-content-between mt-4 mb-4">
-          <Button variant="primary" onClick={() => setShowAddModal(true)}>
+          <Button
+            variant="custom"
+            className="btn other-button"
+            onClick={() => setShowAddModal(true)}
+          >
             Add New Rating
           </Button>
         </div>
+
         <div className="ml-auto d-flex">
           <input
             className="form-control m-2"
@@ -302,14 +308,15 @@ const Ratings = () => {
                   <td>{item.libriTitle}</td>
                   <td>
                     <Button
-                      className="mr-2"
-                      variant="info"
+                      className="mr-2 edit-button"
+                      variant="custom"
                       onClick={() => handleEdit(item.ratingsCommentID)}
                     >
                       <BsFillPencilFill />
                     </Button>
                     <Button
-                      variant="danger"
+                      className="delete-button"
+                      variant="custom"
                       onClick={() => handleDelete(item.ratingsCommentID)}
                     >
                       <BsFillTrashFill />
@@ -383,10 +390,18 @@ const Ratings = () => {
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShow(false)}>
+          <Button
+            variant="secondary"
+            className="edit-button"
+            onClick={() => setShow(false)}
+          >
             Close
           </Button>
-          <Button variant="primary" onClick={handleUpdate}>
+          <Button
+            variant="primary"
+            className="other-button"
+            onClick={handleUpdate}
+          >
             Save Changes
           </Button>
         </Modal.Footer>
@@ -452,10 +467,18 @@ const Ratings = () => {
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+          <Button
+            variant="custom"
+            className="edit-button"
+            onClick={() => setShowAddModal(false)}
+          >
             Close
           </Button>
-          <Button variant="primary" onClick={handleSave}>
+          <Button
+            variant="custom"
+            className="delete-button"
+            onClick={handleSave}
+          >
             Add Rating
           </Button>
         </Modal.Footer>

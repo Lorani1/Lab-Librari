@@ -83,6 +83,8 @@ const ProductView = () => {
   const [user, setUser] = useState(null);
   const [klientData, setKlientData] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [editReviewId, setEditReviewId] = useState(null);
 
   const fetchCommerceProduct = async (id) => {
     try {
@@ -146,6 +148,12 @@ const ProductView = () => {
       );
       if (response.data && typeof response.data === "object") {
         setKlientData(response.data);
+
+        // Update user state with klientID
+        setUser((prevUser) => ({
+          ...prevUser,
+          klientID: response.data.klientID, // Ensure response.data has klientID
+        }));
       } else {
         setKlientData(null);
         console.error("Expected an object but got:", response.data);
@@ -166,7 +174,7 @@ const ProductView = () => {
     if (authToken) {
       try {
         const decodedToken = jwtDecode(authToken);
-        setUser({
+        const userData = {
           id: decodedToken.nameid,
           email: decodedToken.email,
           role: decodedToken.role,
@@ -174,22 +182,28 @@ const ProductView = () => {
           klientProfilePicture: decodedToken.profilePicturePath
             ? `https://localhost:7101/foto/${decodedToken.profilePicturePath}`
             : null,
-        });
+        };
+        setUser(userData);
         setIsAuthenticated(true);
-        fetchUserData(decodedToken.nameid);
+        fetchUserData(decodedToken.nameid); // Fetch klientID
       } catch (error) {
         console.error("Invalid token:", error);
         setIsAuthenticated(false);
       }
     } else {
       setIsAuthenticated(false);
+      setUser(null);
     }
 
     const bookId = id.replace("book-", "");
     fetchBookProduct(bookId);
     fetchReviews(bookId);
     fetchCart();
-  }, [id]);
+  }, [id, isAuthenticated]);
+
+  useEffect(() => {
+    console.log("Updated user state:", user);
+  }, [user]);
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
@@ -216,8 +230,13 @@ const ProductView = () => {
       return;
     }
 
+    if (user?.role === "admin") {
+      toast.error("Admins cannot add reviews.");
+      return;
+    }
+
     const data = {
-      ratingsCommentID: 0,
+      ratingsCommentID: editMode ? editReviewId : 0,
       rating: rating,
       comment: comment,
       klientID: user?.id,
@@ -227,27 +246,116 @@ const ProductView = () => {
       libriTitle: product.titulli,
     };
 
-    axios
-      .post("https://localhost:7101/api/RatingComment", data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
+    const request = editMode
+      ? axios.put(
+          `https://localhost:7101/api/RatingComment/${editReviewId}`,
+          data,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authToken}`,
+            },
+          }
+        )
+      : axios.post("https://localhost:7101/api/RatingComment", data, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
+
+    request
       .then((result) => {
-        toast.success("Rating has been added");
+        toast.success(`Rating has been ${editMode ? "updated" : "added"}`);
         setRating(0);
         setComment("");
+        setEditMode(false);
+        setEditReviewId(null);
         fetchReviews(bookId);
       })
       .catch((error) => {
-        console.error("Error adding rating:", error);
+        console.error(
+          `Error ${editMode ? "updating" : "adding"} rating:`,
+          error
+        );
         if (error.response && error.response.status === 409) {
           toast.error("Conflict: You may have already submitted a rating.");
         } else {
-          toast.error("Failed to add rating. Please try again.");
+          toast.error(
+            `Failed to ${editMode ? "update" : "add"} rating. Please try again.`
+          );
         }
       });
+  };
+
+  const handleDeleteReview = (reviewId) => {
+    const authToken = localStorage.getItem("authToken");
+
+    // Find the review to delete
+    const reviewToDelete = reviews.find(
+      (review) => review.ratingsCommentID === reviewId
+    );
+
+    if (!reviewToDelete) {
+      toast.error("Review not found.");
+      console.log("Review not found for ID:", reviewId);
+      return;
+    }
+
+    console.log("Current user role:", user?.role);
+    console.log("User id:", user?.id);
+    console.log("Review's klientID:", reviewToDelete?.klientID);
+
+    // Check if the user is an admin or the owner of the review
+    if (
+      user?.role === "admin" ||
+      String(user?.id) === String(reviewToDelete?.klientID)
+    ) {
+      axios
+        .delete(`https://localhost:7101/api/RatingComment/${reviewId}`, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        })
+        .then((result) => {
+          toast.success("Rating has been deleted");
+          fetchReviews(id.replace("book-", ""));
+          console.log("Successfully deleted review with ID:", reviewId);
+        })
+        .catch((error) => {
+          console.error("Error deleting rating:", error);
+          toast.error("Failed to delete rating. Please try again.");
+        });
+    } else {
+      toast.error("You are not authorized to delete this review.");
+      console.log(
+        "Authorization failed: You are not authorized to delete this review."
+      );
+    }
+  };
+
+  const handleEditReview = (review) => {
+    console.log("Current user ID:", user?.id);
+    console.log("User klientID:", user?.klientID);
+    console.log("Review's klientID:", review.klientID);
+
+    // Check if the user is the owner of the review
+    if (String(user?.id) === String(review.klientID)) {
+      setEditMode(true);
+      setEditReviewId(review.ratingsCommentID);
+      setRating(review.rating);
+      setComment(review.comment);
+      console.log("Edit review state set", {
+        editReviewId: review.ratingsCommentID,
+        rating: review.rating,
+        comment: review.comment,
+      });
+    } else {
+      toast.error("You are not authorized to edit this review.");
+      console.log(
+        "Authorization failed: You are not authorized to edit this review."
+      );
+    }
   };
 
   const handleToggleReviews = () => {
@@ -285,6 +393,9 @@ const ProductView = () => {
             <Typography variant="h4" className={classes.productTitle}>
               {product.titulli}
             </Typography>
+            {/* {product.autori && (
+              <Typography variant="h5">{product.autori.emri}</Typography>
+            )} */}
             <Typography
               variant="body1"
               dangerouslySetInnerHTML={createMarkup(product.description)}
@@ -299,37 +410,46 @@ const ProductView = () => {
             </Button>
           </Grid>
         </Grid>
-        {/* Rating and comment form */}
-        <Box className={classes.reviewSection}>
-          <Typography variant="h5" gutterBottom>
-            Leave a Rating and Comment
-          </Typography>
-          <Rating
-            name="rating"
-            value={rating}
-            onChange={(event, newValue) => {
-              setRating(newValue);
-            }}
-          />
-          <TextField
-            label="Comment"
-            multiline
-            rows={4}
-            variant="outlined"
-            fullWidth
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            margin="normal"
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.submitButton}
-            onClick={handleRatingSubmit}
-          >
-            Submit
-          </Button>
-        </Box>
+
+        {/* Rating and comment form - only show if user role is "user" */}
+        {user?.role === "user" && (
+          <Box className={classes.reviewSection}>
+            <Typography variant="h5" gutterBottom>
+              Leave a Rating and Comment
+            </Typography>
+            {editMode && (
+              <Typography variant="body2" color="textSecondary">
+                You are editing a review.
+              </Typography>
+            )}
+            <Rating
+              name="rating"
+              value={rating}
+              onChange={(event, newValue) => {
+                setRating(newValue);
+              }}
+            />
+            <TextField
+              label="Comment"
+              multiline
+              rows={4}
+              variant="outlined"
+              fullWidth
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              margin="normal"
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.submitButton}
+              onClick={handleRatingSubmit}
+            >
+              {editMode ? "Update" : "Submit"}
+            </Button>
+          </Box>
+        )}
+
         {/* Reviews section */}
         <Box mt={5}>
           <Button onClick={handleToggleReviews}>
@@ -355,6 +475,34 @@ const ProductView = () => {
                       </Typography>
                       <Rating value={review.rating} readOnly />
                       <Typography variant="body1">{review.comment}</Typography>
+                      <Box mt={2}>
+                        {user?.role === "user" &&
+                          user?.klientID === review.id && (
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={() => handleEditReview(review)}
+                            >
+                              Edit
+                            </Button>
+                          )}
+                        {(user?.role === "user" &&
+                          user?.klientID === review.id) ||
+                        user?.role === "admin" ? (
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={() =>
+                              handleDeleteReview(review.ratingsCommentID)
+                            }
+                            style={{
+                              marginLeft: user?.role === "user" ? "10px" : "0",
+                            }}
+                          >
+                            Delete
+                          </Button>
+                        ) : null}
+                      </Box>
                     </Grid>
                   </Grid>
                 </Paper>

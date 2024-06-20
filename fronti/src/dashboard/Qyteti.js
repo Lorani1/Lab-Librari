@@ -6,6 +6,7 @@ import { Table, Button, Modal, Row, Col, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import "./styles.css";
 
 const Qyteti = () => {
   const [qytetiList, setQytetiList] = useState([]);
@@ -25,7 +26,7 @@ const Qyteti = () => {
     axios
       .get(`https://localhost:7101/api/Qyteti`)
       .then((result) => {
-        console.log('API Response:', result.data); // Log API response
+        console.log("API Response:", result.data); // Log API response
         if (Array.isArray(result.data)) {
           setQytetiList(result.data);
           setFilteredQytetiList(result.data);
@@ -33,13 +34,13 @@ const Qyteti = () => {
           setQytetiList(result.data.$values);
           setFilteredQytetiList(result.data.$values);
         } else {
-          console.error('Unexpected data format:', result.data);
-          toast.error('Unexpected data format');
+          console.error("Unexpected data format:", result.data);
+          toast.error("Unexpected data format");
         }
       })
       .catch((error) => {
         console.error(error);
-        toast.error('Failed to fetch data');
+        toast.error("Failed to fetch data");
       });
   };
 
@@ -53,7 +54,7 @@ const Qyteti = () => {
       })
       .catch((error) => {
         console.error(error);
-        toast.error('Failed to fetch data');
+        toast.error("Failed to fetch data");
       });
   };
 
@@ -71,7 +72,7 @@ const Qyteti = () => {
         })
         .catch((error) => {
           console.error(error);
-          toast.error('Failed to delete data');
+          toast.error("Failed to delete data");
         });
     }
   };
@@ -89,7 +90,7 @@ const Qyteti = () => {
       })
       .catch((error) => {
         console.error(error);
-        toast.error('Failed to update data');
+        toast.error("Failed to update data");
       });
   };
 
@@ -106,7 +107,7 @@ const Qyteti = () => {
       })
       .catch((error) => {
         console.error(error);
-        toast.error('Failed to save data');
+        toast.error("Failed to save data");
       });
   };
 
@@ -153,14 +154,18 @@ const Qyteti = () => {
       <Container className="py-5">
         <h1>Qyteti</h1>
         <div className="d-flex justify-content-between mt-4 mb-4">
-          <Button variant="primary" onClick={() => setShowAddModal(true)}>
+          <Button
+            variant="custom"
+            className="other-button"
+            onClick={() => setShowAddModal(true)}
+          >
             Shto Qytet
           </Button>
           <Button
-            variant="secondary"
+            variant="custom"
             as={Link}
             to="/klienti"
-            className="ml-3"
+            className="ml-3 other-button"
           >
             Shko te Klienti
           </Button>
@@ -214,7 +219,10 @@ const Qyteti = () => {
                 <Button variant="link" onClick={() => sortResult("emri", true)}>
                   Asc
                 </Button>
-                <Button variant="link" onClick={() => sortResult("emri", false)}>
+                <Button
+                  variant="link"
+                  onClick={() => sortResult("emri", false)}
+                >
                   Desc
                 </Button>
               </th>
@@ -229,15 +237,16 @@ const Qyteti = () => {
                   <td>{item.emri}</td>
                   <td>
                     <Button
-                      variant="warning"
+                      variant="custom"
                       onClick={() => handleEdit(item.id)}
-                      className="mr-2"
+                      className="mr-2 edit-button"
                     >
                       <BsFillPencilFill />
                     </Button>
                     <Button
-                      variant="danger"
+                      variant="custom"
                       onClick={() => handleDelete(item.id)}
+                      className="delete-button"
                     >
                       <BsFillTrashFill />
                     </Button>
@@ -266,10 +275,18 @@ const Qyteti = () => {
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShow(false)}>
+          <Button
+            variant="custom"
+            className="edit-button"
+            onClick={() => setShow(false)}
+          >
             Close
           </Button>
-          <Button variant="primary" onClick={handleUpdate}>
+          <Button
+            variant="custom"
+            className="delete-button"
+            onClick={handleUpdate}
+          >
             Save Changes
           </Button>
         </Modal.Footer>
@@ -293,10 +310,18 @@ const Qyteti = () => {
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+          <Button
+            variant="custom"
+            className="edit-button"
+            onClick={() => setShowAddModal(false)}
+          >
             Close
           </Button>
-          <Button variant="primary" onClick={handleSave}>
+          <Button
+            variant="custom"
+            className="delete-button"
+            onClick={handleSave}
+          >
             Save
           </Button>
         </Modal.Footer>

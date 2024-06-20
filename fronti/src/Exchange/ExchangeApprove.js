@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
-import apiService from './apiService';
+import React, { useEffect, useState } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
+import apiService from "./apiService";
 
 const ExchangeApprove = () => {
   const [exchanges, setExchanges] = useState([]);
@@ -17,18 +17,25 @@ const ExchangeApprove = () => {
       const allExchanges = response.data.$values;
 
       if (Array.isArray(allExchanges)) {
-        const pendingExchanges = allExchanges.filter(exchange => exchange.status === 'Pending Approval');
+        const pendingExchanges = allExchanges.filter(
+          (exchange) => exchange.status === "Pending Approval"
+        );
         setExchanges(pendingExchanges);
       } else {
-        console.error('Expected an array of exchanges but received:', allExchanges);
+        console.error(
+          "Expected an array of exchanges but received:",
+          allExchanges
+        );
       }
     } catch (error) {
-      console.error('Error fetching pending approval exchanges:', error);
+      console.error("Error fetching pending approval exchanges:", error);
     }
   };
 
   const handleApproveClick = (exchangeId) => {
-    const selected = exchanges.find(exchange => exchange.exchangeId === exchangeId);
+    const selected = exchanges.find(
+      (exchange) => exchange.exchangeId === exchangeId
+    );
     setSelectedExchange(selected);
     setShowModal(true);
   };
@@ -44,14 +51,16 @@ const ExchangeApprove = () => {
       fetchPendingExchanges(); // Refresh the list after approval
       handleCloseModal();
     } catch (error) {
-      console.error('Error approving exchange:', error);
+      console.error("Error approving exchange:", error);
     }
   };
 
   const handleDelete = async (exchangeId) => {
     try {
       await apiService.deleteExchange(exchangeId);
-      setExchanges(exchanges.filter(exchange => exchange.exchangeId !== exchangeId));
+      setExchanges(
+        exchanges.filter((exchange) => exchange.exchangeId !== exchangeId)
+      );
     } catch (error) {
       console.error(`Error deleting exchange with ID ${exchangeId}:`, error);
     }
@@ -59,9 +68,9 @@ const ExchangeApprove = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSelectedExchange(prevState => ({
+    setSelectedExchange((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -85,7 +94,7 @@ const ExchangeApprove = () => {
             </tr>
           </thead>
           <tbody>
-            {exchanges.map(exchange => (
+            {exchanges.map((exchange) => (
               <tr key={exchange.exchangeId}>
                 <td>{exchange.klient.klientId}</td>
                 <td>{exchange.klient.emri}</td>
@@ -97,8 +106,18 @@ const ExchangeApprove = () => {
                 <td>{new Date(exchange.exchangeDate).toLocaleDateString()}</td>
                 <td>{new Date(exchange.returnDate).toLocaleDateString()}</td>
                 <td>
-                  <button className="btn btn-success btn-sm mr-2" onClick={() => handleApproveClick(exchange.exchangeId)}>Approve</button>
-                  <button className="btn btn-danger btn-sm" onClick={() => handleDelete(exchange.exchangeId)}>Delete</button>
+                  <button
+                    className="btn btn-success btn-sm mr-2"
+                    onClick={() => handleApproveClick(exchange.exchangeId)}
+                  >
+                    Approve
+                  </button>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(exchange.exchangeId)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

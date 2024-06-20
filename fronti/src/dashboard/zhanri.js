@@ -6,7 +6,7 @@ import { Table, Button, Modal, Row, Col, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-
+import "./styles.css";
 const Zhanri = () => {
   const [zhanriList, setZhanriList] = useState([]);
   const [filteredZhanriList, setFilteredZhanriList] = useState([]);
@@ -67,7 +67,9 @@ const Zhanri = () => {
         .then((result) => {
           if (result.status === 200) {
             toast.success("Genre has been deleted");
-            const updatedList = zhanriList.filter((item) => item.zhanriId !== id);
+            const updatedList = zhanriList.filter(
+              (item) => item.zhanriId !== id
+            );
             setZhanriList(updatedList);
             setFilteredZhanriList(updatedList);
           }
@@ -81,7 +83,11 @@ const Zhanri = () => {
 
   const handleUpdate = () => {
     const url = `https://localhost:7101/api/Zhanri/${editId}`;
-    const data = { zhanriId: editId, emri: editEmri, description: editDescription };
+    const data = {
+      zhanriId: editId,
+      emri: editEmri,
+      description: editDescription,
+    };
     axios
       .put(url, data)
       .then((result) => {
@@ -157,10 +163,19 @@ const Zhanri = () => {
       <ToastContainer />
       <Container className="py-5">
         <h1>Genre List</h1>
-        <Button variant="primary" onClick={() => setShowAddModal(true)}>
+        <Button
+          variant="custom"
+          className="other-button"
+          onClick={() => setShowAddModal(true)}
+        >
           Add New Genre
         </Button>
-        <Button variant="secondary" as={Link} to="/libri" className="ml-3">
+        <Button
+          variant="custom"
+          as={Link}
+          to="/libri"
+          className="ml-3 other-button"
+        >
           Go to Libri
         </Button>
         <div className="ml-auto d-flex">
@@ -212,7 +227,10 @@ const Zhanri = () => {
                 <Button variant="link" onClick={() => sortResult("emri", true)}>
                   Asc
                 </Button>
-                <Button variant="link" onClick={() => sortResult("emri", false)}>
+                <Button
+                  variant="link"
+                  onClick={() => sortResult("emri", false)}
+                >
                   Desc
                 </Button>
               </th>
@@ -221,7 +239,8 @@ const Zhanri = () => {
             </tr>
           </thead>
           <tbody>
-            {Array.isArray(filteredZhanriList) && filteredZhanriList.length > 0 ? (
+            {Array.isArray(filteredZhanriList) &&
+            filteredZhanriList.length > 0 ? (
               filteredZhanriList.map((item, key) => (
                 <tr key={key}>
                   <td>{item.zhanriId}</td>
@@ -229,15 +248,16 @@ const Zhanri = () => {
                   <td>{item.description}</td>
                   <td>
                     <Button
-                      variant="warning"
+                      variant="custom"
                       onClick={() => handleEdit(item.zhanriId)}
-                      className="mr-2"
+                      className="mr-2 edit-button"
                     >
                       <BsFillPencilFill />
                     </Button>
                     <Button
-                      variant="danger"
+                      variant="custom"
                       onClick={() => handleDelete(item.zhanriId)}
+                      className="mr-2 delete-button"
                     >
                       <BsFillTrashFill />
                     </Button>
@@ -278,10 +298,18 @@ const Zhanri = () => {
             </Row>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShow(false)}>
+            <Button
+              variant="custom"
+              className="edit-button"
+              onClick={() => setShow(false)}
+            >
               Close
             </Button>
-            <Button variant="primary" onClick={handleUpdate}>
+            <Button
+              variant="custom"
+              className="delete-button"
+              onClick={handleUpdate}
+            >
               Save Changes
             </Button>
           </Modal.Footer>
@@ -313,10 +341,18 @@ const Zhanri = () => {
             </Row>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+            <Button
+              variant="custom"
+              className="edit-button"
+              onClick={() => setShowAddModal(false)}
+            >
               Close
             </Button>
-            <Button variant="primary" onClick={handleSave}>
+            <Button
+              variant="custom"
+              className="delete-button"
+              onClick={handleSave}
+            >
               Save
             </Button>
           </Modal.Footer>

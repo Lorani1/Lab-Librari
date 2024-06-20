@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Table from "react-bootstrap/Table";
-import Select from 'react-select';
+import Select from "react-select";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -14,10 +14,8 @@ import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import { Buffer } from "buffer";
 import process from "process";
 import { Link } from "react-router-dom";
-// import Sidebar from "./Sidebar";
-// import "./dashb.css";
-// import "./SideBar.css";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import "./styles.css";
 import {
   BsCart3,
   BsGrid1X2Fill,
@@ -28,8 +26,7 @@ import {
   BsMenuButtonWideFill,
   BsFillGearFill,
   BsBookFill,
-} from "react-icons/bs"; // Adjust the path as needed
-// import "./sidebar.css";
+} from "react-icons/bs";
 import "./dashb.css";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -80,12 +77,13 @@ const Libri = () => {
 
   //Libri-Autori Many to Many
   const [authors, setAuthors] = useState([]);
-  const [selectedAuthorsForNewBook, setSelectedAuthorsForNewBook] = useState([]);
+  const [selectedAuthorsForNewBook, setSelectedAuthorsForNewBook] = useState(
+    []
+  );
   const [allAuthors, setAllAuthors] = useState([]);
   const [editSelectedAuthors, setEditSelectedAuthors] = useState([]);
   const [showAuthorsViewModal, setShowAuthorsViewModal] = useState(false);
-  const [selectedBookAuthors, setSelectedBookAuthors] = useState([])
-
+  const [selectedBookAuthors, setSelectedBookAuthors] = useState([]);
 
   const [data, setData] = useState([]);
 
@@ -153,6 +151,7 @@ const Libri = () => {
       .then((result) => {
         const shtepiaData = result.data?.$values;
         if (Array.isArray(shtepiaData)) {
+          console.log("Shtepia Data:", shtepiaData);
           setShtepiaList(shtepiaData);
         } else {
           console.error("Unexpected data format:", result.data);
@@ -170,15 +169,16 @@ const Libri = () => {
       .then((result) => {
         const zhanriData = result.data?.$values;
         if (Array.isArray(zhanriData)) {
+          console.log("Zhanri Data:", zhanriData); // Add this line to check the data
           setZhanriList(zhanriData);
         } else {
           console.error("Unexpected data format:", result.data);
-          toast.error("Failed to fetch city data.");
+          toast.error("Failed to fetch genre data.");
         }
       })
       .catch((error) => {
-        console.error("Error fetching city data:", error);
-        toast.error("Failed to fetch city data.");
+        console.error("Error fetching genre data:", error);
+        toast.error("Failed to fetch genre data.");
       });
   };
 
@@ -296,6 +296,17 @@ const Libri = () => {
         adresa: selectedPublisher ? selectedPublisher.adresa : "",
       })
     );
+    const selectedZhanri = zhanriList.find(
+      (zhanri) => zhanri.zhanriId === editSelectedZhanriID
+    );
+    formData.append(
+      "zhanri",
+      JSON.stringify({
+        zhanriId: editSelectedZhanriID,
+        emri: selectedZhanri ? selectedZhanri.emri : "",
+        description: selectedZhanri ? selectedZhanri.description : "",
+      })
+    );
 
     if (editSelectedFile && editSelectedFile instanceof File) {
       formData.append("profilePicture", editSelectedFile);
@@ -303,8 +314,8 @@ const Libri = () => {
 
     formData.append("profilePicturePath", editProfilePictureUrl || ""); // Add the existing profile picture path if needed
 
-    editSelectedAuthors.forEach(author => {
-      formData.append("authors", author.autori_ID); 
+    editSelectedAuthors.forEach((author) => {
+      formData.append("authors", author.autori_ID);
     });
 
     axios
@@ -330,68 +341,119 @@ const Libri = () => {
         toast.error("Failed to update book.");
       });
   };
-
-  const handleSave = () => {
+  const handleSave = async () => {
     const url = "https://localhost:7101/api/Libri";
 
-    const formData = new FormData();
-    formData.append("isbn", isbn);
-    formData.append("titulli", titulli);
-    formData.append("vitiPublikimit", vitiPublikimit);
-    formData.append("nrFaqeve", nrFaqeve);
-    formData.append("nrKopjeve", nrKopjeve);
-    formData.append("gjuha", gjuha);
-    formData.append("inStock", inStock);
-    formData.append("description", description);
-    formData.append("shtepiaBotueseID", selectedShtepia);
-    formData.append("zhanriID", selectedZhanri);
-    formData.append(
-      "shtepiaBotuese",
-      JSON.stringify({
-        shtepiaBotueseID: selectedShtepia,
-        emri:
-          shtepiaList.find(
-            (shtepia) => shtepia.shtepiaBotueseID === selectedShtepia
-          )?.emri || "",
-        adresa:
-          shtepiaList.find(
-            (shtepia) => shtepia.shtepiaBotueseID === selectedShtepia
-          )?.adresa || "",
-      })
-    );
-    formData.append(
-      "zhanri",
-      JSON.stringify({
-        zhanriId: selectedZhanri,
-        emri:
-          zhanriList.find((zhanri) => zhanri.zhanriId === selectedZhanri)
-            ?.emri || "",
-        description:
-          zhanriList.find((zhanri) => zhanri.zhanriId === selectedZhanri)
-            ?.description || "",
-      })
-    );
-    formData.append("profilePicture", selectedFile);
+    // Basic validation
+    if (
+      !isbn ||
+      !titulli ||
+      !vitiPublikimit ||
+      !nrFaqeve ||
+      !nrKopjeve ||
+      !gjuha ||
+      !selectedShtepia ||
+      !selectedZhanri
+    ) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
 
-    axios
-      .post(url, formData)
-      .then((result) => {
-        const bookId = result.data.id;
-        if (!bookId) {
-          throw new Error("Book ID is not defined in the response");
-        }
-        const addAuthorsPromises = selectedAuthorsForNewBook.map((author) =>
-          addAuthorToBook(bookId, author.value)
+    if (isNaN(nrFaqeve) || isNaN(nrKopjeve)) {
+      toast.error("Number of pages and copies must be numeric.");
+      return;
+    }
+
+    try {
+      // Fetch existing books to check for duplicate ISBN
+      const existingBooksResponse = await axios.get(url);
+      const existingBooks = existingBooksResponse.data.$values;
+
+      // Log the raw response for debugging purposes
+      console.log("Raw response from API:", existingBooksResponse);
+      console.log("Extracted books:", existingBooks);
+
+      // Ensure existingBooks is an array
+      if (!Array.isArray(existingBooks)) {
+        console.error(
+          "Expected an array of books but received:",
+          existingBooks
         );
-        Promise.all(addAuthorsPromises)
-        getData();
-        clear();
-        toast.success("Book has been added");
-      })
-      .catch((error) => {
-        toast.error("Failed to add book. Please try again.");
-      });
+        throw new Error("Expected an array of books from the API");
+      }
+
+      // Check if the ISBN already exists
+      const isDuplicateISBN = existingBooks.some((book) => book.isbn === isbn);
+
+      if (isDuplicateISBN) {
+        toast.error("A book with this ISBN already exists.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("isbn", isbn);
+      formData.append("titulli", titulli);
+      formData.append("vitiPublikimit", vitiPublikimit);
+      formData.append("nrFaqeve", nrFaqeve);
+      formData.append("nrKopjeve", nrKopjeve);
+      formData.append("gjuha", gjuha);
+      formData.append("inStock", inStock);
+      formData.append("description", description);
+      formData.append("shtepiaBotueseID", selectedShtepia);
+      formData.append("zhanriID", selectedZhanri);
+      formData.append(
+        "shtepiaBotuese",
+        JSON.stringify({
+          shtepiaBotueseID: selectedShtepia,
+          emri:
+            shtepiaList.find(
+              (shtepia) => shtepia.shtepiaBotueseID === selectedShtepia
+            )?.emri || "",
+          adresa:
+            shtepiaList.find(
+              (shtepia) => shtepia.shtepiaBotueseID === selectedShtepia
+            )?.adresa || "",
+        })
+      );
+      formData.append(
+        "zhanri",
+        JSON.stringify({
+          zhanriId: selectedZhanri,
+          emri:
+            zhanriList.find((zhanri) => zhanri.zhanriId === selectedZhanri)
+              ?.emri || "",
+          description:
+            zhanriList.find((zhanri) => zhanri.zhanriId === selectedZhanri)
+              ?.description || "",
+        })
+      );
+      formData.append("profilePicture", selectedFile);
+
+      axios
+        .post(url, formData)
+        .then((result) => {
+          const bookId = result.data.id;
+          if (!bookId) {
+            throw new Error("Book ID is not defined in the response");
+          }
+          const addAuthorsPromises = selectedAuthorsForNewBook.map((author) =>
+            addAuthorToBook(bookId, author.value)
+          );
+          Promise.all(addAuthorsPromises);
+          getData();
+          clear();
+          toast.success("Book has been added");
+        })
+        .catch((error) => {
+          console.error("Failed to add book:", error);
+          toast.error("Failed to add book. Please try again.");
+        });
+    } catch (error) {
+      console.error("Failed to check existing books:", error);
+      toast.error("Failed to check existing books. Please try again.");
+    }
   };
+
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this book?")) {
       axios
@@ -412,70 +474,92 @@ const Libri = () => {
     }
   };
 
- //Autori-Libri Many-To-Many
+  //Autori-Libri Many-To-Many
 
- const fetchAuthorsForBook = (id) => {
-  axios.get(`https://localhost:7101/api/Libri/getAutoret/${id}`)
-    .then(result => {setAuthors(result.data);
-      const autor = result.data.map(author => ({
-        value: author.autori_ID,
-        label: author.emri,
-      }));
-      setEditSelectedAuthors(autor);;
-    })
-    .catch(error => console.error('Error fetching authors:', error));
-};
+  const fetchAuthorsForBook = (id) => {
+    axios
+      .get(`https://localhost:7101/api/Libri/getAutoret/${id}`)
+      .then((result) => {
+        console.log("API response:", result.data); // Log the response to inspect its structure
+        const authorsData = result.data?.$values?.map((author) => ({
+          value: author.autori_ID,
+          label: author.emri,
+        }));
+        if (authorsData) {
+          setEditSelectedAuthors(authorsData);
+        } else {
+          console.error("Expected an array but got:", result.data);
+        }
+      })
+      .catch((error) => console.error("Error fetching authors:", error));
+  };
 
-const fetchSelectedBookAuthors = (id) => {
-  axios
-    .get(`https://localhost:7101/api/Libri/getAutoret/${id}`)
-    .then((result) => setSelectedBookAuthors(result.data?.$values))
-    .catch((error) => console.error("Error fetching selected book authors:", error));
-};
+  const fetchSelectedBookAuthors = (id) => {
+    axios
+      .get(`https://localhost:7101/api/Libri/getAutoret/${id}`)
+      .then((result) => setSelectedBookAuthors(result.data?.$values))
+      .catch((error) =>
+        console.error("Error fetching selected book authors:", error)
+      );
+  };
 
-const addAuthorToBook = (id, autori_ID) => {
-  axios.post(`https://localhost:7101/api/Libri/${id}/ShtoAutorin/${autori_ID}`)
-    .then(() => {
-      fetchAuthorsForBook(id);
-      toast.success('Author added to book');
-    })
-    .catch(error => {
-      console.error('Failed to add author to book:', error);
-      toast.error('Failed to add author to book. Please try again.');
-    });
-};
+  const addAuthorToBook = (id, autori_ID) => {
+    axios
+      .post(`https://localhost:7101/api/Libri/${id}/ShtoAutorin/${autori_ID}`)
+      .then(() => {
+        fetchAuthorsForBook(id);
+        toast.success("Author added to book");
+      })
+      .catch((error) => {
+        console.error("Failed to add author to book:", error);
+        toast.error("Failed to add author to book. Please try again.");
+      });
+  };
 
+  const handleAuthorSelection = (selectedOptions) => {
+    setSelectedAuthorsForNewBook(selectedOptions);
+  };
+  const handleEditAuthorSelection = (selectedOptions) =>
+    setEditSelectedAuthors(selectedOptions);
+  const handleOpenAuthorsViewModal = (id) => {
+    fetchSelectedBookAuthors(id);
+    setShowAuthorsViewModal(true);
+  };
 
-const handleAuthorSelection = (selectedOptions) => {
-  setSelectedAuthorsForNewBook(selectedOptions);
-};
-const handleEditAuthorSelection = (selectedOptions) => setEditSelectedAuthors(selectedOptions);
-const handleOpenAuthorsViewModal = (id) => {
-fetchSelectedBookAuthors(id);
-setShowAuthorsViewModal(true);
-};
+  const handleUpdateAuthors = (id, selectedAuthors) => {
+    const authorIds = selectedAuthors.map((author) => author.value);
 
-const handleUpdateAuthors = (id, selectedAuthors) => {
-const authorIds = selectedAuthors.map((author) => author.value);
-axios
-.put(`https://localhost:7101/api/Libri/${id}/UpdateAuthors`, authorIds)
-.then((response) => {
-  if (response.status === 204) {
-    // Optionally, you can fetch the updated book data here
-    fetchAuthorsForBook(id); // Fetch updated authors for the edited book
-    toast.success("Authors have been updated");
-  } else {
-    console.error("Unexpected response status:", response.status);
-    toast.error("Failed to update authors.");
-  }
-})
-.catch((error) => {
-  console.error("Error updating authors:", error);
-  toast.error("Failed to update authors.");
-});
-};
+    axios
+      .put(`https://localhost:7101/api/Libri/${id}/UpdateAuthors`, authorIds)
+      .then((response) => {
+        if (response.status === 204) {
+          fetchAuthorsForBook(id); // Optionally, update UI with refreshed authors
+          toast.success("Authors have been updated");
+        } else {
+          console.error("Unexpected response status:", response.status);
+          toast.error("Failed to update authors. Unexpected response.");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 400) {
+            console.error("Bad Request:", error.response.data);
+            toast.error("Failed to update authors. Bad request.");
+          } else {
+            console.error("Server Error:", error.response.data);
+            toast.error("Failed to update authors. Server error.");
+          }
+        } else if (error.request) {
+          console.error("Network Error:", error.request);
+          toast.error("Failed to update authors. Network error.");
+        } else {
+          console.error("Error:", error.message);
+          toast.error("Failed to update authors. Please try again.");
+        }
+      });
+  };
 
-const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
+  const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
 
   const clear = () => {
     setIsbn("");
@@ -571,25 +655,44 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
 
       <Container className="py-5">
         <h1>Book List</h1>
-        <Button variant="primary" onClick={handleOpenAddModal}>
+        <Button
+          variant="costum"
+          className="other-button"
+          onClick={handleOpenAddModal}
+        >
           Add New Book
         </Button>
 
         <Button
-          variant="secondary"
+          variant="costum"
           as={Link}
           to="/ShtepiaBotuese"
-          className="ml-3"
+          className="ml-3 other-button"
         >
           Go to Shtepia Botuese
         </Button>
-        <Button variant="secondary" as={Link} to="/Autori" className="ml-3">
+        <Button
+          variant="costum"
+          as={Link}
+          to="/Autori"
+          className="ml-3 other-button"
+        >
           Go to Autoret
         </Button>
-        <Button variant="secondary" as={Link} to="/zhanri" className="ml-3">
+        <Button
+          variant="costum"
+          as={Link}
+          to="/zhanri"
+          className="ml-3 other-button"
+        >
           Go to Zhanri
         </Button>
-        <Button variant="secondary" as={Link} to="/ratings" className="ml-3">
+        <Button
+          variant="costum"
+          as={Link}
+          to="/ratings"
+          className="ml-3 other-button"
+        >
           Go to Ratings
         </Button>
         <div className="ml-auto d-flex">
@@ -645,6 +748,7 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
               <th>Publisher</th>
               <th>Autoret</th>
               <th>Genre</th>
+              <th>Genre Name</th>
               <th>In Stock</th>
               <th>Description</th>
               <th>Images</th>
@@ -662,12 +766,17 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
                   <td>{item.nrKopjeve}</td>
                   <td>{item.gjuha}</td>
                   <td>{item.shtepiaBotueseID}</td>
+
                   <td>
-                  <Button variant="secondary" onClick={() => handleOpenAuthorsViewModal(item.id)}>
-                    View Authors
-                  </Button>
-                </td>
-                  <td>{item.zhanriId}</td>
+                    <Button
+                      variant="costum"
+                      onClick={() => handleOpenAuthorsViewModal(item.id)}
+                      className=" btn other-button"
+                    >
+                      View Authors
+                    </Button>
+                  </td>
+                  <td>{item.zhanri.zhanriId}</td>
                   <td>{item.inStock ? "Yes" : "No"}</td>
                   <td>{item.description}</td>
 
@@ -682,25 +791,19 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
                       "No Image"
                     )}
                   </td>
-                  {/* <Product
-                    key={item.id}
-                    item={item}
-                    onAddToCart={handleAddToCart} // Pass the function to the Product component
-                  /> */}
-                  {/* <div>
-                    <Product books={books} />
-                  </div> */}
+
                   <td>
                     <Button
-                      className="mr-2"
-                      variant="warning"
+                      className="mr-2 edit-button"
+                      variant="costum"
                       onClick={() => handleEdit(item.id)}
                     >
                       <BsFillPencilFill />
                     </Button>
                     <Button
-                      variant="danger"
+                      variant="costum"
                       onClick={() => handleDelete(item.id)}
+                      className="delete-button"
                     >
                       <BsFillTrashFill />
                     </Button>
@@ -709,19 +812,22 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
               ))}
           </tbody>
         </Table>
-        <div className="d-flex justify-content-center align-items-center my-3">
+        <div className="d-flex justify-content-center align-items-center my-3 ">
           <button
-            className="btn btn-primary mx-2"
+            variant="costum"
             onClick={handlePreviousPage}
+            className="btn  mx-2 other-button"
             disabled={currentPage === 1}
           >
             Previous
           </button>
+
           <span className="mx-2">
             Page {currentPage} of {totalPages}
           </span>
           <button
-            className="btn btn-primary mx-2"
+            variant="costum"
+            className="btn mx-2 other-button"
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
           >
@@ -852,19 +958,19 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
               </Row>
             </Row>
             <Row>
-            <Col>
-              <label>Authors</label>
-              <Select
-                isMulti
-                value={editSelectedAuthors}
-                onChange={handleEditAuthorSelection}
-                options={allAuthors.map(author => ({
-                  value: author.autori_ID,
-                  label: author.emri,
-                }))}
-              />
-            </Col>
-          </Row>
+              <Col>
+                <label>Authors</label>
+                <Select
+                  isMulti
+                  value={editSelectedAuthors}
+                  onChange={handleEditAuthorSelection}
+                  options={allAuthors.map((author) => ({
+                    value: author.autori_ID,
+                    label: author.emri,
+                  }))}
+                />
+              </Col>
+            </Row>
             <Row>
               <Col>
                 <label>Images</label>
@@ -884,10 +990,18 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
             </Row>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button
+              variant="custom"
+              className="edit-button"
+              onClick={handleClose}
+            >
               Close
             </Button>
-            <Button variant="primary" onClick={handleUpdate}>
+            <Button
+              variant="custom"
+              className="delete-button"
+              onClick={handleUpdate}
+            >
               Save Changes
             </Button>
           </Modal.Footer>
@@ -1015,18 +1129,18 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
               </Row>
             </Row>
             <Row>
-            <Col>
-              <label>Authors</label>
-              <Select
-                isMulti
-                options={allAuthors.map(author => ({
-                  value: author.autori_ID,
-                  label: author.emri,
-                }))}
-                onChange={handleAuthorSelection}
-              />
-            </Col>
-          </Row>
+              <Col>
+                <label>Authors</label>
+                <Select
+                  isMulti
+                  options={allAuthors.map((author) => ({
+                    value: author.autori_ID,
+                    label: author.emri,
+                  }))}
+                  onChange={handleAuthorSelection}
+                />
+              </Col>
+            </Row>
             <Row>
               <Col>
                 <label>Profile Picture</label>
@@ -1039,48 +1153,55 @@ const handleCloseAuthorsViewModal = () => setShowAuthorsViewModal(false);
             </Row>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseAddModal}>
+            <Button
+              variant="custom"
+              className="edit-button"
+              onClick={handleCloseAddModal}
+            >
               Close
             </Button>
-            <Button variant="primary" onClick={handleSave}>
+            <Button
+              variant="custom"
+              className="delete-button"
+              onClick={handleSave}
+            >
               Save
             </Button>
           </Modal.Footer>
         </Modal>
 
         <Modal show={showAuthorsViewModal} onHide={handleCloseAuthorsViewModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Selected Book Authors</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <Table striped bordered hover className="mt-4">
-        <tr>
-              <th>Emri</th>
-              <th>Mbiemri</th>
-              <th>Nofka</th>
-        </tr>
-
-        <tbody>
-            {selectedBookAuthors.length === 0 ? (
+          <Modal.Header closeButton>
+            <Modal.Title>Selected Book Authors</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Table striped bordered hover className="mt-4">
               <tr>
-                <td colSpan="12" className="text-center">
-                  Loading...
-                </td>
+                <th>Emri</th>
+                <th>Mbiemri</th>
+                <th>Nofka</th>
               </tr>
-            ) : (
-              selectedBookAuthors.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.emri}</td>
-                  <td>{item.mbiemri}</td>
-                  <td>{item.nofka}</td>
-                </tr>
-                ))
-              )}
-                </tbody>
-                </Table>
-        </Modal.Body>
-      </Modal>  
 
+              <tbody>
+                {selectedBookAuthors.length === 0 ? (
+                  <tr>
+                    <td colSpan="12" className="text-center">
+                      Loading...
+                    </td>
+                  </tr>
+                ) : (
+                  selectedBookAuthors.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.emri}</td>
+                      <td>{item.mbiemri}</td>
+                      <td>{item.nofka}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </Table>
+          </Modal.Body>
+        </Modal>
       </Container>
     </Fragment>
   );
