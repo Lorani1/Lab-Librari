@@ -6,22 +6,19 @@ using System.Text;
 using labback.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text.Json.Serialization;
-using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure JWT settings
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 builder.Services.Configure<JwtSettings>(jwtSettings);
 
 var jwtKey = jwtSettings.GetValue<string>("Key");
 var key = Encoding.UTF8.GetBytes(jwtKey);
 
-// Configure DbContext
+
 builder.Services.AddDbContext<LibriContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("local")));
 
-// Configure Controllers with JSON options
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -29,7 +26,6 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
-// Configure Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -59,13 +55,9 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-// Configure PasswordService
 builder.Services.AddScoped<PasswordService>();
-
-// Configure Logging
 builder.Services.AddLogging();
 
-// Configure Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -93,22 +85,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             }
         };
     });
-
-// Configure CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         builder => builder
-            .WithOrigins("http://localhost:3000", "https://localhost:3000")
+            .WithOrigins("http://localhost:3002", "https://localhost:3002")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
 });
 
-// Add JwtKey as a singleton
 builder.Services.AddSingleton<string>(jwtKey);
 
-// Configure Distributed Memory Cache and Session
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -116,6 +104,9 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+// Register the LibriContext for use in the middleware
+builder.Services.AddScoped<LibriContext>();
 
 var app = builder.Build();
 
@@ -137,13 +128,16 @@ app.UseAuthorization();
 // Add session middleware
 app.UseSession();
 
+// Add the token validation middleware
+
+
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
         Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "foto")),
     RequestPath = "/foto"
 });
-
+app.UseMiddleware<TokenValidationMiddleware>();
 app.MapControllers();
 
 app.Run();

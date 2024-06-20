@@ -19,13 +19,7 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-getBooks: async () => {
-  const response = await fetch('/api/books');
-  if (!response.ok) {
-    throw new Error('Failed to fetch books');
-  }
-  return response.json();
-},
+
 
 
 api.interceptors.response.use(
