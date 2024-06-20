@@ -1,6 +1,5 @@
-// src/components/ExchangeForm.js
 import React, { useState, useEffect } from 'react';
-import { createExchange, updateExchange } from './apiService';
+import apiService from './apiService'; // Import the default export object
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -9,17 +8,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 const ExchangeForm = ({ exchange, onFormSubmit }) => {
-  const [klientId, setKlientId] = useState('');
+  const [nrPersonal, setNrPersonal] = useState('');
   const [libriId, setLibriId] = useState('');
   const [status, setStatus] = useState('');
 
   useEffect(() => {
     if (exchange) {
-      setKlientId(exchange.klientId);
+      setNrPersonal(exchange.nrPersonal);
       setLibriId(exchange.libriId);
       setStatus(exchange.status);
     } else {
-      setKlientId('');
+      setNrPersonal('');
       setLibriId('');
       setStatus('');
     }
@@ -28,34 +27,30 @@ const ExchangeForm = ({ exchange, onFormSubmit }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     
-   
-    const exchangeDTO = { klientId, libriId };
+    const exchangeDTO = { nrPersonal, libriId, status };
     
- 
     if (exchange) {
-      await updateExchange(exchange.exchangeId, exchangeDTO);
+      await apiService.updateExchange(exchange.exchangeId, exchangeDTO); // Use the methods from apiService
     } else {
-      await createExchange(exchangeDTO);
+      await apiService.createExchange(exchangeDTO);
     }
- 
+    
     if (typeof onFormSubmit === 'function') {
       onFormSubmit();
     }
   };
   
-  
-
   return (
     <Container className="mt-5">
       <h2>{exchange ? 'Update' : 'Create'} Exchange</h2>
       <Form onSubmit={handleSubmit}>
-        <Form.Group as={Row} className="mb-3" controlId="formKlientId">
-          <Form.Label column sm="2">Klient ID:</Form.Label>
+        <Form.Group as={Row} className="mb-3" controlId="formNrPersonal">
+          <Form.Label column sm="2">Nr Personal:</Form.Label>
           <Col sm="10">
             <Form.Control
               type="text"
-              value={klientId}
-              onChange={(e) => setKlientId(e.target.value)}
+              value={nrPersonal}
+              onChange={(e) => setNrPersonal(e.target.value)}
               required
             />
           </Col>

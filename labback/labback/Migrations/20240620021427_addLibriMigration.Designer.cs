@@ -12,8 +12,8 @@ using labback.Models;
 namespace labback.Migrations
 {
     [DbContext(typeof(LibriContext))]
-    [Migration("20240604090729_initial")]
-    partial class initial
+    [Migration("20240620021427_addLibriMigration")]
+    partial class addLibriMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -191,6 +191,9 @@ namespace labback.Migrations
                     b.Property<DateTime>("ExchangeDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
                     b.Property<int>("KlientId")
                         .HasColumnType("int");
 
@@ -267,6 +270,39 @@ namespace labback.Migrations
                     b.HasIndex("RoliID");
 
                     b.ToTable("Klients");
+                });
+
+            modelBuilder.Entity("labback.Models.Notification", b =>
+                {
+                    b.Property<int>("notificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("notificationId"));
+
+                    b.Property<int>("exchangeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isRead")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("klientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("notificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("notificationId");
+
+                    b.HasIndex("exchangeId");
+
+                    b.HasIndex("klientId");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("labback.Models.RefreshToken", b =>
@@ -532,6 +568,25 @@ namespace labback.Migrations
                     b.Navigation("Roli");
                 });
 
+            modelBuilder.Entity("labback.Models.Notification", b =>
+                {
+                    b.HasOne("labback.Models.Exchange", "exchange")
+                        .WithMany("Notifications")
+                        .HasForeignKey("exchangeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("labback.Models.Klient", "klient")
+                        .WithMany()
+                        .HasForeignKey("klientId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("exchange");
+
+                    b.Navigation("klient");
+                });
+
             modelBuilder.Entity("labback.Models.RefreshToken", b =>
                 {
                     b.HasOne("labback.Models.Klient", "Klient")
@@ -564,6 +619,11 @@ namespace labback.Migrations
             modelBuilder.Entity("labback.Models.Autori", b =>
                 {
                     b.Navigation("AutoriLibris");
+                });
+
+            modelBuilder.Entity("labback.Models.Exchange", b =>
+                {
+                    b.Navigation("Notifications");
                 });
 
             modelBuilder.Entity("labback.Models.Klient", b =>

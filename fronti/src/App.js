@@ -27,6 +27,13 @@ import Product from "./components/Products/Product/Product";
 import Products from "./components/Products/Products";
 import Ratings from "./dashboard/Ratings";
 import Pozita from "./dashboard/pozita";
+import ExchangeForm from "./Exchange/ExchangeForm";
+import ExchangeList from "./Exchange/ExchangeList";
+import ExchangeApprove from "./Exchange/ExchangeApprove";
+import apiService from "./Exchange/apiService";
+import getNotifications from "./Noitification/getNotifications";
+import Notification from "./Noitification/Notification";
+import Exchange from "./Exchange/Exchange";
 
 function App() {
   return (
@@ -56,6 +63,13 @@ function App() {
           <ProtectedRoute path="/Products" component={Products} />
           <ProtectedRoute path="/ratings" component={Ratings} />
           <ProtectedRoute path="/product-view/:id" component={ProductView} />
+          <ProtectedRoute path="/exchangeForm" component={ExchangeForm} />
+          <ProtectedRoute path="/exchangeList" component={ExchangeList} />
+          <ProtectedRoute path="/exchangeApprove" component={ExchangeApprove} />
+          <ProtectedRoute path="/getNotifications" component={getNotifications} />
+          <ProtectedRoute path="/Notificationss" component={Notification} />
+          <ProtectedRoute path="/Exchange" component={Exchange} />
+          <ProtectedRoute path="/apiService" component={apiService} />
 
           <Route path="/registration" component={Registration} />
           <Route path="/" component={Login} />

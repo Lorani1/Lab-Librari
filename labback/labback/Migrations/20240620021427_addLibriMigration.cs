@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace labback.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class addLibriMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -254,7 +254,8 @@ namespace labback.Migrations
                     LibriId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExchangeDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -299,6 +300,33 @@ namespace labback.Migrations
                         principalTable: "Librat",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    notificationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isRead = table.Column<bool>(type: "bit", nullable: false),
+                    klientId = table.Column<int>(type: "int", nullable: false),
+                    exchangeId = table.Column<int>(type: "int", nullable: false),
+                    notificationTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.notificationId);
+                    table.ForeignKey(
+                        name: "FK_Notifications_Exchanges_exchangeId",
+                        column: x => x.exchangeId,
+                        principalTable: "Exchanges",
+                        principalColumn: "ExchangeId");
+                    table.ForeignKey(
+                        name: "FK_Notifications_Klients_klientId",
+                        column: x => x.klientId,
+                        principalTable: "Klients",
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.InsertData(
@@ -346,6 +374,16 @@ namespace labback.Migrations
                 column: "zhanriId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Notifications_exchangeId",
+                table: "Notifications",
+                column: "exchangeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_klientId",
+                table: "Notifications",
+                column: "klientId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RatingComments_KlientID_LibriID",
                 table: "RatingComments",
                 columns: new[] { "KlientID", "LibriID" },
@@ -374,7 +412,7 @@ namespace labback.Migrations
                 name: "AutoriLibris");
 
             migrationBuilder.DropTable(
-                name: "Exchanges");
+                name: "Notifications");
 
             migrationBuilder.DropTable(
                 name: "RatingComments");
@@ -389,25 +427,28 @@ namespace labback.Migrations
                 name: "Autori");
 
             migrationBuilder.DropTable(
-                name: "Librat");
-
-            migrationBuilder.DropTable(
-                name: "Klients");
+                name: "Exchanges");
 
             migrationBuilder.DropTable(
                 name: "Pozitat");
 
             migrationBuilder.DropTable(
-                name: "ShtepiteBotuese");
+                name: "Klients");
 
             migrationBuilder.DropTable(
-                name: "zhanri");
+                name: "Librat");
 
             migrationBuilder.DropTable(
                 name: "Qytetet");
 
             migrationBuilder.DropTable(
                 name: "Roli");
+
+            migrationBuilder.DropTable(
+                name: "ShtepiteBotuese");
+
+            migrationBuilder.DropTable(
+                name: "zhanri");
         }
     }
 }

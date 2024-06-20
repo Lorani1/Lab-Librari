@@ -12,7 +12,7 @@ import {
   BsBookFill,
 } from "react-icons/bs";
 
-function Sidebar({ openSidebarToggle, OpenSidebar, handleCustomersClick , handleLibriClick,handleAutoriClick, handleStafiClick,handleQytetiClick, handleZhanriClick,handleShtepiaClick}) {
+function Sidebar({ openSidebarToggle, OpenSidebar, handleCustomersClick , handleLibriClick,handleAutoriClick, handleStafiClick,handleQytetiClick, handleZhanriClick,handleShtepiaClick,handleExchangeListClick,handleExchangeApproveClick,handleExchangeFormClick}) {
   return (
     <aside
       id="sidebar"
@@ -94,6 +94,33 @@ function Sidebar({ openSidebarToggle, OpenSidebar, handleCustomersClick , handle
             onClick={handleShtepiaClick}
           >
             <BsBookFill className="icon" /> Shtepia Botuese
+          </Link>
+        </li>
+        <li className="sidebar-list-item">
+          <Link
+            to="/ExchangeList"
+            className="sidebar-link"
+            onClick={handleExchangeListClick}
+          >
+            <BsBookFill className="icon" /> Exchange List
+          </Link>
+        </li>
+        <li className="sidebar-list-item">
+          <Link
+            to="/ExchangeForm"
+            className="sidebar-link"
+            onClick={handleExchangeFormClick}
+          >
+            <BsBookFill className="icon" /> Exchange Form
+          </Link>
+        </li>
+        <li className="sidebar-list-item">
+          <Link
+            to="/ExchangeApprove"
+            className="sidebar-link"
+            onClick={handleExchangeApproveClick}
+          >
+            <BsBookFill className="icon" /> Exchange Approve
           </Link>
         </li>
         <li className="sidebar-list-item">

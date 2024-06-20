@@ -1,10 +1,12 @@
 import axios from 'axios';
 
+// Base URL for the API
 const api = axios.create({
-  baseURL: 'https://localhost:7101/api',
+  baseURL: process.env.REACT_APP_API_BASE_URL || 'https://localhost:7101/api', // Use environment variables for configuration
   withCredentials: true // Ensure cookies are sent with requests
 });
 
+// Request interceptor to attach the token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('authToken');
@@ -17,7 +19,16 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+getBooks: async () => {
+  const response = await fetch('/api/books');
+  if (!response.ok) {
+    throw new Error('Failed to fetch books');
+  }
+  return response.json();
+},
 
+
+// Response interceptor to handle token refresh on 401 status
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -29,7 +40,7 @@ api.interceptors.response.use(
         if (!refreshToken) {
           throw new Error('No refresh token available');
         }
-        const response = await axios.post('/Klient/refresh-token', {}, {
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL || 'https://localhost:7101/api'}/Klient/refresh-token`, {}, {
           headers: {
             'Authorization': `Bearer ${refreshToken}`
           },
@@ -41,6 +52,7 @@ api.interceptors.response.use(
         originalRequest.headers['Authorization'] = 'Bearer ' + authToken;
         return api(originalRequest);
       } catch (refreshError) {
+        console.error('Failed to refresh token', refreshError);
         localStorage.removeItem('authToken');
         sessionStorage.removeItem('refreshToken');
         window.location.href = '/login';

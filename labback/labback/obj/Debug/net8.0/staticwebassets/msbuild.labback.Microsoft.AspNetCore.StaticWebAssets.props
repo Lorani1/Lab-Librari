@@ -288,6 +288,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\7769ac1d-2ac0-4d2b-9c18-021f3e7531b0_e68dd18c-6d1a-4a4e-b381-0fbb254abfd5_Libri2.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\8289866e-16bc-4e23-a879-99f379d463c1_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>labback</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/labback</BasePath>
+      <RelativePath>foto/8289866e-16bc-4e23-a879-99f379d463c1_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\8289866e-16bc-4e23-a879-99f379d463c1_[removal.ai]_95dec10a-a935-4cb4-9267-5411c7553242-book3.png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\foto\8d0029a3-4877-486f-a9a9-13e531dedf49_e68dd18c-6d1a-4a4e-b381-0fbb254abfd5_Libri2.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>labback</SourceId>

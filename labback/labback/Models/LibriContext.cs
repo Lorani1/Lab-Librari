@@ -17,12 +17,13 @@ namespace labback.Models
         public DbSet<Autori> Autori { get; set; }
         public DbSet<AutoriLibri> AutoriLibris { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-        public DbSet<Roli> Roli { get; set; } 
+        public DbSet<Roli> Roli { get; set; }
 
-        public DbSet<pozita> Pozitat { get; set; } 
+        public DbSet<pozita> Pozitat { get; set; }
         public DbSet<Stafi> Stafis { get; set; }
 
         public DbSet<RatingComment> RatingComments { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -71,8 +72,8 @@ namespace labback.Models
                 .HasForeignKey(e => e.LibriId);
 
             modelBuilder.Entity<Stafi>()
-                .HasOne(s => s.pozita) 
-                .WithMany() 
+                .HasOne(s => s.pozita)
+                .WithMany()
                 .HasForeignKey(s => s.pozita_ID);
 
             modelBuilder.Entity<AutoriLibri>()
@@ -93,6 +94,19 @@ namespace labback.Models
                 .HasOne(rt => rt.Klient)
                 .WithMany(k => k.RefreshTokens)
                 .HasForeignKey(rt => rt.KlientID);
+
+            modelBuilder.Entity<Notification>()
+               .HasOne(n => n.klient)
+               .WithMany()
+               .HasForeignKey(n => n.klientId)
+               .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Notification>()
+                 .HasOne(n => n.exchange)
+                 .WithMany(e => e.Notifications)
+                 .HasForeignKey(n => n.exchangeId)
+                 .OnDelete(DeleteBehavior.NoAction);
+
 
             // Define the relationship between Klient and Roli
             modelBuilder.Entity<Klient>()

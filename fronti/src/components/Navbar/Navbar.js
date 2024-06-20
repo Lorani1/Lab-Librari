@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Badge } from "react-bootstrap"; // Import Badge from react-bootstrap
 import { Link, useHistory } from "react-router-dom";
 import logo from "../../assets/circles.png";
 import api from "../../api";
@@ -8,16 +8,20 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../../AuthContext'; // Import useAuth hook to access userRole
 import checkRefreshTokenValidity from './checkRefreshTokenValidity'; // Import the check function
+import Notification from "../../Noitification/Notification"; // Import Notification component
 
 const CustomNavbar = ({ totalItems }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [editName, setEditName] = useState("");
   const [editSurname, setEditSurname] = useState("");
+  const [editNrPersonal, setEditNrPersonal] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
   const [changesMade, setChangesMade] = useState(false);
+  const [showNotificationModal, setShowNotificationModal] = useState(false); // State to control notification modal visibility
   const history = useHistory();
   const { userRole } = useAuth(); // Destructure userRole from useAuth hook
+  const notificationCount = 3; // Example notification count, replace with actual count logic if needed
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -34,6 +38,7 @@ const CustomNavbar = ({ totalItems }) => {
           setUserInfo(response.data);
           setEditName(response.data.emri);
           setEditSurname(response.data.mbiemri);
+          setEditNrPersonal(response.data.nrPersonal);
         }
       } catch (error) {
         console.error('Error fetching user info:', error);
@@ -68,7 +73,7 @@ const CustomNavbar = ({ totalItems }) => {
 
     const interval = setInterval(validateRefreshToken, 300000); // Check every 5 minutes
     return () => clearInterval(interval); // Cleanup interval on component unmount
-}, [history]);
+  }, [history]);
 
   const handleNameChange = (e) => {
     setEditName(e.target.value);
@@ -151,12 +156,22 @@ const CustomNavbar = ({ totalItems }) => {
     localStorage.removeItem('authToken');
     sessionStorage.removeItem('refreshToken'); // Ensure refresh token is also removed
     history.push('/login');
-};
-
+  };
 
   const triggerFileInput = () => {
     document.getElementById('profilePicInput').click();
   }
+
+  const toggleNotificationModal = () => {
+    setShowNotificationModal(!showNotificationModal);
+  }
+
+  const BadgeNotification = ({ count }) => (
+    <Badge pill variant="danger" style={{ position: 'absolute', top: '-10px', right: '-10px', zIndex: '99' }}>
+      {count}
+    </Badge>
+  );
+
   return (
     <>
       <style>
@@ -185,6 +200,22 @@ const CustomNavbar = ({ totalItems }) => {
                 </span>
               </Nav.Link>
             )}
+            <Nav.Link onClick={toggleNotificationModal}>
+              <span className="font-weight-bold text-uppercase" style={{ fontSize: "1em", color: "white", fontFamily: "system-ui", fontWeight: "bold" }}>
+                Notifications
+              </span>
+              {notificationCount > 0 && <BadgeNotification count={notificationCount} />} {/* Display badge only if there are notifications */}
+            </Nav.Link>
+            <Nav.Link as={Link} to="/Exchange">
+              <span className="font-weight-bold text-uppercase" style={{ fontSize: "1em", color: "white", fontFamily: "system-ui", fontWeight: "bold" }}>
+                My Exchanges
+              </span>
+            </Nav.Link>
+            <Nav.Link as={Link} to="/ExchangeForm">
+              <span className="font-weight-bold text-uppercase" style={{ fontSize: "1em", color: "white", fontFamily: "system-ui", fontWeight: "bold" }}>
+                Make Exchange
+              </span>
+            </Nav.Link>
           </Nav>
           <Nav className="ml-auto" style={{ marginRight: '120px', color: "white" }}>
             {userInfo && (
@@ -201,7 +232,7 @@ const CustomNavbar = ({ totalItems }) => {
                 />
                 <div onClick={() => setDropdownOpen(!dropdownOpen)} className="dropdown-toggle" style={{ cursor: 'pointer' , paddingTop: '5px' ,fontSize:'1em'}}>
                   {userInfo.emri}
-                </div>
+                  </div>
               </>
             )}
             {dropdownOpen && userInfo && (
@@ -246,17 +277,27 @@ const CustomNavbar = ({ totalItems }) => {
                     placeholder="Edit Surname"
                   />
                 </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={editNrPersonal}
+                    onChange={handleSurnameChange}
+                    placeholder="Edit NrPersonal"
+                  />
+                </div>
                 <button onClick={saveChanges} style={{ display: 'block', width: '100%', margin: '10px 0', padding: '10px', backgroundColor: '#001524', color: '#fff', border: 'none', borderRadius: '4px' }}>
                   Save Changes
                 </button>
                 <button onClick={logout} style={{ display: 'block', width: '100%', margin: '10px 0', padding: '10px', backgroundColor: '#001524', color: '#fff', border: 'none', borderRadius: '4px' }}>
-                Logout
-              </button>
+                  Logout
+                </button>
               </div>
             )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <Notification showModal={showNotificationModal} toggleModal={toggleNotificationModal} />
     </>
   );
 };

@@ -16,6 +16,8 @@
 
         public DateTime ExchangeDate { get; set; }
         public DateTime ReturnDate { get; set; } // Automatically set to 14 days after ExchangeDate
+        public bool IsApproved { get; set; } // New property
 
+        public ICollection<Notification> Notifications { get; set; }
     }
 }
