@@ -267,24 +267,27 @@ namespace labback.Controllers
                 var keyBytes = Encoding.UTF8.GetBytes(_jwtKey);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
-                    Subject = new ClaimsIdentity(new[]
+                    Subject = new ClaimsIdentity(new Claim[]
                     {
                 new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
                 new Claim(ClaimTypes.Email, klient.Email),
-                new Claim(ClaimTypes.Role, klient.Roli.Name) 
-            }),
-                    Expires = DateTime.UtcNow.AddDays(7), 
+                new Claim(ClaimTypes.Role, klient.Roli.Name),
+                new Claim("KlientID", klient.ID.ToString()) // Include KlientID in the token
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(7), // Token expiration
+                    Issuer = "yourdomain.com",
+                    Audience = "yourdomain.com", // Set the correct audience
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
                 };
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var tokenString = tokenHandler.WriteToken(token);
 
-                
+                // Generate a refresh token
                 var refreshToken = GenerateRefreshToken();
                 refreshToken.KlientID = klient.ID;
 
-               
+                // Save the refresh token
                 _LibriContext.RefreshTokens.Add(refreshToken);
                 await _LibriContext.SaveChangesAsync();
 
@@ -295,7 +298,7 @@ namespace labback.Controllers
                     Token = tokenString,
                     Expiration = tokenDescriptor.Expires,
                     RefreshToken = refreshToken.Token,
-                    Roli = klient.Roli.Name 
+                    Roli = klient.Roli.Name // Include the role in the response
                 });
             }
             catch (Exception ex)
@@ -304,6 +307,7 @@ namespace labback.Controllers
                 return StatusCode(500, "An error occurred during login");
             }
         }
+
 
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken([FromBody] string requestRefreshToken)
