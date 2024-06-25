@@ -7,7 +7,7 @@ import Cart from "./components/Cart/Cart";
 import Checkout from "./components/CheckoutForm/Checkout/Checkout";
 import ProductView from "./components/ProductView/ProductView";
 import Footer from "./components/Footer/Footer";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useHistory, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -18,10 +18,9 @@ import axios from "axios";
 import Manga from "./components/Manga/Manga";
 import Crime from "./components/Crime/Crime";
 import Fiction from "./components/Fiction/Fiction";
-import { useHistory, Link } from "react-router-dom";
-import checkRefreshToken from './checkRefreshToken';
+
 const Home = () => {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [mangaProducts, setMangaProducts] = useState([]);
   const [fictionProducts, setFictionProducts] = useState([]);
@@ -29,7 +28,8 @@ const Home = () => {
   const [crimeProducts, setCrimeProducts] = useState([]);
   const [animeProducts, setAnimeProducts] = useState([]);
   const [featureProducts, setFeatureProducts] = useState([]);
-  const [books, setBooks] = useState([]); // New state for books
+  const [books, setBooks] = useState([]);
+  const [mostExchangedBooks, setMostExchangedBooks] = useState([]);
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
@@ -37,30 +37,9 @@ const Home = () => {
   const history = useHistory();
 
   useEffect(() => {
-    const refreshToken = sessionStorage.getItem('refreshToken');
-
-    if (refreshToken) {
-        checkRefreshToken(refreshToken)
-            .then(valid => {
-                if (!valid) {
-                    sessionStorage.removeItem('refreshToken');
-                    console.log('Refresh token is invalid and has been removed');
-                } else {
-                    console.log('Refresh token is valid');
-                }
-            })
-            .catch(error => {
-                console.error('Error checking refresh token:', error);
-            });
-    }
-}, []);
-
-  useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       history.push("/login");
-    } else {
-      checkRefreshToken();
     }
   }, [history]);
 
@@ -78,6 +57,7 @@ const Home = () => {
     });
     setMangaProducts(data);
   };
+
   const fetchAnimeProducts = async () => {
     try {
       const { data } = await commerce.products.list({
@@ -86,8 +66,6 @@ const Home = () => {
       setAnimeProducts(data);
     } catch (error) {
       console.error("Error fetching anime products:", error);
-      // Handle the error appropriately, such as displaying a message to the user
-      // or retrying the request after a delay
     }
   };
 
@@ -111,6 +89,7 @@ const Home = () => {
     });
     setBioProducts(data);
   };
+
   const fetchCrimeProducts = async () => {
     try {
       const { data } = await commerce.products.list({
@@ -134,6 +113,15 @@ const Home = () => {
       .catch((error) => {
         console.error("Error fetching book data:", error);
       });
+  };
+
+  const fetchMostExchangedBooks = async () => {
+    try {
+      const response = await axios.get("https://localhost:7101/api/TopThreeMostExchangedBooks");
+      setMostExchangedBooks(response.data);
+    } catch (error) {
+      console.error("Error fetching top three most exchanged books:", error);
+    }
   };
 
   const fetchCart = async () => {
@@ -188,6 +176,7 @@ const Home = () => {
     fetchCrimeProducts();
     fetchAnimeProducts();
     fetchBooks();
+    fetchMostExchangedBooks(); // Fetch top three most exchanged books on component mount
   }, []);
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
@@ -248,6 +237,34 @@ const Home = () => {
           <div className="container">
             <h1 className="text-center mt-5 mb-4">E-Library</h1>
             <div className="row row-cols-1 row-cols-md-3 g-4">
+              {/* Render top three most exchanged books */}
+              {mostExchangedBooks.map((book) => (
+                <div key={book.libriId} className="col">
+                  <div className="book-card">
+                    <div className="book-cover">
+                      <img
+                        src={book.profilePictureUrl}
+                        alt={book.titulli}
+                        className="card-img-top"
+                      />
+                    </div>
+                    <div className="book-details">
+                      <h5 className="book-title">{book.titulli}</h5>
+                      <p className="book-isbn">ISBN: {book.isbn}</p>
+                      <p
+                        className={`book-stock ${
+                          book.inStock ? "text-success" : "text-danger"
+                        }`}
+                      >
+                        {book.inStock ? "In Stock" : "Out of Stock"}
+                      </p>
+                      <button className="btn btn-primary">Exchange</button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {/* Render other books */}
               {books.map((book) => (
                 <div key={book.id} className="col">
                   <div className="book-card">
@@ -268,6 +285,7 @@ const Home = () => {
                       >
                         {book.inStock ? "In Stock" : "Out of Stock"}
                       </p>
+                      <button className="btn btn-primary">Exchange</button>
                     </div>
                   </div>
                 </div>

@@ -52,7 +52,7 @@ const Notification = ({ showModal, toggleModal }) => {
             {notifications.map((notification) => (
               <ListGroup.Item key={notification.notificationId} className="bg-dark" style={{ color: 'white' }}>
                 <p>Message: {notification.message}</p>
-                <p>Status: {notification.isRead ? 'Not Read' : 'Read'}</p>
+                <p>Status: {notification.isRead ? 'Read' : 'Not Read'}</p>
                 <p>Client ID: {notification.klientId}</p>
               </ListGroup.Item>
             ))}

@@ -10,81 +10,73 @@ import {
 import {
   BarChart,
   Bar,
-  Cell,
+  LineChart,
+  Line,
+  CartesianGrid,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
-  LineChart,
-  Line,
 } from "recharts";
 
 function Main() {
-  const data = [
-    {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "Page E",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: "Page F",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: "Page G",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
   const [bookCount, setBookCount] = useState(0);
+  const [klientCount, setKlientCount] = useState(0);
+  const [exchangeCount, setExchangeCount] = useState(0);
+  const [stafiCount, setStafiCount] = useState(0);
 
   useEffect(() => {
-    const fetchBookCount = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch("https://localhost:7101/api/Libri/count");
-        if (response.ok) {
-          const data = await response.json();
-          setBookCount(data.count);
+        const bookResponse = await fetch("https://localhost:7101/api/Libri/count");
+        if (bookResponse.ok) {
+          const bookData = await bookResponse.json();
+          setBookCount(bookData.count);
         } else {
           throw new Error("Failed to fetch book count");
         }
+
+        const klientResponse = await fetch("https://localhost:7101/api/Klient/count");
+        if (klientResponse.ok) {
+          const klientData = await klientResponse.json();
+          setKlientCount(klientData.count);
+        } else {
+          throw new Error("Failed to fetch klient count");
+        }
+
+        const exchangeResponse = await fetch("https://localhost:7101/api/Exchange/count");
+        if (exchangeResponse.ok) {
+          const exchangeData = await exchangeResponse.json();
+          setExchangeCount(exchangeData.count);
+        } else {
+          throw new Error("Failed to fetch exchange count");
+        }
+
+        const stafiResponse = await fetch("https://localhost:7101/api/Stafi/count");
+        if (stafiResponse.ok) {
+          const stafiData = await stafiResponse.json();
+          setStafiCount(stafiData.count);
+        } else {
+          throw new Error("Failed to fetch stafi count");
+        }
       } catch (error) {
-        console.error("Error fetching book count:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
-    fetchBookCount();
+    fetchData();
   }, []);
+
+  const data = [
+    { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
+    { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
+    { name: "Page C", uv: 2000, pv: 9800, amt: 2290 },
+    { name: "Page D", uv: 2780, pv: 3908, amt: 2000 },
+    { name: "Page E", uv: 1890, pv: 4800, amt: 2181 },
+    { name: "Page F", uv: 2390, pv: 3800, amt: 2500 },
+    { name: "Page G", uv: 3490, pv: 4300, amt: 2100 },
+  ];
 
   return (
     <main className="main-container">
@@ -102,30 +94,37 @@ function Main() {
             <h1>{bookCount}</h1>
           </Link>
         </div>
-
-        <div className="card">
-          <div className="card-inner">
-            <h3>CATEGORIES</h3>
-            <BsFillGrid3X3GapFill className="card_icon" />
-          </div>
-          <h1>12</h1>
-        </div>
+        
         <div className="card">
           <Link to="/klienti" className="card-link">
             <div className="card-inner">
-              <h3>CUSTOMERS</h3>
+              <h3>Customers</h3>
               <BsPeopleFill className="card_icon" />
             </div>
-            <h1>33</h1>
+            <h1>{klientCount}</h1>
           </Link>
         </div>
+        
         <div className="card">
+        <Link to="/exchangeList" className="card-link">
           <div className="card-inner">
-            <h3>ALERTS</h3>
+            <h3>Exchange</h3>
             <BsFillBellFill className="card_icon" />
           </div>
-          <h1>42</h1>
+          <h1>{exchangeCount}</h1>
+          </Link>
         </div>
+        
+        <div className="card">
+        <Link to="/staf" className="card-link">
+          <div className="card-inner">
+            <h3>Stafi</h3>
+            <BsFillBellFill className="card_icon" />
+          </div>
+          <h1>{stafiCount}</h1>
+        </Link>
+        </div>
+        
       </div>
 
       <div className="charts">
@@ -134,20 +133,15 @@ function Main() {
             width={500}
             height={300}
             data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="pv" fill="#762b47" />
-            <Bar dataKey="uv" fill="#b5c0d0" />
+            <Bar dataKey="pv" fill="#8884d8" />
+            <Bar dataKey="uv" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
 
@@ -156,12 +150,7 @@ function Main() {
             width={500}
             height={300}
             data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
@@ -171,10 +160,10 @@ function Main() {
             <Line
               type="monotone"
               dataKey="pv"
-              stroke="#762b47"
+              stroke="#8884d8"
               activeDot={{ r: 8 }}
             />
-            <Line type="monotone" dataKey="uv" stroke="#b5c0d0" />
+            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
           </LineChart>
         </ResponsiveContainer>
       </div>

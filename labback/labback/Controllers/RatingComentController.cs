@@ -108,7 +108,6 @@ namespace labback.Controllers
                                                      KlientName = rc.Klient.Emri + " " + rc.Klient.Mbiemri,
                                                      LibriID = rc.LibriID,
                                                      LibriTitle = rc.Libri.Titulli
-
                                                  })
                                                  .FirstOrDefaultAsync(rc => rc.RatingsCommentID == ratingComment.RatingsCommentID);
 
@@ -178,29 +177,6 @@ namespace labback.Controllers
         {
             return _context.RatingComments.Any(e => e.RatingsCommentID == id);
         }
-        [HttpPatch("rating-comment/{id}")]
-        public async Task<IActionResult> PatchRatingComment(int id, [FromBody] PartialUpdateRatingCommentModel model)
-        {
-            var ratingComment = await _context.RatingComments.FindAsync(id);
-            if (ratingComment == null)
-            {
-                return NotFound();
-            }
 
-            if (model.Rating.HasValue)
-            {
-                ratingComment.Rating = model.Rating.Value;
-            }
-
-            if (!string.IsNullOrEmpty(model.Comment))
-            {
-                ratingComment.Comment = model.Comment;
-            }
-
-            _context.Entry(ratingComment).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
     }
 }

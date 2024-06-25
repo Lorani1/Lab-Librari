@@ -1,7 +1,7 @@
-// NotificationService.js
 import api from '../api'; // Adjust the import path accordingly
 
 const API_URL = 'https://localhost:7101/api/Notification';
+
 const notificationService = {
   fetchNotifications: async () => {
     try {
@@ -22,6 +22,7 @@ const notificationService = {
       throw error;
     }
   },
+
   updateNotification: async (id, notification) => {
     try {
       const response = await api.put(`${API_URL}/${id}`, notification, {
@@ -42,6 +43,16 @@ const notificationService = {
       return response.data;
     } catch (error) {
       console.error("Error deleting notification:", error.response ? error.response.data : error.message);
+      throw error;
+    }
+  },
+
+  getUnreadCount: async () => {
+    try {
+      const response = await api.get(`${API_URL}/unreadCount`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching unread notifications count:", error.response ? error.response.data : error.message);
       throw error;
     }
   }

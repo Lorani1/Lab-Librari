@@ -62,27 +62,70 @@ namespace labback.Controllers
 
                 var klientId = int.Parse(klientIdClaim.Value);
 
-                // Retrieve notifications for the logged-in klient and project them to NotificationDTO
+                // Retrieve notifications for the logged-in klient
                 var notifications = await _context.Notifications
+                    .Include(n => n.exchange)
+                        .ThenInclude(e => e.Libri)
                     .Where(n => n.klientId == klientId)
-                    .Select(n => new NotificationDTO
-                    {
-                        notificationId = n.notificationId,
-                        message = n.message,
-                        isRead = n.isRead,
-                        klientId = n.klientId,
-                        exchangeId = n.exchangeId,
-                        notificationTime = n.notificationTime,
-                        titulli = n.exchange.Libri.Titulli
-                    })
                     .ToListAsync();
 
-                return Ok(notifications);
+                // Update isRead status to true
+                foreach (var notification in notifications)
+                {
+                    notification.isRead = true;
+                }
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                // Project the notifications to NotificationDTO
+                var notificationDTOs = notifications.Select(n => new NotificationDTO
+                {
+                    notificationId = n.notificationId,
+                    message = n.message,
+                    isRead = n.isRead,
+                    klientId = n.klientId,
+                    exchangeId = n.exchangeId,
+                    notificationTime = n.notificationTime,
+                    titulli = n.exchange?.Libri?.Titulli ?? "N/A" // Use null-coalescing operator to handle null values
+                }).ToList();
+
+                return Ok(notificationDTOs);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while retrieving notifications");
                 return StatusCode(500, "An error occurred while retrieving notifications");
+            }
+        }
+
+        // GET: api/Notification/unreadCount
+        [HttpGet("unreadCount")]
+        [Authorize]
+        public async Task<IActionResult> GetUnreadNotificationCount()
+        {
+            try
+            {
+                // Extract KlientID from the JWT token
+                var klientIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (klientIdClaim == null)
+                {
+                    return Unauthorized("Invalid token, klient ID not found");
+                }
+
+                var klientId = int.Parse(klientIdClaim.Value);
+
+                // Count the unread notifications for the logged-in klient
+                var unreadCount = await _context.Notifications
+                    .Where(n => n.klientId == klientId && !n.isRead)
+                    .CountAsync();
+
+                return Ok(unreadCount);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while counting unread notifications");
+                return StatusCode(500, "An error occurred while counting unread notifications");
             }
         }
 

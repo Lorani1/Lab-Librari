@@ -23,7 +23,7 @@ const apiService = {
       const response = await axios.post(`${API_BASE_URL}`, exchangeData);
       return response.data;
     } catch (error) {
-      console.error('Error creating exchange:', error);
+      console.error('Error creating exchange:', error.response ? error.response.data : error.message);
       throw error;
     }
   },

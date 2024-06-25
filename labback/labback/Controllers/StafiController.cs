@@ -73,6 +73,20 @@ namespace labback.Controllers
 
             return CreatedAtAction(nameof(GetStafiById), new { id = stafi.ID }, stafi);
         }
+        [HttpGet("count")]
+        public IActionResult GetBookCount()
+        {
+            try
+            {
+                var stafiCount = _LibriContext.Stafis.Count();
+                return Ok(new { count = stafiCount });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error");
+            }
+        }
 
 
         [HttpPut("update/{id}")]

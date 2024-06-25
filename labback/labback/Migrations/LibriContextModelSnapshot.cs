@@ -481,7 +481,7 @@ namespace labback.Migrations
                     b.HasOne("labback.Libri", "Libri")
                         .WithMany("RatingComments")
                         .HasForeignKey("LibriID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Klient");

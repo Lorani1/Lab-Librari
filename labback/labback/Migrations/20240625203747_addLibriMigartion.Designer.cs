@@ -12,8 +12,8 @@ using labback.Models;
 namespace labback.Migrations
 {
     [DbContext(typeof(LibriContext))]
-    [Migration("20240620163912_ani")]
-    partial class ani
+    [Migration("20240625203747_addLibriMigartion")]
+    partial class addLibriMigartion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -484,7 +484,7 @@ namespace labback.Migrations
                     b.HasOne("labback.Libri", "Libri")
                         .WithMany("RatingComments")
                         .HasForeignKey("LibriID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Klient");

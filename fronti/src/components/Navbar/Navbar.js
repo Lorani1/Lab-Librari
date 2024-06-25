@@ -211,11 +211,6 @@ const CustomNavbar = ({ totalItems }) => {
                 My Exchanges
               </span>
             </Nav.Link>
-            <Nav.Link as={Link} to="/ExchangeForm">
-              <span className="font-weight-bold text-uppercase" style={{ fontSize: "1em", color: "white", fontFamily: "system-ui", fontWeight: "bold" }}>
-                Make Exchange
-              </span>
-            </Nav.Link>
           </Nav>
           <Nav className="ml-auto" style={{ marginRight: '120px', color: "white" }}>
             {userInfo && (

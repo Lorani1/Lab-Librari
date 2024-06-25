@@ -249,6 +249,22 @@ namespace labback.Controllers
 
             return NoContent();
         }
+        [HttpGet("count")]
+        public IActionResult GetKlientCount()
+        {
+            try
+            {
+                var klientCount = _LibriContext.Klients.Count();
+                return Ok(new { count = klientCount });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginModel model)
         {

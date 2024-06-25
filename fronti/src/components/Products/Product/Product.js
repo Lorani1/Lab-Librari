@@ -1,32 +1,40 @@
-import React from "react";
+import React, { useState } from 'react';
 import {
   Card,
   CardContent,
   CardMedia,
   Typography,
   Chip,
-} from "@material-ui/core";
-import { Link } from "react-router-dom";
-import useStyles from "./styles";
+  Button,
+} from '@material-ui/core';
+import useStyles from './styles';
+import ExchangeForm from '../../../Exchange/ExchangeForm'; 
 
 const Product = ({ product }) => {
   const classes = useStyles();
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <div className={classes.cardContainer}>
       <Card className={classes.card}>
-        <Link to={`product-view/${product.id}`}>
-          <div className={classes.imageContainer}>
-            <CardMedia
-              component="img"
-              alt={product.titulli}
-              height="140"
-              image={product.profilePictureUrl}
-              title={product.titulli}
-              className={classes.image}
-            />
-          </div>
-        </Link>
+        <div className={classes.imageContainer}>
+          <CardMedia
+            component="img"
+            alt={product.titulli}
+            height="140"
+            image={product.profilePictureUrl}
+            title={product.titulli}
+            className={classes.image}
+          />
+        </div>
         <CardContent className={classes.cardContent}>
           <Typography
             variant="h6"
@@ -45,14 +53,31 @@ const Product = ({ product }) => {
             Zhanri: {product.zhanri.emri}
             <br />
             <Chip
-              label={product.inStock ? "In Stock" : "Out of Stock"}
+              label={product.inStock ? 'In Stock' : 'Out of Stock'}
               className={`${classes.chip} ${
                 product.inStock ? classes.inStock : classes.outOfStock
               }`}
             />
           </Typography>
+          <div className={classes.buttonContainer}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleOpenModal}
+              className={classes.exchangeButton}
+            >
+              Exchange
+            </Button>
+          </div>
         </CardContent>
       </Card>
+
+      {/* ExchangeFormModal */}
+      <ExchangeForm
+        open={showModal}
+        onClose={handleCloseModal}
+        libriId={product.id} 
+      />
     </div>
   );
 };

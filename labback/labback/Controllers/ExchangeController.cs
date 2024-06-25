@@ -25,6 +25,29 @@ namespace labback.Controllers
             var exchanges = await _context.Exchanges
                 .Include(e => e.Klient)
                 .Include(e => e.Libri)
+                .ToListAsync();
+
+            foreach (var exchange in exchanges)
+            {
+                if (exchange.Status == "Approved")
+                {
+                    var libri = exchange.Libri;
+                    var approvedExchangesCount = await _context.Exchanges
+                        .CountAsync(e => e.LibriId == libri.ID && e.Status == "Approved");
+
+                    if (libri.InStock == 0 && libri.NrKopjeve > approvedExchangesCount)
+                    {
+                        libri.InStock = 1;
+                        _context.Entry(libri).State = EntityState.Modified;
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            var exchangeDTOs = exchanges
+                .OrderByDescending(e => e.ReturnDate) // Order by return date descending
+                .ThenBy(e => e.Status == "Not Returned Yet" ? 1 : (e.Status == "Ended" ? 2 : 3)) // Order by status
                 .Select(e => new
                 {
                     e.ExchangeId,
@@ -34,10 +57,26 @@ namespace labback.Controllers
                     e.ExchangeDate,
                     e.ReturnDate
                 })
-                .ToListAsync();
+                .ToList();
 
-            return exchanges;
+            return exchangeDTOs;
         }
+
+        [HttpGet("count")]
+        public IActionResult GetExchangeCount()
+        {
+            try
+            {
+                var exchangeCount = _context.Exchanges.Count();
+                return Ok(new { count = exchangeCount });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
 
         // GET: api/Exchange/{id}
         [HttpGet("{id}")]
@@ -52,6 +91,8 @@ namespace labback.Controllers
 
             return exchange;
         }
+
+
         [HttpPost]
         public async Task<ActionResult<Exchange>> PostExchange(ExchangeDTO exchangeDTO)
         {
@@ -86,23 +127,23 @@ namespace labback.Controllers
                     await _context.SaveChangesAsync();
                 }
 
-                // Check if the client already has an active exchange with the same LibriId
-                bool existingActiveExchange = await _context.Exchanges
-                                                            .AnyAsync(e => e.KlientId == klient.ID &&
-                                                                           e.LibriId == exchangeDTO.LibriId &&
-                                                                           e.Status == "Active");
+                // Check if the client already has an approved exchange with the same LibriId
+                bool existingApprovedExchange = await _context.Exchanges
+                                                              .AnyAsync(e => e.KlientId == klient.ID &&
+                                                                             e.LibriId == exchangeDTO.LibriId &&
+                                                                             e.Status == "Approved");
 
-                if (existingActiveExchange)
+                if (existingApprovedExchange)
                 {
-                    return BadRequest("The client already has an active exchange for this book.");
+                    return BadRequest("The client already has an approved exchange for this book.");
                 }
 
-                // Count the number of active exchanges for the given LibriId
-                int activeExchangeCount = await _context.Exchanges
-                    .CountAsync(e => e.LibriId == exchangeDTO.LibriId && e.Status == "Active");
+                // Count the number of approved exchanges for the given LibriId
+                int approvedExchangeCount = await _context.Exchanges
+                    .CountAsync(e => e.LibriId == exchangeDTO.LibriId && e.Status == "Approved");
 
-                // Compare the count of active exchanges with the number of copies (nrKopjeve)
-                if (activeExchangeCount >= libri.NrKopjeve)
+                // Compare the count of approved exchanges with the number of copies (nrKopjeve)
+                if (approvedExchangeCount >= libri.NrKopjeve)
                 {
                     // Update the inStock property to 0 and save changes
                     libri.InStock = 0;
@@ -134,7 +175,6 @@ namespace labback.Controllers
                 return StatusCode(500, $"Error creating exchange: {ex.Message}");
             }
         }
-
 
         // PUT: api/Exchange/{id}
         [HttpPut("{id}")]
@@ -286,7 +326,6 @@ namespace labback.Controllers
             }
         }
 
-
         [HttpGet("PendingApprovalLast24To48Hours")]
         public async Task<ActionResult<IEnumerable<Exchange>>> GetPendingApprovalExchangesLast24To48Hours()
         {
@@ -307,6 +346,7 @@ namespace labback.Controllers
                 return StatusCode(500, $"Error retrieving exchanges: {ex.Message}");
             }
         }
+
         // GET: api/Exchange/ByLoggedInKlient
         [HttpGet("ByLoggedInKlient")]
         [Authorize]
@@ -345,7 +385,7 @@ namespace labback.Controllers
             }
         }
 
-        // PUT: api/Exchange/EndExchange/{id}
+        // PUT: api/Exchange/EndExchange/{id}]
         [HttpPut("EndExchange/{id}")]
         public async Task<IActionResult> EndExchange(int id)
         {
@@ -372,6 +412,54 @@ namespace labback.Controllers
             }
         }
 
+        [HttpGet("ExpiringInThreeDays/{klientId}")]
+        public async Task<ActionResult<IEnumerable<object>>> GetExchangesExpiringInThreeDays(int klientId)
+        {
+            try
+            {
+                var now = DateTime.Now;
+                var threeDaysFromNow = now.AddDays(3);
 
+                var exchanges = await _context.Exchanges
+                    .Include(e => e.Klient)
+                    .Include(e => e.Libri)
+                    .Where(e => e.Status == "Approved" && e.KlientId == klientId && e.ReturnDate <= threeDaysFromNow && e.ReturnDate >= now)
+                    .Select(e => new
+                    {
+                        e.ExchangeId,
+                        Klient = new { e.KlientId, e.Klient.Email, e.Klient.Emri },
+                        Libri = new { e.LibriId, e.Libri.Isbn, e.Libri.Titulli },
+                        e.Status,
+                        e.ExchangeDate,
+                        e.ReturnDate
+                    })
+                    .ToListAsync();
+
+                // Send notification messages
+                foreach (var exchange in exchanges)
+                {
+                    var message = $"Dear {exchange.Klient.Emri}, your exchange period for the book '{exchange.Libri.Titulli}' expires in three days. Please return the book before the return date.";
+
+                    var notification = new Notification
+                    {
+                        message = message,
+                        isRead = false,
+                        klientId = exchange.Klient.KlientId,
+                        exchangeId = exchange.ExchangeId,
+                        notificationTime = DateTime.Now
+                    };
+
+                    _context.Notifications.Add(notification);
+                }
+
+                await _context.SaveChangesAsync();
+
+                return Ok(exchanges);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error retrieving exchanges: {ex.Message}");
+            }
+        }
     }
 }
