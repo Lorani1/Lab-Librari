@@ -13,7 +13,7 @@ const ExchangeForm = ({ open, onClose, libriId }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    // Reset form fields when modal opens or libriId changes
+    
     setNrPersonal('');
     setStatus('');
   }, [open, libriId]);
@@ -25,9 +25,9 @@ const ExchangeForm = ({ open, onClose, libriId }) => {
 
     try {
       await apiService.createExchange(exchangeDTO);
-      setShowToast(true); // Show success toast after submission
-      setErrorMessage(''); // Clear any previous error message
-      onClose(); // Close the modal after submission
+      setShowToast(true); 
+      setErrorMessage(''); 
+      onClose(); 
     } catch (error) {
       setErrorMessage(error.response ? error.response.data : 'Error creating exchange.');
     }
@@ -66,7 +66,7 @@ const ExchangeForm = ({ open, onClose, libriId }) => {
                 hidden
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="current" type="submit"  style={{ backgroundColor: '#001524', color: '#fff' }}>
               Create Exchange
             </Button>
           </Form>
@@ -84,8 +84,8 @@ const ExchangeForm = ({ open, onClose, libriId }) => {
           zIndex: 9999,
         }}
       >
-        <Toast.Header closeButton={false} className="bg-warning text-white">
-          <strong className="me-auto">Exchange Submitted</strong>
+        <Toast.Header closeButton={false} className=" text-white">
+          <strong >Exchange Submitted</strong>
         </Toast.Header>
         <Toast.Body>
           Exchange has been sent for approval. Please obtain the book from one of our libraries within the next 24 hours.

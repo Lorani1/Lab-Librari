@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import useStyles from './styles';
 import ExchangeForm from '../../../Exchange/ExchangeForm'; 
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const Product = ({ product }) => {
   const classes = useStyles();
@@ -24,7 +25,8 @@ const Product = ({ product }) => {
 
   return (
     <div className={classes.cardContainer}>
-      <Card className={classes.card}>
+    <Card className={classes.card}>
+      <Link to={`product-view/${product.id}`} className={classes.link}>
         <div className={classes.imageContainer}>
           <CardMedia
             component="img"
@@ -39,8 +41,10 @@ const Product = ({ product }) => {
           <Typography
             variant="h6"
             component="h2"
+            style={{ color: '#001524' }}
             align="center"
             className={classes.title}
+
           >
             {product.titulli}
           </Typography>
@@ -59,26 +63,28 @@ const Product = ({ product }) => {
               }`}
             />
           </Typography>
-          <div className={classes.buttonContainer}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleOpenModal}
-              className={classes.exchangeButton}
-            >
-              Exchange
-            </Button>
-          </div>
         </CardContent>
-      </Card>
+      </Link>
+      <CardContent className={classes.cardContent}>
+        <div className={classes.buttonContainer}>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: '#001524', color: '#fff' }}
+            onClick={handleOpenModal}
+            className={classes.exchangeButton}
+          >
+            Exchange
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
 
-      {/* ExchangeFormModal */}
-      <ExchangeForm
-        open={showModal}
-        onClose={handleCloseModal}
-        libriId={product.id} 
-      />
-    </div>
+    <ExchangeForm
+      open={showModal}
+      onClose={handleCloseModal}
+      libriId={product.id} 
+    />
+  </div>
   );
 };
 

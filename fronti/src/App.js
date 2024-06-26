@@ -33,6 +33,7 @@ import ExchangeApprove from "./Exchange/ExchangeApprove";
 import apiService from "./Exchange/apiService";
 import getNotifications from "./Noitification/getNotifications";
 import Notification from "./Noitification/Notification";
+import PendingApproval from "./Exchange/PendingApproval";
 import Exchange from "./Exchange/Exchange";
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
           <ProtectedRoute path="/getNotifications" component={getNotifications} />
           <ProtectedRoute path="/Notificationss" component={Notification} />
           <ProtectedRoute path="/Exchange" component={Exchange} />
+          <ProtectedRoute path="/PendingApproval" component={PendingApproval} />
           <ProtectedRoute path="/apiService" component={apiService} />
 
           <Route path="/registration" component={Registration} />

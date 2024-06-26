@@ -38,9 +38,9 @@ namespace labback.Controllers
         public async Task<IActionResult> GetLibrat()
         {
             var librat = await _libriContext.Librat
-                .Include(l => l.zhanri) // Ensure Zhanri is included in the query
+                .Include(l => l.zhanri) 
                 .Include(l => l.AutoriLibris)
-                    .ThenInclude(al => al.Autoret) // Include the Autori details through the join table
+                    .ThenInclude(al => al.Autoret) 
                 .Select(l => new
                 {
                     l.ID,
@@ -59,7 +59,7 @@ namespace labback.Controllers
                     {
                         l.zhanri.zhanriId,
                         l.zhanri.emri
-                    } : null, // Include all necessary Zhanri properties with null check
+                    } : null, 
                     Autoret = l.AutoriLibris.Select(al => new
                     {
                         al.Autoret.Autori_ID,
@@ -69,7 +69,7 @@ namespace labback.Controllers
                         al.Autoret.gjinia,
                         al.Autoret.Data_E_Lindjes,
                         al.Autoret.Nacionaliteti
-                    }).ToList() // Include all necessary Autori properties
+                    }).ToList() 
                 })
                 .ToListAsync();
 
@@ -87,8 +87,8 @@ namespace labback.Controllers
             {
                 var libri = await _libriContext.Librat
                     .Include(l => l.zhanri)
-                    .Include(l => l.RatingComments) // Ensure RatingComments are included
-                    .ThenInclude(rc => rc.Klient) // Include Klient if necessary
+                    .Include(l => l.RatingComments) 
+                    .ThenInclude(rc => rc.Klient) 
                     .FirstOrDefaultAsync(l => l.ID == id);
 
                 if (libri == null)
@@ -100,7 +100,7 @@ namespace labback.Controllers
                 var baseUrl = $"{Request.Scheme}://{Request.Host}/foto";
                 libri.ProfilePictureUrl = $"{baseUrl}/{libri.ProfilePicturePath}";
 
-                // Optionally map to a DTO or view model here if needed
+                
 
                 return Ok(libri);
             }
@@ -265,7 +265,7 @@ namespace labback.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+              
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -378,10 +378,10 @@ namespace labback.Controllers
                     return NotFound("Book not found.");
                 }
 
-                // Remove all current author associations
+        
                 _libriContext.AutoriLibris.RemoveRange(book.AutoriLibris);
 
-                // Add the new author associations
+               
                 foreach (var authorId in authorIds)
                 {
                     var author = await _libriContext.Autori.FindAsync(authorId);
@@ -403,7 +403,7 @@ namespace labback.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+            
                 _logger.LogError(ex, "An error occurred while updating the authors of the book.");
                 return StatusCode(500, "Internal server error");
             }

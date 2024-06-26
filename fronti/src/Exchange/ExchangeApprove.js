@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import apiService from "./apiService";
-
+import "../dashboard/styles.css";
 const ExchangeApprove = () => {
   const [exchanges, setExchanges] = useState([]);
   const [selectedExchange, setSelectedExchange] = useState(null);
@@ -106,18 +106,20 @@ const ExchangeApprove = () => {
                 <td>{new Date(exchange.exchangeDate).toLocaleDateString()}</td>
                 <td>{new Date(exchange.returnDate).toLocaleDateString()}</td>
                 <td>
-                  <button
-                    className="btn btn-success btn-sm mr-2"
+                  <Button
+                    className="mr-2 edit-button"
+                    variant="custom"
                     onClick={() => handleApproveClick(exchange.exchangeId)}
                   >
                     Approve
-                  </button>
-                  <button
-                    className="btn btn-danger btn-sm"
+                  </Button>
+                  <Button
+                    className="mr-3 delete-button"
+                    variant="custom"
                     onClick={() => handleDelete(exchange.exchangeId)}
                   >
                     Delete
-                  </button>
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -133,10 +135,10 @@ const ExchangeApprove = () => {
           <p>Are you sure you want to approve this exchange?</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Button variant="custom" className="delete-button" onClick={handleCloseModal}>
             Close
           </Button>
-          <Button variant="success" onClick={handleApproveExchange}>
+          <Button variant="custom" className="edit-button" onClick={handleApproveExchange}>
             Approve Exchange
           </Button>
         </Modal.Footer>

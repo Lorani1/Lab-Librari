@@ -85,13 +85,13 @@ function Main() {
       </div>
 
       <div className="main-cards">
-        <div className="card">
+        <div className="card" style={{ backgroundColor: '#001524' }}>
           <Link to="/libri" className="card-link">
-            <div className="card-inner">
-              <h3>Books</h3>
-              <BsFillArchiveFill className="card_icon" />
+            <div className="card-inner"  >
+              <h3  style={{ color: 'white' }}>Books</h3>
+              <BsFillArchiveFill className="card_icon" style={{ backgroundColor: 'white' }}/>
             </div>
-            <h1>{bookCount}</h1>
+            <h1 style={{ color: 'white' }}>{bookCount}</h1>
           </Link>
         </div>
         
@@ -109,7 +109,7 @@ function Main() {
         <Link to="/exchangeList" className="card-link">
           <div className="card-inner">
             <h3>Exchange</h3>
-            <BsFillBellFill className="card_icon" />
+            <BsFillBellFill className="card_icon" style={{ backgroundColor: 'white' }} />
           </div>
           <h1>{exchangeCount}</h1>
           </Link>
@@ -140,8 +140,8 @@ function Main() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="pv" fill="#8884d8" />
-            <Bar dataKey="uv" fill="#82ca9d" />
+            <Bar dataKey="pv" fill="#001524" />
+            <Bar dataKey="uv" fill="#762b47" />
           </BarChart>
         </ResponsiveContainer>
 
@@ -160,10 +160,10 @@ function Main() {
             <Line
               type="monotone"
               dataKey="pv"
-              stroke="#8884d8"
+              stroke="#001524"
               activeDot={{ r: 8 }}
             />
-            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="uv" stroke="#762b47" />
           </LineChart>
         </ResponsiveContainer>
       </div>

@@ -169,7 +169,7 @@ const Libri = () => {
       .then((result) => {
         const zhanriData = result.data?.$values;
         if (Array.isArray(zhanriData)) {
-          console.log("Zhanri Data:", zhanriData); // Add this line to check the data
+          console.log("Zhanri Data:", zhanriData); 
           setZhanriList(zhanriData);
         } else {
           console.error("Unexpected data format:", result.data);
@@ -205,12 +205,12 @@ const Libri = () => {
   };
   const handleCustomersClick = () => {
     setShowKlienti(true);
-    setShowLibri(false); // Hide Libri when showing Klienti
+    setShowLibri(false); 
   };
 
   const handleLibriClick = () => {
     setShowLibri(true);
-    setShowKlienti(false); // Hide Klienti when showing Libri
+    setShowKlienti(false); 
   };
   const handleAutoriClick = () => {
     setShowLibri(false);
@@ -312,7 +312,7 @@ const Libri = () => {
       formData.append("profilePicture", editSelectedFile);
     }
 
-    formData.append("profilePicturePath", editProfilePictureUrl || ""); // Add the existing profile picture path if needed
+    formData.append("profilePicturePath", editProfilePictureUrl || ""); 
 
     editSelectedAuthors.forEach((author) => {
       formData.append("authors", author.autori_ID);
@@ -344,7 +344,7 @@ const Libri = () => {
   const handleSave = async () => {
     const url = "https://localhost:7101/api/Libri";
 
-    // Basic validation
+ 
     if (
       !isbn ||
       !titulli ||
@@ -365,15 +365,15 @@ const Libri = () => {
     }
 
     try {
-      // Fetch existing books to check for duplicate ISBN
+      
       const existingBooksResponse = await axios.get(url);
       const existingBooks = existingBooksResponse.data.$values;
 
-      // Log the raw response for debugging purposes
+     
       console.log("Raw response from API:", existingBooksResponse);
       console.log("Extracted books:", existingBooks);
 
-      // Ensure existingBooks is an array
+    
       if (!Array.isArray(existingBooks)) {
         console.error(
           "Expected an array of books but received:",
@@ -382,7 +382,7 @@ const Libri = () => {
         throw new Error("Expected an array of books from the API");
       }
 
-      // Check if the ISBN already exists
+     
       const isDuplicateISBN = existingBooks.some((book) => book.isbn === isbn);
 
       if (isDuplicateISBN) {
@@ -474,13 +474,13 @@ const Libri = () => {
     }
   };
 
-  //Autori-Libri Many-To-Many
+
 
   const fetchAuthorsForBook = (id) => {
     axios
       .get(`https://localhost:7101/api/Libri/getAutoret/${id}`)
       .then((result) => {
-        console.log("API response:", result.data); // Log the response to inspect its structure
+        console.log("API response:", result.data);
         const authorsData = result.data?.$values?.map((author) => ({
           value: author.autori_ID,
           label: author.emri,
@@ -601,7 +601,7 @@ const Libri = () => {
 
   const filterFn = (data, filterValue) => {
     if (filterValue.trim() === "") {
-      setFilteredLibriList(data || []); // Ensure it is an array
+      setFilteredLibriList(data || []); 
     } else {
       const filteredData = data.filter((el) => {
         return (el.titulli?.toString() ?? "")
@@ -633,7 +633,7 @@ const Libri = () => {
         item.titulli.toLowerCase().includes(titulliFilter.toLowerCase())
       )
     );
-    setCurrentPage(1); // Reset to first page whenever the filter changes
+    setCurrentPage(1);
   }, [titulliFilter, data]);
 
   return (
@@ -748,10 +748,11 @@ const Libri = () => {
               <th>Publisher</th>
               <th>Autoret</th>
               <th>Genre</th>
-              <th>Genre Name</th>
+              
               <th>In Stock</th>
               <th>Description</th>
               <th>Images</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>

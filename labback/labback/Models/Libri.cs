@@ -23,11 +23,11 @@ public class Libri
         public string ProfilePictureUrl { get; set; }
 
 
-        public int ShtepiaBotueseID { get; set; } // Foreign key
-        public ShtepiaBotuese ShtepiaBotuese { get; set; } // Navigation property
+        public int ShtepiaBotueseID { get; set; }
+        public ShtepiaBotuese ShtepiaBotuese { get; set; } 
 
-        public int zhanriId { get; set; } // Foreign key
-        public Zhanri zhanri { get; set; } // Navigation property
+        public int zhanriId { get; set; } 
+        public Zhanri zhanri { get; set; } 
 
         public ICollection<RatingComment> RatingComments { get; set; }
         public ICollection<AutoriLibri> AutoriLibris { get; set; }

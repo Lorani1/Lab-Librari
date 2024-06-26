@@ -54,7 +54,7 @@ const Login = () => {
             refreshToken: sessionStorage.getItem('refreshToken')
           });
   
-          login(responseData.token); // Pass the auth token to the login function
+          login(responseData.token);
           history.push("/home");
           setEmail("");
           setPassword("");

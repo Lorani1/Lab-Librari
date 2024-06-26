@@ -38,7 +38,7 @@ const Ratings = () => {
     axios
       .get(`https://localhost:7101/api/RatingComment`)
       .then((result) => {
-        console.log("API Response:", result.data); // Log API response
+        console.log("API Response:", result.data); 
         if (Array.isArray(result.data)) {
           setRatingsList(result.data);
           setFilteredRatingsList(result.data);
@@ -152,8 +152,8 @@ const Ratings = () => {
       })
       .then((result) => {
         setShow(false);
-        fetchRatingsList(); // Refresh ratings list after update
-        clear(); // Clear input fields
+        fetchRatingsList(); 
+        clear(); 
         toast.success("Rating has been updated");
       })
       .catch((error) => {
@@ -183,7 +183,7 @@ const Ratings = () => {
       })
       .then((result) => {
         fetchRatingsList();
-        clear(); // Clear the input fields after successfully adding a rating
+        clear(); 
         setShowAddModal(false);
         toast.success("Rating has been added");
       })

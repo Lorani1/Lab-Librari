@@ -8,7 +8,7 @@
         public int klientId { get; set; }
         public int exchangeId { get; set; }
 
-        public string titulli { get; set; } // Add this property
+        public string titulli { get; set; } 
         public DateTime notificationTime { get; set; }
     }
 }

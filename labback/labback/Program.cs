@@ -70,7 +70,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = jwtSettings.GetValue<string>("Issuer"),
             ValidAudience = jwtSettings.GetValue<string>("Audience"),
             IssuerSigningKey = new SymmetricSecurityKey(key),
-            RoleClaimType = "role", // Assuming "role" is your role claim
+            RoleClaimType = "role", 
             TokenDecryptionKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtKey)),
             ClockSkew = TimeSpan.Zero
         };
@@ -79,7 +79,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             OnMessageReceived = context =>
             {
-                // Log the incoming token
+               
                 Console.WriteLine($"Incoming token: {context.Token}");
                 return Task.CompletedTask;
             }
@@ -89,7 +89,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         builder => builder
-            .WithOrigins("http://localhost:3000", "https://localhost:3000")
+            .WithOrigins("http://localhost:3001", "https://localhost:3001")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
@@ -100,12 +100,12 @@ builder.Services.AddSingleton<string>(jwtKey);
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.IdleTimeout = TimeSpan.FromMinutes(60);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
 
-// Register the LibriContext for use in the middleware
+
 builder.Services.AddScoped<LibriContext>();
 
 var app = builder.Build();
@@ -125,10 +125,10 @@ app.UseCors("AllowSpecificOrigin");
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Add session middleware
+
 app.UseSession();
 
-// Add the token validation middleware
+
 
 
 app.UseStaticFiles(new StaticFileOptions

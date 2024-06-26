@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from './AuthContext'; // Adjust the path according to your project structure
-
+import { useAuth } from './AuthContext'; 
 const useMultiTabLogout = () => {
   const history = useHistory();
   const { logout } = useAuth();

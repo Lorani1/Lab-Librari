@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System;
 using System.Security.Cryptography;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace labback.Controllers
 {
@@ -259,7 +260,7 @@ namespace labback.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+               
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -288,22 +289,21 @@ namespace labback.Controllers
                 new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
                 new Claim(ClaimTypes.Email, klient.Email),
                 new Claim(ClaimTypes.Role, klient.Roli.Name),
-                new Claim("KlientID", klient.ID.ToString()) // Include KlientID in the token
+                new Claim("KlientID", klient.ID.ToString()) 
                     }),
-                    Expires = DateTime.UtcNow.AddDays(7), // Token expiration
+                    Expires = DateTime.UtcNow.AddMinutes(60), 
                     Issuer = "yourdomain.com",
-                    Audience = "yourdomain.com", // Set the correct audience
+                    Audience = "yourdomain.com",
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
                 };
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var tokenString = tokenHandler.WriteToken(token);
 
-                // Generate a refresh token
                 var refreshToken = GenerateRefreshToken();
                 refreshToken.KlientID = klient.ID;
 
-                // Save the refresh token
+                
                 _LibriContext.RefreshTokens.Add(refreshToken);
                 await _LibriContext.SaveChangesAsync();
 
@@ -314,7 +314,7 @@ namespace labback.Controllers
                     Token = tokenString,
                     Expiration = tokenDescriptor.Expires,
                     RefreshToken = refreshToken.Token,
-                    Roli = klient.Roli.Name // Include the role in the response
+                    Roli = klient.Roli.Name 
                 });
             }
             catch (Exception ex)
@@ -354,7 +354,7 @@ namespace labback.Controllers
             new Claim(ClaimTypes.NameIdentifier, klient.ID.ToString()),
             new Claim(ClaimTypes.Email, klient.Email)
         }),
-                Expires = DateTime.UtcNow.AddMinutes(15),
+                Expires = DateTime.UtcNow.AddMinutes(60),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
@@ -408,7 +408,7 @@ namespace labback.Controllers
                     return new RefreshToken
                     {
                         Token = Convert.ToBase64String(randomBytes),
-                        Expires = DateTime.UtcNow.AddMinutes(40), 
+                        Expires = DateTime.UtcNow.AddDays(7), 
                         Created = DateTime.UtcNow
                     };
                 }
@@ -431,8 +431,59 @@ namespace labback.Controllers
         }
 
 
+ 
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> PatchKlient(int id, [FromForm] PartialUpdateKlientModel model)
+    {
+        var klient = await _LibriContext.Klients.FindAsync(id);
+        if (klient == null)
+        {
+            return NotFound();
+        }
+
+        if (!string.IsNullOrEmpty(model.Emri))
+        {
+            klient.Emri = model.Emri;
+        }
+
+        if (!string.IsNullOrEmpty(model.Mbiemri))
+        {
+            klient.Mbiemri = model.Mbiemri;
+        }
+
+        if (model.ProfilePicturePath != null && model.ProfilePicturePath.Length > 0)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "foto");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            if (!string.IsNullOrEmpty(klient.ProfilePicturePath))
+            {
+                var oldFilePath = Path.Combine(uploadsFolder, klient.ProfilePicturePath);
+                if (System.IO.File.Exists(oldFilePath))
+                {
+                    System.IO.File.Delete(oldFilePath);
+                }
+            }
+
+            string uniqueFileName = Guid.NewGuid().ToString() + "" + Path.GetFileName(model.ProfilePicturePath.FileName);
+            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await model.ProfilePicturePath.CopyToAsync(fileStream);
+            }
+
+            klient.ProfilePicturePath = uniqueFileName;
+        }
+
+        _LibriContext.Entry(klient).State = EntityState.Modified;
+        await _LibriContext.SaveChangesAsync();
+
+        return NoContent();
     }
 
-
 }
-
+   }

@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   const login = (authToken) => {
     localStorage.setItem('authToken', authToken);
     const decodedToken = jwtDecode(authToken);
-    setUserRole(decodedToken.role); // Assuming the role is stored under 'role' in your JWT payload
+    setUserRole(decodedToken.role);
     setIsAuthenticated(true);
   };
 
@@ -32,10 +32,10 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
-        setUserRole(decodedToken.role); // Assuming the role is stored under 'role' in your JWT payload
+        setUserRole(decodedToken.role); 
       } catch (error) {
         console.error('Error decoding token:', error);
-        logout(); // Log out if token is invalid
+        logout();
       }
     }
   }, []);

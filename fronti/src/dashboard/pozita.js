@@ -11,7 +11,7 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Pozita = () => { // Rename the component to start with an uppercase letter
+const Pozita = () => { 
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);

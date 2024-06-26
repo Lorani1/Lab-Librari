@@ -41,7 +41,7 @@ namespace labback.Controllers
         [HttpPost]
         public async Task<ActionResult<ShtepiaBotuese>> PostZhanri(Zhanri zhanri)
         {
-            // Add the ShtepiaBotuese entity
+           
             _libri.zhanri.Add(zhanri);
             await _libri.SaveChangesAsync();
 

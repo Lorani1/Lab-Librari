@@ -56,7 +56,7 @@ namespace labback.Controllers
 
             stafi.pozita = existingPozita;
 
-            // Handle data_E_Punesimit and data_E_doreheqjes based on active status
+
             if (stafi.active == 1)
             {
                 stafi.data_E_Punesimit = DateTime.Now;
@@ -83,7 +83,7 @@ namespace labback.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
+              
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -112,7 +112,7 @@ namespace labback.Controllers
 
             stafi.pozita = existingPozita;
 
-            // Handle data_E_Punesimit and data_E_doreheqjes based on active status
+            
             if (stafi.active == 1)
             {
                 stafi.data_E_Punesimit = DateTime.Now;

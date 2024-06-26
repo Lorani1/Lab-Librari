@@ -49,28 +49,60 @@ function Registration() {
     setSelectedFile(null);
   };
 
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const validateForm = () => {
+    if (!/^[A-Z][a-zA-Z]*$/.test(Emri)) {
+      toast.error("Emri must start with a capital letter and contain only letters.");
+      return false;
+    }
+
+    if (!/^[A-Z][a-zA-Z]*$/.test(Mbiemri)) {
+      toast.error("Mbiemri must start with a capital letter and contain only letters.");
+      return false;
+    }
+
+    if (!/^\d{10}$/.test(NrPersonal)) {
+      toast.error("NrPersonal must be exactly 10 digits long.");
+      return false;
+    }
+
+    if (!validateEmail(Email)) {
+      toast.error("Invalid email format.");
+      return false;
+    }
+
+    if (Adresa.length < 20 || Adresa.length > 30 || !/^[a-zA-Z\s]*$/.test(Adresa)) {
+      toast.error("Adresa must be 20-30 characters long and contain only letters.");
+      return false;
+    }
+
+    if (!/^[a-zA-Z]+$/.test(Statusi)) {
+      toast.error("Statusi must contain only letters.");
+      return false;
+    }
+
+    if (!/^\d{8}$/.test(NrTel)) {
+      toast.error("NrTel must be exactly 8 digits long.");
+      return false;
+    }
+
+    if (Password !== ConfirmPassword) {
+      toast.error("Passwords do not match.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSave = (e) => {
     e.preventDefault();
     setErrorMessage("");
 
-    if (
-      Emri.trim() === "" ||
-      Mbiemri.trim() === "" ||
-      NrPersonal.trim() === "" ||
-      Email.trim() === "" ||
-      Adresa.trim() === "" ||
-      Statusi.trim() === "" ||
-      NrTel.trim() === "" ||
-      Password.trim() === "" ||
-      ConfirmPassword.trim() === "" ||
-      selectedQytetiID.trim() === ""
-    ) {
-      toast.error("Please fill in all fields");
-      return;
-    }
-
-    if (Password.trim() !== ConfirmPassword.trim()) {
-      toast.error("Passwords do not match");
+    if (!validateForm()) {
       return;
     }
 

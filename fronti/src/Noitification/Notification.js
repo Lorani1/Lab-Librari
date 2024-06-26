@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import notificationService from './notificationService'; // Import your notification service
-import { Container, ListGroup, Button, Modal } from 'react-bootstrap'; // Example imports, adjust as needed
+import notificationService from './notificationService'; 
+import { Container, ListGroup, Button, Modal } from 'react-bootstrap'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Notification = ({ showModal, toggleModal }) => {
@@ -18,9 +18,8 @@ const Notification = ({ showModal, toggleModal }) => {
       const notificationsData = await notificationService.fetchNotifications();
       console.log('Notifications data:', notificationsData);
 
-      // Assuming notificationsData is in the format { $id: '1', $values: [...] }
       if (notificationsData && notificationsData.$values) {
-        setNotifications(notificationsData.$values); // Set notifications to $values array
+        setNotifications(notificationsData.$values); 
       } else {
         console.error('Invalid notifications data structure:', notificationsData);
         setError('Invalid notifications data structure');
@@ -34,23 +33,23 @@ const Notification = ({ showModal, toggleModal }) => {
   };
 
   if (loading) {
-    return <Container>Loading...</Container>; // Display loading indicator
+    return <Container>Loading...</Container>; 
   }
 
   if (error) {
-    return <Container>Error: {error}</Container>; // Display error message
+    return <Container>Error: {error}</Container>; 
   }
 
   return (
     <Modal show={showModal} onHide={toggleModal} dialogClassName="modal-dialog-centered">
-      <Modal.Header className="justify-content-center bg-dark" style={{ borderBottom: 'none', color: 'white' }}>
+      <Modal.Header className="justify-content-center " style={{ borderBottom: 'none', color: 'white', backgroundColor: '#001524' }}>
         <Modal.Title>Notifications</Modal.Title>
       </Modal.Header>
-      <Modal.Body className="bg-dark" style={{ color: 'white' }}>
+      <Modal.Body className="bg-white" style={{ color: 'white' }}>
         {notifications.length > 0 ? (
           <ListGroup>
             {notifications.map((notification) => (
-              <ListGroup.Item key={notification.notificationId} className="bg-dark" style={{ color: 'white' }}>
+              <ListGroup.Item key={notification.notificationId}  style={{ color: 'white', backgroundColor: '#001524' }}>
                 <p>Message: {notification.message}</p>
                 <p>Status: {notification.isRead ? 'Read' : 'Not Read'}</p>
                 <p>Client ID: {notification.klientId}</p>
@@ -61,8 +60,9 @@ const Notification = ({ showModal, toggleModal }) => {
           <p>No notifications found.</p>
         )}
       </Modal.Body>
-      <Modal.Footer className="bg-dark" style={{ borderTop: 'none', color: 'white' }}>
-        <Button variant="secondary" onClick={toggleModal}>
+      <Modal.Footer className="bg-white" style={{ borderTop: 'none', color: 'white' }}>
+        <Button variant="current" onClick={toggleModal}
+         style={{ backgroundColor: '#001524', color: '#fff' }}>
           Close
         </Button>
       </Modal.Footer>

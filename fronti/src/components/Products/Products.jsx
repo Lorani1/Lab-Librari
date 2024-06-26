@@ -287,7 +287,7 @@ const Products = ({ onAddToCart }) => {
             </h3>
             {
               <FeaturedBooks
-                filteredProducts={filteredProducts.slice(0, 3)} // Show only the first three books
+                filteredProducts={filteredProducts.slice(0, 3)}
                 onAddToCart={onAddToCart}
               />
             }
@@ -350,8 +350,9 @@ const Products = ({ onAddToCart }) => {
           <div className={classes.loadMore}>
             <div className="text-center mt-3">
               <button
-                className={`btn btn-primary ${classes.loadMoreButton}`}
+                className={` ${classes.loadMoreButton}`}
                 onClick={loadMoreProducts}
+                style={{ backgroundColor: '#001524', color: '#fff', fontSize: '25px' }}
               >
                 More Books
               </button>

@@ -176,7 +176,7 @@ const Home = () => {
     fetchCrimeProducts();
     fetchAnimeProducts();
     fetchBooks();
-    fetchMostExchangedBooks(); // Fetch top three most exchanged books on component mount
+    fetchMostExchangedBooks(); 
   }, []);
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);

@@ -46,7 +46,6 @@ namespace labback.Controllers
             return notifications;
         }
 
-        // GET: api/Notification/klient
         [HttpGet("klient")]
         [Authorize]
         public async Task<IActionResult> GetNotificationsKlient()
@@ -64,12 +63,10 @@ namespace labback.Controllers
 
                 // Retrieve notifications for the logged-in klient
                 var notifications = await _context.Notifications
-                    .Include(n => n.exchange)
-                        .ThenInclude(e => e.Libri)
                     .Where(n => n.klientId == klientId)
                     .ToListAsync();
 
-                // Update isRead status to true
+                // Update the isRead property of each notification to true
                 foreach (var notification in notifications)
                 {
                     notification.isRead = true;
@@ -78,7 +75,7 @@ namespace labback.Controllers
                 // Save changes to the database
                 await _context.SaveChangesAsync();
 
-                // Project the notifications to NotificationDTO
+                // Project notifications to NotificationDTO
                 var notificationDTOs = notifications.Select(n => new NotificationDTO
                 {
                     notificationId = n.notificationId,
@@ -90,7 +87,35 @@ namespace labback.Controllers
                     titulli = n.exchange?.Libri?.Titulli ?? "N/A" // Use null-coalescing operator to handle null values
                 }).ToList();
 
-                return Ok(notificationDTOs);
+                // Retrieve exchanges expiring in three days or less
+                var now = DateTime.Now;
+                var threeDaysFromNow = now.AddDays(3);
+
+                var expiringExchanges = await _context.Exchanges
+                    .Include(e => e.Libri)
+                    .Where(e => e.Status == "Approved" && e.KlientId == klientId && e.ReturnDate <= threeDaysFromNow && e.ReturnDate >= now)
+                    .Select(e => new NotificationDTO
+                    {
+                        notificationId = 0, // No actual notification ID
+                        message = $"Dear {e.Klient.Emri}, your exchange period for the book '{e.Libri.Titulli}' expires in three days. Please return the book before the return date.",
+                        isRead = true,
+                        klientId = e.KlientId,
+                        exchangeId = e.ExchangeId,
+                        notificationTime = DateTime.Now,
+                        titulli = e.Libri.Titulli
+                    })
+                    .ToListAsync();
+
+                // Combine the notifications and expiring exchanges
+                var combinedNotifications = notificationDTOs.Concat(expiringExchanges).ToList();
+
+                // Update the isRead property of expiring exchanges to true
+                foreach (var notification in combinedNotifications)
+                {
+                    notification.isRead = true;
+                }
+
+                return Ok(combinedNotifications);
             }
             catch (Exception ex)
             {
@@ -98,6 +123,8 @@ namespace labback.Controllers
                 return StatusCode(500, "An error occurred while retrieving notifications");
             }
         }
+
+
 
         // GET: api/Notification/unreadCount
         [HttpGet("unreadCount")]

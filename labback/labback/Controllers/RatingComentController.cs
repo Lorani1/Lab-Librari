@@ -71,7 +71,7 @@ namespace labback.Controllers
         [HttpPost]
         public async Task<ActionResult<RatingCommentDto>> PostRatingComment(RatingCommentDto ratingCommentDto)
         {
-            // Check if the client has already rated this book
+    
             var existingRating = await _context.RatingComments
                                                .FirstOrDefaultAsync(rc => rc.KlientID == ratingCommentDto.KlientID && rc.LibriID == ratingCommentDto.LibriID);
 

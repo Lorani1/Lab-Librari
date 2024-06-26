@@ -26,7 +26,7 @@ const Qyteti = () => {
     axios
       .get(`https://localhost:7101/api/Qyteti`)
       .then((result) => {
-        console.log("API Response:", result.data); // Log API response
+        console.log("API Response:", result.data); 
         if (Array.isArray(result.data)) {
           setQytetiList(result.data);
           setFilteredQytetiList(result.data);

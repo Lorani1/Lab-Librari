@@ -26,44 +26,17 @@ export default makeStyles((theme) => ({
     backgroundColor: theme.palette.error.main,
     color: theme.palette.error.contrastText,
   },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: theme.spacing(2),
+  },
+  exchangeButton: {
+    backgroundColor: '#001524',
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: '#001524',
+    },
+  },
 }));
-//   cardActions: {
-//     display: "flex",
-//     justifyContent: "flex-end",
-//   },
-//   cardContent: {
-//     display: "flex",
-//     justifyContent: "center",
-//   },
-//   button: {
-//     background: "#001524",
-//     color: "white",
-//     width: "100%",
-//     height: "40px",
 
-//     "&:hover": {
-//       backgroundColor: "#2a344a",
-//       boxShadow: "none",
-//     },
-//   },
-//   cardContentName: {
-//     fontSize: 20,
-//     textAlign: "center",
-//     margin: "4px !important",
-//     fontWeight: 500,
-//   },
-//   cardContentPrice: {
-//     fontSize: 20,
-//     color: "#F1361D",
-//     margin: "0 !important",
-//   },
-//   "@media (max-width: 700px)": {
-//     cardContentName: {
-//       fontSize: 14,
-//       textAlign: "center",
-//     },
-//     cardContentPrice: {
-//       fontSize: 16,
-//     },
-//   },
-// }));

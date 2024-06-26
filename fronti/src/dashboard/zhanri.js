@@ -27,7 +27,7 @@ const Zhanri = () => {
     axios
       .get(`https://localhost:7101/api/Zhanri`)
       .then((result) => {
-        console.log("API Response:", result.data); // Log API response
+        console.log("API Response:", result.data); 
         if (Array.isArray(result.data)) {
           setZhanriList(result.data);
           setFilteredZhanriList(result.data);

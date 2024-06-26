@@ -1,12 +1,8 @@
 import axios from 'axios';
-
-// Base URL for the API
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL || 'https://localhost:7101/api', // Use environment variables for configuration
-  withCredentials: true // Ensure cookies are sent with requests
+  baseURL: process.env.REACT_APP_API_BASE_URL || 'https://localhost:7101/api', 
+  //withCredentials: true 
 });
-
-// Request interceptor to attach the token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('authToken');
@@ -19,9 +15,6 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
-
-
 api.interceptors.response.use(
   (response) => response,
   async (error) => {

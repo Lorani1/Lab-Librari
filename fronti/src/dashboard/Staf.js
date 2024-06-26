@@ -82,7 +82,7 @@ const Staf = () => {
         const {
           emri, mbiemri, nrPersonal,adresa, orari, nrTelefonit, gjinia, pozita_ID, active, data_E_Punesimit, data_E_doreheqjes
         } = data;
-        setEditId(id); // Set the editId here
+        setEditId(id); 
         setEditEmri(emri);
         setEditMbiemri(mbiemri);
         setEditNrPersonal(nrPersonal);
@@ -117,13 +117,12 @@ const Staf = () => {
   };
 
   const handleUpdate = () => {
-    // Ensure editId is set
+   
     if (!editId) {
       toast.error("Edit ID is not set.");
       return;
     }
 
-    // Validate input fields
     if (!editEmri || !editMbiemri || !editNrPersonal || !editAdresa || !editOrari || !editNrTel || !editGjinia || !editSelectedPozita_ID) {
       toast.error("All fields are required.");
       return;
@@ -139,7 +138,7 @@ const Staf = () => {
       orari: editOrari,
       nrTelefonit: editNrTel,
       gjinia: editGjinia,
-      pozita_ID: parseInt(editSelectedPozita_ID), // Ensure pozita_ID is an integer
+      pozita_ID: parseInt(editSelectedPozita_ID), 
       pozita: {
         pozita_ID: parseInt(editSelectedPozita_ID),
         roli: pozitaList.find((role) => role.pozita_ID === parseInt(editSelectedPozita_ID))?.roli || "",

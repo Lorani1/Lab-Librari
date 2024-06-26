@@ -22,8 +22,8 @@ namespace labback.Models
         [JsonIgnore]
         public ICollection<RefreshToken> RefreshTokens { get; set; }
 
-        public int RoliID { get; set; } // Foreign key to Roli
-        public Roli Roli { get; set; } // Navigation property
+        public int RoliID { get; set; } 
+        public Roli Roli { get; set; } 
         public ICollection<RatingComment> RatingComments { get; set; }
     }
 }

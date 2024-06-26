@@ -20,10 +20,10 @@ const Exchange = () => {
   const fetchExchanges = async () => {
     try {
       console.log('Fetching exchanges...');
-      const exchangesData = await apiService.getExchangeById(); // Adjust the service method as needed
+      const exchangesData = await apiService.getExchangeById(); 
       console.log('Exchanges data:', exchangesData);
 
-      // Assuming exchangesData.$values is an array
+     
       if (exchangesData && exchangesData.$values) {
         setExchanges(exchangesData.$values);
       } else {
@@ -39,11 +39,11 @@ const Exchange = () => {
   };
 
   if (loading) {
-    return <Container>Loading...</Container>; // Display loading indicator
+    return <Container>Loading...</Container>; 
   }
 
   if (error) {
-    return <Container>Error: {error}</Container>; // Display error message
+    return <Container>Error: {error}</Container>; 
   }
 
   return (

@@ -79,7 +79,7 @@ namespace labback.Models
             modelBuilder.Entity<AutoriLibri>()
                 .HasKey(al => new { al.Autori_ID, al.ID });
 
-            // Define navigation properties
+            
             modelBuilder.Entity<AutoriLibri>()
                 .HasOne(al => al.Autoret)
                 .WithMany(a => a.AutoriLibris)
@@ -108,13 +108,13 @@ namespace labback.Models
                  .OnDelete(DeleteBehavior.NoAction);
 
 
-            // Define the relationship between Klient and Roli
+         
             modelBuilder.Entity<Klient>()
                 .HasOne(k => k.Roli)
                 .WithMany(r => r.Klients)
                 .HasForeignKey(k => k.RoliID);
 
-            // Seed initial roles
+           
             modelBuilder.Entity<Roli>().HasData(
                 new Roli { ID = 1, Name = "user" },
                 new Roli { ID = 2, Name = "admin" }

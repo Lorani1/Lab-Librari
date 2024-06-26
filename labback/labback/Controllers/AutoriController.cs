@@ -87,7 +87,7 @@ namespace labback.Models
             autori.Data_E_Lindjes = DTO.Data_E_Lindjes;
             autori.Nacionaliteti = DTO.Nacionaliteti;
 
-            await _LibriContext.SaveChangesAsync(); // Save changes to the database
+            await _LibriContext.SaveChangesAsync();
 
             return Ok();
         }

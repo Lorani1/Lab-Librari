@@ -105,15 +105,17 @@ function Sidebar({ openSidebarToggle, OpenSidebar, handleCustomersClick , handle
             <BsBookFill className="icon" /> Exchange List
           </Link>
         </li>
+       
         <li className="sidebar-list-item">
           <Link
-            to="/ExchangeForm"
+            to="/PendingApproval"
             className="sidebar-link"
-            onClick={handleExchangeFormClick}
+            onClick={handleExchangeListClick}
           >
-            <BsBookFill className="icon" /> Exchange Form
+            <BsBookFill className="icon" /> Not Approvad after 24 Hours
           </Link>
         </li>
+       
         <li className="sidebar-list-item">
           <Link
             to="/ExchangeApprove"
@@ -123,16 +125,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar, handleCustomersClick , handle
             <BsBookFill className="icon" /> Exchange Approve
           </Link>
         </li>
-        <li className="sidebar-list-item">
-          <a href="">
-            <BsMenuButtonWideFill className="icon" /> Reports
-          </a>
-        </li>
-        <li className="sidebar-list-item">
-          <a href="">
-            <BsFillGearFill className="icon" /> Setting
-          </a>
-        </li>
+       
       </ul>
     </aside>
   );

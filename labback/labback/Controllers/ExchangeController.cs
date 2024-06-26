@@ -23,6 +23,8 @@ namespace labback.Controllers
         public async Task<ActionResult<IEnumerable<object>>> GetExchanges()
         {
             var exchanges = await _context.Exchanges
+
+
                 .Include(e => e.Klient)
                 .Include(e => e.Libri)
                 .ToListAsync();
@@ -92,7 +94,6 @@ namespace labback.Controllers
             return exchange;
         }
 
-
         [HttpPost]
         public async Task<ActionResult<Exchange>> PostExchange(ExchangeDTO exchangeDTO)
         {
@@ -112,6 +113,26 @@ namespace labback.Controllers
                 if (libri == null)
                 {
                     return BadRequest("Invalid Libri ID.");
+                }
+
+                // Check if there is any existing exchange for this client and book (regardless of status)
+                bool existingExchange = await _context.Exchanges
+                                                      .AnyAsync(e => e.KlientId == klient.ID &&
+                                                                     e.LibriId == exchangeDTO.LibriId);
+
+                if (existingExchange)
+                {
+                    return BadRequest("The client already has an existing exchange for this book.");
+                }
+
+                // Check if the client already has 2 exchanges with status "Pending Approval" or "Approved"
+                var userExchangeCount = await _context.Exchanges
+                                                      .CountAsync(e => e.KlientId == klient.ID &&
+                                                                       (e.Status == "Pending Approval" || e.Status == "Approved"));
+
+                if (userExchangeCount >= 2)
+                {
+                    return BadRequest("The client already has 2 exchanges with status 'Pending Approval' or 'Approved'.");
                 }
 
                 // Check if any exchange with the same LibriId has a ReturnDate equal to today's date
@@ -143,7 +164,7 @@ namespace labback.Controllers
                     .CountAsync(e => e.LibriId == exchangeDTO.LibriId && e.Status == "Approved");
 
                 // Compare the count of approved exchanges with the number of copies (nrKopjeve)
-                if (approvedExchangeCount >= libri.NrKopjeve)
+                if (approvedExchangeCount == libri.NrKopjeve)
                 {
                     // Update the inStock property to 0 and save changes
                     libri.InStock = 0;
@@ -175,6 +196,7 @@ namespace labback.Controllers
                 return StatusCode(500, $"Error creating exchange: {ex.Message}");
             }
         }
+
 
         // PUT: api/Exchange/{id}
         [HttpPut("{id}")]
@@ -327,7 +349,7 @@ namespace labback.Controllers
         }
 
         [HttpGet("PendingApprovalLast24To48Hours")]
-        public async Task<ActionResult<IEnumerable<Exchange>>> GetPendingApprovalExchangesLast24To48Hours()
+        public async Task<ActionResult<IEnumerable<object>>> GetPendingApprovalExchangesLast24To48Hours()
         {
             try
             {
@@ -337,6 +359,17 @@ namespace labback.Controllers
 
                 var exchanges = await _context.Exchanges
                     .Where(e => e.ExchangeDate >= startTime && e.ExchangeDate <= endTime && !e.IsApproved)
+                    .OrderByDescending(e => e.ReturnDate) // Order by return date descending
+                    .ThenBy(e => e.Status == "Not Returned Yet" ? 1 : (e.Status == "Ended" ? 2 : 3)) // Order by status
+                    .Select(e => new
+                    {
+                        e.ExchangeId,
+                        Klient = new { e.KlientId, e.Klient.Email, e.Klient.Emri },
+                        Libri = new { e.LibriId, e.Libri.Isbn, e.Libri.Titulli },
+                        e.Status,
+                        e.ExchangeDate,
+                        e.ReturnDate
+                    })
                     .ToListAsync();
 
                 return Ok(exchanges);
@@ -346,6 +379,7 @@ namespace labback.Controllers
                 return StatusCode(500, $"Error retrieving exchanges: {ex.Message}");
             }
         }
+
 
         // GET: api/Exchange/ByLoggedInKlient
         [HttpGet("ByLoggedInKlient")]

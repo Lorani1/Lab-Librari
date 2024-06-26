@@ -58,14 +58,14 @@ const Klienti = () => {
 
   const handleClose = () => {
     setShow(false);
-    setEditProfilePictureUrl(""); // Reset profile picture URL when hiding modal
-    setEditSelectedFile(null); // Reset selected file
-    // Reset other states if necessary...
+    setEditProfilePictureUrl(""); 
+    setEditSelectedFile(null); 
+    
   };
   const handleShow = () => setShow(true);
 
   const handleOpenAddModal = () => {
-    clear(); // Clear fields when opening add modal
+    clear(); 
     setShowAddModal(true);
   };
   const handleCloseAddModal = () => setShowAddModal(false);
@@ -143,7 +143,7 @@ const Klienti = () => {
         setEditNrTel(clientData.nrTel);
         setEditSelectedQytetiID(clientData.qytetiID);
         setEditProfilePictureUrl(clientData.profilePictureUrl);
-        setEditProfilePicturePath(clientData.profilePicturePath); // Add this line
+        setEditProfilePicturePath(clientData.profilePicturePath); 
 
         if (clientData.password) {
           setEditPassword(clientData.password);
@@ -182,7 +182,7 @@ const Klienti = () => {
     formData.append("qytetiID", editSelectedQytetiID);
 
     if (editSelectedFile) {
-      formData.append("profilePicturePath", editSelectedFile); // Append the file with the correct key
+      formData.append("profilePicturePath", editSelectedFile); 
     }
 
     if (editPassword) {
@@ -272,7 +272,7 @@ const Klienti = () => {
     }
 
     if (selectedFile) {
-      formData.append("profilePicturePath", selectedFile); // Append the file with the correct key
+      formData.append("profilePicturePath", selectedFile); 
     }
 
     axios

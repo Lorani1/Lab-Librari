@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import apiService from './apiService';
-
+import "../dashboard/styles.css";
 const ExchangeList = () => {
   const [exchanges, setExchanges] = useState([]);
   const [selectedExchange, setSelectedExchange] = useState(null);
@@ -53,7 +53,7 @@ const ExchangeList = () => {
     try {
       await apiService.updateExchange(selectedExchange.exchangeId, selectedExchange);
       setShowEditModal(false);
-      fetchExchanges(); // Refresh the list after update
+      fetchExchanges(); 
     } catch (error) {
       console.error('Error updating exchange:', error.response ? error.response.data : error.message);
     }
@@ -91,8 +91,8 @@ const ExchangeList = () => {
                 <td>{new Date(exchange.exchangeDate).toLocaleDateString()}</td>
                 <td>{new Date(exchange.returnDate).toLocaleDateString()}</td>
                 <td>
-                  <Button variant="warning" onClick={() => handleEdit(exchange)}>Edit</Button>
-                  <Button variant="danger" onClick={() => handleDelete(exchange.exchangeId)}>Delete</Button>
+                  <Button variant="custom"  className="edit-button" onClick={() => handleEdit(exchange)}>Edit</Button>
+                  <Button variant="custom"   className="delete-button" onClick={() => handleDelete(exchange.exchangeId)}>Delete</Button>
                 </td>
               </tr>
             ))}
@@ -156,8 +156,8 @@ const ExchangeList = () => {
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowEditModal(false)}>Close</Button>
-          <Button variant="primary" onClick={handleEditSubmit}>Save Changes</Button>
+          <Button variant="custom" className="edit-button" onClick={() => setShowEditModal(false)}>Close</Button>
+          <Button variant="custom" className="delete-button" onClick={handleEditSubmit}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
     </div>

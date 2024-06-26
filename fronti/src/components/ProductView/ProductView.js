@@ -400,14 +400,7 @@ const ProductView = () => {
               variant="body1"
               dangerouslySetInnerHTML={createMarkup(product.description)}
             />
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.addToCartButton}
-              onClick={() => commerce.cart.add(id, 1)}
-            >
-              Huazo
-            </Button>
+        
           </Grid>
         </Grid>
 

@@ -1,10 +1,8 @@
 import axios from 'axios';
-import api from '../api';
 
 const API_BASE_URL = 'https://localhost:7101/api/Exchange'; // Replace with your actual API base URL
 
 const apiService = {
-  
   getAllExchanges: async () => {
     return axios.get(API_BASE_URL);
   },
@@ -18,6 +16,7 @@ const apiService = {
       throw error;
     }
   },
+  
   createExchange: async (exchangeData) => {
     try {
       const response = await axios.post(`${API_BASE_URL}`, exchangeData);
@@ -27,7 +26,8 @@ const apiService = {
       throw error;
     }
   },
-  updateExchange : async (id, updatedExchange) => {
+  
+  updateExchange: async (id, updatedExchange) => {
     try {
       return await axios.put(`${API_BASE_URL}/${id}`, updatedExchange);
     } catch (error) {
@@ -73,6 +73,7 @@ const apiService = {
       throw error;
     }
   },
+
   endExchange: async (exchangeId) => {
     try {
       const response = await axios.put(`${API_BASE_URL}/EndExchange/${exchangeId}`);
@@ -82,6 +83,7 @@ const apiService = {
       throw error;
     }
   },
+
   fetchBooks: async () => {
     try {
       const response = await axios.get('https://localhost:7101/api/Libri');
@@ -91,10 +93,11 @@ const apiService = {
       throw error;
     }
   },
-};
-export const fetchClients = async () => {
-  const response = await axios.get('https://localhost:7101/api/Klient');
-  return response.data;
+  
+  fetchClients: async () => {
+    const response = await axios.get('https://localhost:7101/api/Klient');
+    return response.data;
+  }
 };
 
 export default apiService;

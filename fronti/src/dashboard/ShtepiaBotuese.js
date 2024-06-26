@@ -34,7 +34,7 @@ const Shtepia = () => {
     axios
       .get(`https://localhost:7101/api/ShtepiaBotuese`)
       .then((result) => {
-        console.log("API Response:", result.data); // Log API response
+        console.log("API Response:", result.data); 
         if (Array.isArray(result.data)) {
           setShtepiaList(result.data);
           setFilteredShtepiaList(result.data);
@@ -109,19 +109,18 @@ const Shtepia = () => {
   const handleSave = () => {
     const url = `https://localhost:7101/api/ShtepiaBotuese`;
 
-    // Basic validation
+   
     if (!emri || !adresa) {
       toast.error("Please fill in all required fields.");
       return;
     }
 
-    // Ensure that emri and adresa are strings
+  
     if (typeof emri !== "string" || typeof adresa !== "string") {
       toast.error("Fields must be strings.");
       return;
     }
 
-    // Ensure that emri and adresa are not purely numeric strings
     if (!isNaN(emri) || !isNaN(adresa)) {
       toast.error("Fields must be valid strings, not numbers.");
       return;
